@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment version="2304" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TZImagePickerControllerSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gKr-i0-JtR"/>
+                        <viewControllerLayoutGuide type="bottom" id="lV5-y1-N5B"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="5Ot-U9-MWh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="neR-bo-LrA" userLabel="View1">
+                                        <rect key="frame" x="0.0" y="20" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xhv-e2-be1">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="showTakePhotoBtnSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="ZNG-T1-cwy"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="显示内部拍照按钮" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QML-3S-6GH">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="hQy-OM-PrI"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vvr-z6-QzF" userLabel="View2">
+                                        <rect key="frame" x="0.0" y="55" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gIu-24-g4d">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="照片按修改时间升序排列" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3S0-lL-XeQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBE-zy-JmC" userLabel="View3">
+                                        <rect key="frame" x="0.0" y="90" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JXv-Dp-ObL">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="allowPickingVideoSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="Hmi-qh-2BU"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="允许选择视频" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjt-Pg-6DR">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsM-9S-ycW" userLabel="View4">
+                                        <rect key="frame" x="0.0" y="125" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vpg-eV-8S7">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="allowPickingImageSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="oLR-7X-DEd"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="允许选择照片" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpt-EJ-UmB">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKS-S9-vMy" userLabel="View5">
+                                        <rect key="frame" x="0.0" y="160" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8rO-PL-BbI">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="allowPickingOriginPhotoSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="uEp-mZ-SIZ"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="允许选择照片原图" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l75-KI-d1N">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OrI-Sm-hp6" userLabel="View6">
+                                        <rect key="frame" x="0.0" y="195" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5d5-8I-MFc">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="allowPickingGifSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="PD9-b7-qpF"/>
+                                                    <action selector="allowPickingOriginPhotoSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="hSA-7Y-kri"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="允许选择Gif图片" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TcP-cS-s8g">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNN-0k-u5B" userLabel="View7">
+                                        <rect key="frame" x="0.0" y="230" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2Sb-eT-hGx">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="showSheetSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="K4y-3P-FJU"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="把拍照按钮放在外面" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKc-Fm-xKk">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVA-a8-hAH" userLabel="View8">
+                                        <rect key="frame" x="0.0" y="265" width="375" height="35"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="照片最大可选张数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upI-Fq-xUe">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="9" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Jw-ag-IeM">
+                                                <rect key="frame" x="220" y="2" width="80" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gej-iP-9Sw" userLabel="View9">
+                                        <rect key="frame" x="0.0" y="300" width="375" height="35"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="每行展示照片张数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnF-BP-99g">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="4" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qkb-em-iFs">
+                                                <rect key="frame" x="220" y="2" width="80" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aL7-Ye-rQ0" userLabel="View10">
+                                        <rect key="frame" x="0.0" y="335" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-fG-FJO">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="allowCropSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="Rn1-nD-CWB"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="单选模式下允许裁剪" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeG-4O-kFC">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ylb-ge-e4h" userLabel="View11">
+                                        <rect key="frame" x="0.0" y="370" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mCn-4W-AAz">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="needCircleCropSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="ZPI-pM-oRa"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="使用圆形裁剪框" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6a-k3-qOz">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Nz-rH-f03" userLabel="View12">
+                                        <rect key="frame" x="0.0" y="405" width="375" height="35"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sci-Dj-fpT">
+                                                <rect key="frame" x="225" y="2" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="allowPickingMultipleVideoSwitchClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="uyj-a0-0Km"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="允许多选视频/GIF图片" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSp-SQ-Rts">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="neR-bo-LrA" firstAttribute="centerX" secondItem="5Ot-U9-MWh" secondAttribute="centerX" id="0ce-cG-zId"/>
+                                    <constraint firstItem="aL7-Ye-rQ0" firstAttribute="top" secondItem="Gej-iP-9Sw" secondAttribute="bottom" id="11B-v0-UIH"/>
+                                    <constraint firstItem="ylb-ge-e4h" firstAttribute="leading" secondItem="aL7-Ye-rQ0" secondAttribute="leading" id="1v1-qT-uhG"/>
+                                    <constraint firstItem="OrI-Sm-hp6" firstAttribute="leading" secondItem="kKS-S9-vMy" secondAttribute="leading" id="7nK-Nh-5qS"/>
+                                    <constraint firstItem="kKS-S9-vMy" firstAttribute="height" secondItem="wsM-9S-ycW" secondAttribute="height" id="8zB-6O-j45"/>
+                                    <constraint firstItem="kKS-S9-vMy" firstAttribute="trailing" secondItem="wsM-9S-ycW" secondAttribute="trailing" id="AJD-Kc-xxP"/>
+                                    <constraint firstItem="neR-bo-LrA" firstAttribute="top" secondItem="5Ot-U9-MWh" secondAttribute="top" constant="20" id="Akm-hc-RYC"/>
+                                    <constraint firstItem="9Nz-rH-f03" firstAttribute="trailing" secondItem="ylb-ge-e4h" secondAttribute="trailing" id="AvK-Lb-jsQ"/>
+                                    <constraint firstItem="Gej-iP-9Sw" firstAttribute="top" secondItem="tVA-a8-hAH" secondAttribute="bottom" id="EIW-RJ-7hI"/>
+                                    <constraint firstItem="wsM-9S-ycW" firstAttribute="height" secondItem="OBE-zy-JmC" secondAttribute="height" id="H5J-l0-lWO"/>
+                                    <constraint firstItem="kKS-S9-vMy" firstAttribute="top" secondItem="wsM-9S-ycW" secondAttribute="bottom" id="HCY-A6-c5U"/>
+                                    <constraint firstItem="kKS-S9-vMy" firstAttribute="leading" secondItem="wsM-9S-ycW" secondAttribute="leading" id="HK2-an-QbR"/>
+                                    <constraint firstItem="9Nz-rH-f03" firstAttribute="height" secondItem="ylb-ge-e4h" secondAttribute="height" id="JTx-KA-5eB"/>
+                                    <constraint firstItem="uNN-0k-u5B" firstAttribute="leading" secondItem="OrI-Sm-hp6" secondAttribute="leading" id="Jpi-J7-NR4"/>
+                                    <constraint firstItem="OrI-Sm-hp6" firstAttribute="height" secondItem="kKS-S9-vMy" secondAttribute="height" id="LGF-02-7NP"/>
+                                    <constraint firstItem="uNN-0k-u5B" firstAttribute="top" secondItem="kKS-S9-vMy" secondAttribute="bottom" constant="35" id="LQI-uy-xuT"/>
+                                    <constraint firstItem="aL7-Ye-rQ0" firstAttribute="leading" secondItem="Gej-iP-9Sw" secondAttribute="leading" id="NVh-Bd-8lY"/>
+                                    <constraint firstItem="Gej-iP-9Sw" firstAttribute="height" secondItem="tVA-a8-hAH" secondAttribute="height" id="Nr7-VO-ymj"/>
+                                    <constraint firstItem="tVA-a8-hAH" firstAttribute="leading" secondItem="uNN-0k-u5B" secondAttribute="leading" id="OFk-Lu-PLw"/>
+                                    <constraint firstAttribute="height" constant="440" id="P7q-xK-hEh"/>
+                                    <constraint firstItem="ylb-ge-e4h" firstAttribute="height" secondItem="aL7-Ye-rQ0" secondAttribute="height" id="VQf-Gq-hzw"/>
+                                    <constraint firstItem="OBE-zy-JmC" firstAttribute="leading" secondItem="Vvr-z6-QzF" secondAttribute="leading" id="VfE-fc-9jg"/>
+                                    <constraint firstItem="aL7-Ye-rQ0" firstAttribute="trailing" secondItem="Gej-iP-9Sw" secondAttribute="trailing" id="W6w-SF-6pC"/>
+                                    <constraint firstItem="wsM-9S-ycW" firstAttribute="top" secondItem="OBE-zy-JmC" secondAttribute="bottom" id="WeP-Si-sIb"/>
+                                    <constraint firstItem="OrI-Sm-hp6" firstAttribute="trailing" secondItem="kKS-S9-vMy" secondAttribute="trailing" id="XCX-kW-VGy"/>
+                                    <constraint firstItem="Vvr-z6-QzF" firstAttribute="leading" secondItem="neR-bo-LrA" secondAttribute="leading" id="aFo-xF-5J1"/>
+                                    <constraint firstItem="Vvr-z6-QzF" firstAttribute="top" secondItem="neR-bo-LrA" secondAttribute="bottom" id="agq-Qf-uZb"/>
+                                    <constraint firstItem="OBE-zy-JmC" firstAttribute="trailing" secondItem="Vvr-z6-QzF" secondAttribute="trailing" id="cKq-WR-GSN"/>
+                                    <constraint firstItem="aL7-Ye-rQ0" firstAttribute="height" secondItem="Gej-iP-9Sw" secondAttribute="height" id="cOr-hX-ahf"/>
+                                    <constraint firstAttribute="trailing" secondItem="neR-bo-LrA" secondAttribute="trailing" id="cw0-mU-1eN"/>
+                                    <constraint firstAttribute="bottom" secondItem="9Nz-rH-f03" secondAttribute="bottom" id="eJG-VU-4KZ"/>
+                                    <constraint firstItem="Vvr-z6-QzF" firstAttribute="trailing" secondItem="neR-bo-LrA" secondAttribute="trailing" id="ewM-Zh-qHR"/>
+                                    <constraint firstItem="tVA-a8-hAH" firstAttribute="top" secondItem="uNN-0k-u5B" secondAttribute="bottom" id="fpx-Ej-3Uf"/>
+                                    <constraint firstItem="tVA-a8-hAH" firstAttribute="trailing" secondItem="uNN-0k-u5B" secondAttribute="trailing" id="h90-lo-7Ae"/>
+                                    <constraint firstItem="OBE-zy-JmC" firstAttribute="top" secondItem="Vvr-z6-QzF" secondAttribute="bottom" id="hov-c6-Lhq"/>
+                                    <constraint firstItem="wsM-9S-ycW" firstAttribute="trailing" secondItem="OBE-zy-JmC" secondAttribute="trailing" id="jPO-qN-0z7"/>
+                                    <constraint firstItem="Gej-iP-9Sw" firstAttribute="leading" secondItem="tVA-a8-hAH" secondAttribute="leading" id="k05-uA-zZw"/>
+                                    <constraint firstItem="neR-bo-LrA" firstAttribute="leading" secondItem="5Ot-U9-MWh" secondAttribute="leading" id="lfV-yj-pid"/>
+                                    <constraint firstItem="OrI-Sm-hp6" firstAttribute="top" secondItem="kKS-S9-vMy" secondAttribute="bottom" id="nCa-IU-XSe"/>
+                                    <constraint firstItem="Gej-iP-9Sw" firstAttribute="trailing" secondItem="tVA-a8-hAH" secondAttribute="trailing" id="oay-UP-pmQ"/>
+                                    <constraint firstItem="uNN-0k-u5B" firstAttribute="trailing" secondItem="OrI-Sm-hp6" secondAttribute="trailing" id="oza-3M-FR8"/>
+                                    <constraint firstItem="ylb-ge-e4h" firstAttribute="top" secondItem="aL7-Ye-rQ0" secondAttribute="bottom" id="qrw-mF-ZoE"/>
+                                    <constraint firstItem="9Nz-rH-f03" firstAttribute="leading" secondItem="ylb-ge-e4h" secondAttribute="leading" id="rcd-Iu-oa6"/>
+                                    <constraint firstItem="9Nz-rH-f03" firstAttribute="top" secondItem="ylb-ge-e4h" secondAttribute="bottom" id="tRv-NP-NQd"/>
+                                    <constraint firstItem="tVA-a8-hAH" firstAttribute="height" secondItem="uNN-0k-u5B" secondAttribute="height" id="vcR-7y-Fxv"/>
+                                    <constraint firstItem="ylb-ge-e4h" firstAttribute="trailing" secondItem="aL7-Ye-rQ0" secondAttribute="trailing" id="wpj-Jo-Qow"/>
+                                    <constraint firstItem="OBE-zy-JmC" firstAttribute="height" secondItem="Vvr-z6-QzF" secondAttribute="height" id="xjn-Ph-cOz"/>
+                                    <constraint firstItem="Vvr-z6-QzF" firstAttribute="height" secondItem="neR-bo-LrA" secondAttribute="height" id="xxy-gm-xdc"/>
+                                    <constraint firstItem="uNN-0k-u5B" firstAttribute="height" secondItem="OrI-Sm-hp6" secondAttribute="height" id="yHr-M7-m51"/>
+                                    <constraint firstItem="wsM-9S-ycW" firstAttribute="leading" secondItem="OBE-zy-JmC" secondAttribute="leading" id="ycg-BX-k5p"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="5Ot-U9-MWh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="CZ4-sO-1T2"/>
+                            <constraint firstItem="5Ot-U9-MWh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="SiQ-1w-Svo"/>
+                            <constraint firstAttribute="trailing" secondItem="5Ot-U9-MWh" secondAttribute="trailing" id="jck-MW-fg6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3HO-Fx-vs0"/>
+                    </view>
+                    <connections>
+                        <outlet property="allowCropSwitch" destination="LN4-fG-FJO" id="KpI-72-ogG"/>
+                        <outlet property="allowPickingGifSwitch" destination="5d5-8I-MFc" id="3gs-uL-AwE"/>
+                        <outlet property="allowPickingImageSwitch" destination="vpg-eV-8S7" id="DyL-rz-pNu"/>
+                        <outlet property="allowPickingMuitlpleVideoSwitch" destination="sci-Dj-fpT" id="amz-i6-qAG"/>
+                        <outlet property="allowPickingOriginalPhotoSwitch" destination="8rO-PL-BbI" id="GPj-xd-Qxr"/>
+                        <outlet property="allowPickingVideoSwitch" destination="JXv-Dp-ObL" id="ZBw-0R-e99"/>
+                        <outlet property="columnNumberTF" destination="qkb-em-iFs" id="FwR-Y6-tIZ"/>
+                        <outlet property="maxCountTF" destination="2Jw-ag-IeM" id="QZC-sg-5pV"/>
+                        <outlet property="needCircleCropSwitch" destination="mCn-4W-AAz" id="qyF-ms-8mP"/>
+                        <outlet property="scrollView" destination="5Ot-U9-MWh" id="1WF-9g-mld"/>
+                        <outlet property="showSheetSwitch" destination="2Sb-eT-hGx" id="xvF-DA-XdO"/>
+                        <outlet property="showTakePhotoBtnSwitch" destination="Xhv-e2-be1" id="Vhg-Cl-8lM"/>
+                        <outlet property="sortAscendingSwitch" destination="gIu-24-g4d" id="iC5-oX-biV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
