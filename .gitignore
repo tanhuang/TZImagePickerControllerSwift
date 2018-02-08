@@ -1,0 +1,7 @@
+xcuserdata/
+xcuserdata
+UserInterfaceState.xcuserstate
+UserInterface.xcuserstate
+*.xcuserstate
+fastlane
+Gemfile
