@@ -68,8 +68,8 @@ class TZPhotoPreviewCell: TZAssetPreviewCell {
         previewView?.singleTapGestureBlock = {[weak self] () -> (Void) in
             self?.singleTapGestureBlock?()
         }
-        previewView?.imageProgressUpdateBlock = { (progress) -> (Void) in
-            self.imageProgressUpdateBlock?(progress)
+        previewView?.imageProgressUpdateBlock = {[weak self] (progress) -> (Void) in
+            self?.imageProgressUpdateBlock?(progress)
         }
         self.addSubview(previewView!)
     }
@@ -94,8 +94,19 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
     var imageContainerView: UIView?
     var progressView: TZProgressView?
 
-    var allowCrop: Bool?
-    var cropRect: CGRect?
+    var allowCrop: Bool = false {
+        didSet {
+            if let _asset = self.asset {
+                scrollView?.maximumZoomScale = allowCrop ? 4.0 : 2.5;
+                let aspectRatio: CGFloat = CGFloat(_asset.pixelWidth / _asset.pixelHeight)
+                // 优化超宽图片的显示
+                if (aspectRatio > 1.5) {
+                    self.scrollView?.maximumZoomScale *= aspectRatio / 1.5;
+                }
+            }
+        }
+    }
+    var cropRect: CGRect = CGRect.zero
 
     var model: TZAssetModel? {
         didSet {
@@ -120,14 +131,14 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
     var asset: PHAsset? {
         didSet {
 
-            if (asset != nil) && (self.imageRequestID != nil) {
+            if (oldValue != nil) && (self.imageRequestID != nil) {
                 PHImageManager.default().cancelImageRequest(imageRequestID!)
             }
             self.imageRequestID = TZImageManager.manager.getPhoto(photoWithAsset: asset, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
 
-//                if oldValue != nil && !(oldValue?.isEqual(self.asset))! {
-//                    return
-//                }
+                if oldValue != nil && !(oldValue?.isEqual(self.asset))! {
+                    return
+                }
                 self.imageView?.image = photo
                 self.resizeSubviews()
                 self.progressView?.isHidden = true
@@ -137,9 +148,9 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
                 }
             }, progressHandler: { (progress, error, stop, info) -> (Void) in
                 var progress = progress!
-//                if !(oldValue?.isEqual(self.asset))! {
-//                    return
-//                }
+                if !(oldValue?.isEqual(self.asset))! {
+                    return
+                }
                 self.progressView?.isHidden = false
                 self.bringSubview(toFront: self.progressView!)
                 progress = progress > 0.02 ? progress : 0.02
@@ -291,18 +302,18 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
     }
 
     func refreshScrollViewContentSize() {
-        if (allowCrop)! {
+        if allowCrop {
             // 1.7.2 如果允许裁剪,需要让图片的任意部分都能在裁剪框内，于是对_scrollView做了如下处理：
             // 1.让contentSize增大(裁剪框右下角的图片部分)
-            let contentWidthAdd = (self.scrollView?.frame.width)! - (cropRect?.maxX)!;
-            let contentHeightAdd = (min((imageContainerView?.frame.height)!, self.frame.height) - (self.cropRect?.size.height)!) / 2;
+            let contentWidthAdd = (self.scrollView?.frame.width)! - cropRect.maxX
+            let contentHeightAdd = (min((imageContainerView?.frame.height)!, self.frame.height) - self.cropRect.size.height) / 2;
             let newSizeW = (self.scrollView?.contentSize.width)! + contentWidthAdd;
             let newSizeH = max((self.scrollView?.contentSize.height)!, self.frame.height) + contentHeightAdd;
             scrollView?.contentSize = CGSize(width: newSizeW, height: newSizeH);
             scrollView?.alwaysBounceVertical = true;
             // 2.让scrollView新增滑动区域（裁剪框左上角的图片部分）
             if (contentHeightAdd > 0 || contentWidthAdd > 0) {
-                scrollView?.contentInset = UIEdgeInsetsMake(contentHeightAdd, (cropRect?.origin.x)!, 0, 0);
+                scrollView?.contentInset = UIEdgeInsetsMake(contentHeightAdd, cropRect.origin.x, 0, 0);
             } else {
                 scrollView?.contentInset = UIEdgeInsets.zero;
             }
@@ -361,7 +372,10 @@ class TZVideoPreviewCell: TZAssetPreviewCell {
             self.cover = photo
         }, progressHandler: nil)
 
-        TZImageManager.manager.getVideo(self.model?.asset, progressHandler: nil) { (playerItem, info) -> (Void) in
+        TZImageManager.manager.getVideo(self.model?.asset, progressHandler: {
+            (progress, error, stop, info) -> (Void) in
+
+        }) { (playerItem, info) -> (Void) in
             DispatchQueue.main.async(execute: {
                 self.player = AVPlayer(playerItem: playerItem)
                 self.playerLayer = AVPlayerLayer(player: self.player!)

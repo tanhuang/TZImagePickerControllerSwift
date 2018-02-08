@@ -408,17 +408,14 @@ class TZImageManager: NSObject {
         }
     }
 
-    func getOriginalPhotoData(_ asset: PHAsset?, completion: ((_ data: Data?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))?) {
+    func getOriginalPhotoData(_ asset: PHAsset?, completion: @escaping (_ data: Data?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)) {
         let option = PHImageRequestOptions()
         option.isNetworkAccessAllowed = true
         option.resizeMode = .fast
         PHImageManager.default().requestImageData(for: asset!, options: option) { (imageData, dataUTI, orientation, info) in
             let downloadFinined = !(info![PHImageCancelledKey] != nil)  && !(info![PHImageErrorKey] != nil)
             if downloadFinined && imageData != nil {
-                if completion != nil {
-
-                    completion?(imageData, info, false)
-                }
+                completion(imageData, info, false)
             }
         }
     }
@@ -464,23 +461,19 @@ class TZImageManager: NSObject {
         }
     }
     //MARK: - Get Video
-    func getVideo(_ asset: PHAsset?, progressHandler: ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))?, completion: ((_ playerItem: AVPlayerItem?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))?) {
+    func getVideo(_ asset: PHAsset?, progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void)), completion: @escaping ((_ playerItem: AVPlayerItem?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) {
         let option = PHVideoRequestOptions()
         option.isNetworkAccessAllowed = true
         option.progressHandler = { (progress, error, stop, info) in
             DispatchQueue.main.async(execute: {
-                if progressHandler != nil {
-                    progressHandler?(progress, error, stop, info)
-                }
+                progressHandler(progress, error, stop, info)
             })
         }
         PHImageManager.default().requestPlayerItem(forVideo: asset!, options: option) { (playerItem, info) in
             guard playerItem != nil, info != nil else {
                 return
             }
-            if completion != nil {
-                completion?(playerItem, info)
-            }
+            completion(playerItem, info)
         }
     }
     //MARK: - Export video

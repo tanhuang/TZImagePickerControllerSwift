@@ -68,7 +68,10 @@ class TZVideoPlayerController: UIViewController {
             self._cover = photo
         }, progressHandler: nil)
 
-        TZImageManager.manager.getVideo(model?.asset, progressHandler: nil) { (playerItem, info) -> (Void) in
+        TZImageManager.manager.getVideo(model?.asset, progressHandler: {
+            (progress, error, stop, info) -> (Void) in
+
+        }) { (playerItem, info) -> (Void) in
             DispatchQueue.main.async {
                 self._player = AVPlayer(playerItem: playerItem)
                 self._playerLayer = AVPlayerLayer(player: self._player!)

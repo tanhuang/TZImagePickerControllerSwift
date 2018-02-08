@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZExtension.swift"
-            timestampString = "539252352.793761"
+            timestampString = "539754666.387625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "77"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZExtension.swift"
-            timestampString = "539252352.7939349"
+            timestampString = "539754666.3879859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "49"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539685519.835218"
+            timestampString = "539754666.3882101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "339"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539685519.836104"
+            timestampString = "539754666.388299"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "222"
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewController.swift"
-            timestampString = "539685519.836746"
+            timestampString = "539754666.388346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewController.swift"
-            timestampString = "539685519.836838"
+            timestampString = "539754666.388389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "435"
@@ -250,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewController.swift"
-            timestampString = "539685519.837213"
+            timestampString = "539754666.388486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "267"
@@ -266,7 +266,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewController.swift"
-            timestampString = "539685519.837275"
+            timestampString = "539754666.3885339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "407"
@@ -281,24 +281,8 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewCell.swift"
-            timestampString = "539678368.505286"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "asset"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewController.swift"
-            timestampString = "539685519.837364"
+            timestampString = "539754666.388574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "351"
@@ -314,7 +298,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewController.swift"
-            timestampString = "539685519.837454"
+            timestampString = "539754666.388612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "373"
@@ -346,7 +330,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539685519.837624"
+            timestampString = "539754666.388672"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "188"
@@ -362,7 +346,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539685519.838165"
+            timestampString = "539754666.388716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "230"
@@ -378,7 +362,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539685519.838505"
+            timestampString = "539754666.388757"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "184"
@@ -394,7 +378,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539685519.838856"
+            timestampString = "539754666.388797"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
@@ -509,8 +493,8 @@
             timestampString = "539685519.83962"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "581"
-            endingLineNumber = "581"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
             landmarkName = "pushImagePickerController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -525,9 +509,89 @@
             timestampString = "539685519.8397011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "583"
-            endingLineNumber = "583"
+            startingLineNumber = "584"
+            endingLineNumber = "584"
             landmarkName = "pushImagePickerController()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
+            timestampString = "539754666.38894"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "439"
+            endingLineNumber = "439"
+            landmarkName = "savePhotoWithImage(with:location:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TZImagePickerControllerSwift.TZImageManager.savePhotoWithImage(with: Swift.Optional&lt;__ObjC.UIImage&gt;, location: Swift.Optional&lt;__ObjC.CLLocation&gt;, completion: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "TZImagePickerControllerSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xidaMM/Desktop/testProjects/TZImagePickerControllerSwift/TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
+                  timestampString = "539754666.5744359"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "439"
+                  endingLineNumber = "439"
+                  offsetFromSymbolStart = "33">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TZImagePickerControllerSwift.TZImageManager.savePhotoWithImage(with: Swift.Optional&lt;__ObjC.UIImage&gt;, location: Swift.Optional&lt;__ObjC.CLLocation&gt;, completion: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "TZImagePickerControllerSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xidaMM/Desktop/testProjects/TZImagePickerControllerSwift/TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
+                  timestampString = "539754666.579317"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "440"
+                  endingLineNumber = "440"
+                  offsetFromSymbolStart = "25">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
+            timestampString = "539754666.3889821"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
+            landmarkName = "savePhotoWithImage(with:location:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
+            timestampString = "539754666.389022"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "440"
+            endingLineNumber = "440"
+            landmarkName = "savePhotoWithImage(with:location:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -537,46 +601,30 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539685519.839836"
+            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewCell.swift"
+            timestampString = "539754666.389065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "442"
-            endingLineNumber = "442"
-            landmarkName = "savePhotoWithImage(with:location:completion:)"
-            landmarkType = "7">
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "model"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539685734.997962"
+            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZPhotoPreviewCell.swift"
+            timestampString = "539754666.389105"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
-            landmarkName = "savePhotoWithImage(with:location:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TZImagePickerControllerSwift/TZImagePickerController/TZImageManager.swift"
-            timestampString = "539687986.427008"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
-            landmarkName = "savePhotoWithImage(with:location:completion:)"
-            landmarkType = "7">
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "model"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

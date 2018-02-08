@@ -92,7 +92,7 @@ extension UIImage {
         let source = CGImageSourceCreateWithData(tz_data as CFData, nil)
         let count = CGImageSourceGetCount(source!)
         var animatedImage: UIImage?
-        if count >= 1 {
+        if count <= 1 {
             animatedImage = UIImage(data: tz_data)
         } else {
             var images = [UIImage]()
