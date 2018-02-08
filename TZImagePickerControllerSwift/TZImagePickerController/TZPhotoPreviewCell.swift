@@ -122,7 +122,10 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
                         }
                     })
 
-                }, progressHandler: nil)
+                }, progressHandler: {
+                    (progress, error, stop, info) -> Void in
+
+                })
             } else {
                 self.asset = model?.asset
             }
@@ -370,7 +373,10 @@ class TZVideoPreviewCell: TZAssetPreviewCell {
 
         _ = TZImageManager.manager.getPhoto(photoWithAsset: self.model?.asset, completion: { (photo, info, isDegraded) -> (Void) in
             self.cover = photo
-        }, progressHandler: nil)
+        }, progressHandler: {
+            (progress, error, stop, info) -> Void in
+
+        })
 
         TZImageManager.manager.getVideo(self.model?.asset, progressHandler: {
             (progress, error, stop, info) -> (Void) in

@@ -308,7 +308,7 @@ class TZImageManager: NSObject {
     }
     //MARK: - - Get Photo
 
-    func getPhoto(photoWithAsset asset: PHAsset?, photoWidth: CGFloat = 0, networkAccessAllowed: Bool = true, completion: ((_ photo: UIImage?, _ info: Dictionary<String, Any>?, _ isDegraded: Bool?) -> (Swift.Void))?, progressHandler: ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<String, Any>?) -> (Swift.Void))?) -> Int32 {
+    func getPhoto(photoWithAsset asset: PHAsset?, photoWidth: CGFloat = 0, networkAccessAllowed: Bool = true, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)), progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) -> Int32 {
 
         let  fullScreenWidth = photoWidth > photoPreviewMaxWidth ? photoPreviewMaxWidth : TZScreenWidth
 
@@ -336,22 +336,22 @@ class TZImageManager: NSObject {
         let option = PHImageRequestOptions()
         option.resizeMode = .fast
         let imageRequestID = PHImageManager.default().requestImage(for: asset!, targetSize: imageSize, contentMode: .aspectFill, options: option, resultHandler: { (result, info) in
-            var result_image = result
-            if result_image != nil {
-                image = result_image
+
+            guard var result_image = result, let _info = info else {
+                return
             }
-            
-            let downloadFinined = !(info![PHImageCancelledKey] != nil) && !(info![PHImageErrorKey] != nil)
+            image = result_image
+            let downloadFinined = !(_info[PHImageCancelledKey] != nil) && !(_info[PHImageErrorKey] != nil)
             if downloadFinined {
-                result_image = self.fixOrientation(result_image!)
-                completion?(image, info as? Dictionary<String, Any>, info![PHImageResultIsDegradedKey] as? Bool)
+                result_image = self.fixOrientation(result_image)
+                completion(image, info, info![PHImageResultIsDegradedKey] as? Bool)
             }
             // Download image from iCloud / 从iCloud下载图片
-            if info![PHImageResultIsInCloudKey] != nil && result_image != nil && networkAccessAllowed {
+            if _info[PHImageResultIsInCloudKey] != nil && networkAccessAllowed {
                 let options = PHImageRequestOptions()
                 option.progressHandler = { (progress, error, stop, info) in
                     DispatchQueue.main.async(execute: {
-                        progressHandler?(progress, error, stop, info as? Dictionary<String, Any>)
+                        progressHandler(progress, error, stop, info)
                     })
                 }
 
@@ -360,12 +360,12 @@ class TZImageManager: NSObject {
                 PHImageManager.default().requestImageData(for: asset!, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
                     var resultImage = UIImage(data: imageData!, scale: 0.1)
                     resultImage = self.scaleImage(resultImage, to: imageSize)
-                    if resultImage != nil {
+                    if resultImage == nil {
                         resultImage = image
                     }
                     resultImage = self.fixOrientation(resultImage!)
-
-                    completion?(resultImage, info as? Dictionary<String, Any>, false)
+                    
+                    completion(resultImage, info, false)
                 })
             }
         })
@@ -373,25 +373,27 @@ class TZImageManager: NSObject {
     }
 
     /// Get postImage / 获取封面图
-    func getPostImageWithAlbumModel(imageWithAlbumModel model: TZAlbumModel?, completion: ((_ photo: UIImage?) -> (Swift.Void))?) {
+    func getPostImageWithAlbumModel(imageWithAlbumModel model: TZAlbumModel?, completion: @escaping ((_ photo: UIImage?) -> (Swift.Void))) {
         var asset = model?.result?.lastObject
         if !self.sortAscendingByModificationDate {
             asset = model?.result?.firstObject
         }
         _ = TZImageManager.manager.getPhoto(photoWithAsset: asset, photoWidth: 80, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
-            completion?(photo)
-        }, progressHandler: nil)
+            completion(photo)
+
+        }, progressHandler:{
+            (progress, error, stop, info) -> Void in
+
+        })
     }
     /// Get Original Photo / 获取原图
-    func getOriginalPhoto(photoWithAsset asset: PHAsset?, completion: ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))?) {
+    func getOriginalPhoto(photoWithAsset asset: PHAsset?, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) {
         self.getOriginalPhoto(photoWithAsset: asset) { (photo, info, isDegraded) -> (Void) in
-            if completion != nil {
-                completion?(photo, info)
-            }
+            completion(photo, info)
         }
     }
 
-    func getOriginalPhoto(photoWithAsset asset: PHAsset?, newCompletion: ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))?) {
+    func getOriginalPhoto(photoWithAsset asset: PHAsset?, newCompletion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) {
         let option = PHImageRequestOptions()
         option.isNetworkAccessAllowed = true
         option.resizeMode = .fast
@@ -401,9 +403,7 @@ class TZImageManager: NSObject {
             if downloadFinined && (result_image != nil) {
                 result_image = self.fixOrientation(result_image!)
                 let isDegraded: Bool = info![PHImageResultIsDegradedKey] as! Bool
-                if  newCompletion != nil {
-                    newCompletion?(result_image, info, isDegraded)
-                }
+                newCompletion(result_image, info, isDegraded)
             }
         }
     }

@@ -141,7 +141,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         layout?.itemSize = CGSize(width: itemWH, height: itemWH)
         layout?.minimumInteritemSpacing = itemMargin
         layout?.minimumLineSpacing = itemMargin
-        collectionView?.setCollectionViewLayout(layout!, animated: false)
+        collectionView?.setCollectionViewLayout(layout!, animated: true)
 
         if (_offsetItemCount) > 0 {
             let offsetY = _offsetItemCount * ((layout?.itemSize.height)! + (layout?.minimumLineSpacing)!);
@@ -426,11 +426,15 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     }
 
     func callDelegateMethod(photos: Array<UIImage>?, assets: Array<PHAsset>?, infoArr: Array<Any>?) {
-        let tzImagePickerVc = self.navigationController as? TZImagePickerController
+        guard let tzImagePickerVc = self.navigationController as? TZImagePickerController  else {
+            return
+        }
 
-        tzImagePickerVc?.pickerDelegate?.imagePickerController!(tzImagePickerVc!, didFinishPicking: photos!, sourceAssets: assets!, isSelectOriginalPhoto: isSelectOriginalPhoto, infos: infoArr as? [Dictionary<String, Any>])
+        if (tzImagePickerVc.pickerDelegate?.responds(to: #selector(tzImagePickerVc.pickerDelegate?.imagePickerController(_:didFinishPicking:sourceAssets:isSelectOriginalPhoto:infos:))))! {
+            tzImagePickerVc.pickerDelegate?.imagePickerController!(tzImagePickerVc, didFinishPicking: photos!, sourceAssets: assets!, isSelectOriginalPhoto: isSelectOriginalPhoto, infos: infoArr as? [Dictionary<String, Any>])
+        }
 
-        tzImagePickerVc?.didFinishPickingPhotosWithInfosHandle?(photos!, assets!, isSelectOriginalPhoto, infoArr as? Array<Dictionary<String, Any>>)
+        tzImagePickerVc.didFinishPickingPhotosWithInfosHandle?(photos!, assets!, isSelectOriginalPhoto, infoArr as? Array<Dictionary<String, Any>>)
     }
 
     //MARK: - UICollectionViewDataSource && Delegate

@@ -118,7 +118,6 @@ class TZAssetCell: UICollectionViewCell {
     lazy private var videoImgView: UIImageView = {
         let videoImgView = UIImageView()
         videoImgView.image = UIImage.imageNamedFromMyBundle(name: "VideoSendIcon")
-        videoImgView.isUserInteractionEnabled = true
         bottomView.addSubview(videoImgView)
         return  videoImgView
     }()
@@ -142,7 +141,11 @@ class TZAssetCell: UICollectionViewCell {
                 if !isDegraded! {
                     self.imageRequestID = 0
                 }
-            }, progressHandler: nil)
+            }, progressHandler: {
+                (progress, error, stop, info) -> Void in
+
+            })
+
             if imageRequestID != self.imageRequestID {
                 PHImageManager.default().cancelImageRequest(self.imageRequestID)
             }
@@ -184,12 +187,9 @@ class TZAssetCell: UICollectionViewCell {
         }
     }
 
-    
-
     @objc func selectPhotoButtonClick(sender: UIButton) {
 
         self.delegate?.tz_assetCell(self, self.model!, sender.isSelected)
-//        self.didSelectPhotoBlock?(sender.isSelected)
 
         self.selectImageView.image = sender.isSelected ? UIImage.imageNamedFromMyBundle(name: photoSelImageName!) : UIImage.imageNamedFromMyBundle(name: photoDefImageName!)
         if sender.isSelected {
@@ -226,7 +226,7 @@ class TZAssetCell: UICollectionViewCell {
         videoImgView.frame = CGRect(x: 8, y: 0, width: 17, height: 17)
         timeLength.frame = CGRect(x: self.videoImgView.frame.maxX, y: 0, width: self.frame.width - self.videoImgView.frame.maxX - 5, height: 17)
 
-        self.type = (self.model?.type.rawValue).map { TZAssetCellType(rawValue: $0) }!
+        self.type = TZAssetCellType(rawValue: (self.model?.type.rawValue)!)
         let isSelectedBtn = self.showSelectBtn
         self.showSelectBtn = isSelectedBtn
 

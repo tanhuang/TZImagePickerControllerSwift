@@ -128,6 +128,7 @@ class TZGifPhotoPreviewController: UIViewController {
 
         let imagePickerVc = self.navigationController as? TZImagePickerController
         let animatedImage = _previewView?.imageView?.image
+        
         if (imagePickerVc?.pickerDelegate?.responds(to: #selector(imagePickerVc?.pickerDelegate?.imagePickerController(_:didFinishPickingGifImage:sourceAssets:))))! {
             imagePickerVc?.pickerDelegate?.imagePickerController!(imagePickerVc!, didFinishPickingGifImage: animatedImage!, sourceAssets: (model?.asset)!)
         }
