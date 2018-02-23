@@ -345,9 +345,7 @@ class TZImagePickerController: UINavigationController {
 
             _timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(observeAuthrizationStatusChange), userInfo: nil, repeats: true)
         }
-
     }
-
 
     /// This init method just for previewing photos / 用这个初始化方法以预览图片
     init(selectedAssets: Array<PHAsset>, selectedPhotos: Array<UIImage>, index: Int) {

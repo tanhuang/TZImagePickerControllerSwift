@@ -68,6 +68,9 @@
 		C24518E71FFC6FE400ACAD58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C24518F81FFCBF2500ACAD58 /* TZImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImagePickerController.swift; sourceTree = "<group>"; };
 		C24518FB1FFCD57200ACAD58 /* TZTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZTestCell.swift; sourceTree = "<group>"; };
+		C24A0B60203FB5A200ADF8BF /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/Main.strings"; sourceTree = "<group>"; };
+		C24A0B61203FB5A200ADF8BF /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C24A0B6D203FC3D500ADF8BF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		C25B9CC22005F17D000AE5A4 /* TZExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZExtension.swift; sourceTree = "<group>"; };
 		C26B9C352015AC26000C2710 /* TZPhotoPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZPhotoPreviewController.swift; sourceTree = "<group>"; };
 		C26B9C372015AEBF000C2710 /* TZVideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZVideoPlayerController.swift; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 				C24518D91FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests */,
 				C24518E41FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests */,
 				C24518C31FFC6FE300ACAD58 /* Products */,
+				C24A0B6C203FC3D500ADF8BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,6 +189,14 @@
 				C26B9C452015BC1C000C2710 /* TZImagePickerController.bundle */,
 			);
 			path = TZImagePickerController;
+			sourceTree = "<group>";
+		};
+		C24A0B6C203FC3D500ADF8BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C24A0B6D203FC3D500ADF8BF /* MobileCoreServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +290,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans-CN",
 			);
 			mainGroup = C24518B91FFC6FE300ACAD58;
 			productRefGroup = C24518C31FFC6FE300ACAD58 /* Products */;
@@ -382,6 +395,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C24518CA1FFC6FE300ACAD58 /* Base */,
+				C24A0B60203FB5A200ADF8BF /* zh-Hans-CN */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -390,6 +404,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C24518CF1FFC6FE300ACAD58 /* Base */,
+				C24A0B61203FB5A200ADF8BF /* zh-Hans-CN */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -401,6 +416,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -458,6 +474,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

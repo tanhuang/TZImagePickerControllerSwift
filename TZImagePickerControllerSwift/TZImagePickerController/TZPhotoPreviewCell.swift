@@ -139,9 +139,9 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
             }
             self.imageRequestID = TZImageManager.manager.getPhoto(photoWithAsset: asset, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
 
-                if oldValue != nil && !(oldValue?.isEqual(self.asset))! {
-                    return
-                }
+//                if oldValue != nil && !(oldValue?.isEqual(self.asset))! {
+//                    return
+//                }
                 self.imageView?.image = photo
                 self.resizeSubviews()
                 self.progressView?.isHidden = true
@@ -151,9 +151,9 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
                 }
             }, progressHandler: { (progress, error, stop, info) -> (Void) in
                 var progress = progress!
-                if !(oldValue?.isEqual(self.asset))! {
-                    return
-                }
+//                if !(oldValue?.isEqual(self.asset))! {
+//                    return
+//                }
                 self.progressView?.isHidden = false
                 self.bringSubview(toFront: self.progressView!)
                 progress = progress > 0.02 ? progress : 0.02

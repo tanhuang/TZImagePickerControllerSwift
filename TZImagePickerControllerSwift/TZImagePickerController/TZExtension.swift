@@ -23,7 +23,7 @@ extension Bundle {
 
         if bundle == nil {
             var language = NSLocale.preferredLanguages.first
-            if (language?.range(of: "zh-Hans")?.isEmpty)! {
+            if language?.range(of: "zh-Hans") != nil {
                 language = "zh-Hans"
             } else {
                 language = "en"

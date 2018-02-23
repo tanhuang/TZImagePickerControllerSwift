@@ -102,10 +102,10 @@ class TZImageManager: NSObject {
                 let fetchResult = PHAsset.fetchAssets(in: collection, options: option)
                 let model = self.modelWithResult(result: fetchResult, name: collection.localizedTitle!, isCameraRoll: true)
                 completion(model)
-
             }
         }
     }
+    
     func getAllAlbums(allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping ((_ array: [TZAlbumModel]) -> Swift.Void)) {
         var albumArr = [TZAlbumModel]()
         let option = PHFetchOptions()
