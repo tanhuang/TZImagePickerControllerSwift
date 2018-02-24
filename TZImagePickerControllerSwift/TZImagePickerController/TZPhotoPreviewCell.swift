@@ -414,7 +414,7 @@ class TZVideoPreviewCell: TZAssetPreviewCell {
             }
             player?.play()
             playButton?.setImage(nil, for: .normal)
-            if (!(TZ_isGlobalHideStatusBar != nil)) {
+            if !Bundle.TZ_isGlobalHideStatusBar() {
                 UIApplication.shared.isStatusBarHidden = true
             }
             self.singleTapGestureBlock?()

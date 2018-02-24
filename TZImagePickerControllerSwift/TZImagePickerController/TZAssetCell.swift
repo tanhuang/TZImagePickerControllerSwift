@@ -101,7 +101,7 @@ class TZAssetCell: UICollectionViewCell {
     }()
     lazy private var bottomView: UIView = {
         let bottomView = UIView()
-        bottomView.backgroundColor = gof_RGBAColor(0, 0, 0, 0.8)
+        bottomView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         contentView.addSubview(bottomView)
         return bottomView
     }()

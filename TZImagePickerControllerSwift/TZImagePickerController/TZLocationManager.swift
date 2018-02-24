@@ -15,10 +15,11 @@ class TZLocationManager: NSObject, CLLocationManagerDelegate {
         let manager = TZLocationManager()
         manager.locationManager = CLLocationManager()
         manager.locationManager?.requestAlwaysAuthorization()
+        manager.locationManager?.delegate = manager
         return manager
     }()
 
-    private override init() {  }
+    private override init() { }
 
 
     var locationManager: CLLocationManager?
@@ -31,13 +32,7 @@ class TZLocationManager: NSObject, CLLocationManagerDelegate {
     var failure: ((_ error: Error?) -> (Swift.Void))?
 
     /// 开始定位
-    func startLocation() {
-        self.locationManager?.delegate = self
-        self.startLocation(successBlock: nil, failureBlock: nil, geocoderBlock: nil)
-    }
-
-    func startLocation(successBlock: ((_ location: CLLocation?, _ oldLocation: CLLocation?) -> (Swift.Void))?, failureBlock: ((_ error: Error?) -> (Swift.Void))?, geocoderBlock: ((_ geocoderArray: Array<CLPlacemark>?) -> (Swift.Void))?) {
-        self.locationManager?.delegate = self
+    func startLocation(successBlock: @escaping ((_ location: CLLocation?, _ oldLocation: CLLocation?) -> (Swift.Void)), failureBlock: @escaping ((_ error: Error?) -> (Swift.Void)), geocoderBlock: @escaping ((_ geocoderArray: Array<CLPlacemark>?) -> (Swift.Void))) {
         self.locationManager?.stopUpdatingLocation()
         self.success = successBlock
         self.geocode = geocoderBlock

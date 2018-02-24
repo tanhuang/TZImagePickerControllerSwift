@@ -111,7 +111,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         layout = LxGridViewFlowLayout()
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout!)
         collectionView.alwaysBounceVertical = true
-        collectionView.backgroundColor = gof_RGBAColor(244, 244, 244, 1)
+        collectionView.backgroundColor = UIColor(red: 244 / 255.0, green: 244 / 255.0, blue: 244 / 255.0, alpha: 1)
 
         collectionView.contentInset = UIEdgeInsetsMake(4, 4, 4, 4);
         collectionView.dataSource = self;

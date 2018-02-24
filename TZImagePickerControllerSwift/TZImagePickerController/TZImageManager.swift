@@ -102,6 +102,8 @@ class TZImageManager: NSObject {
                 let fetchResult = PHAsset.fetchAssets(in: collection, options: option)
                 let model = self.modelWithResult(result: fetchResult, name: collection.localizedTitle!, isCameraRoll: true)
                 completion(model)
+
+                stop.pointee = true
             }
         }
     }
@@ -422,15 +424,13 @@ class TZImageManager: NSObject {
 
     //MARK: - Save photo
     func savePhotoWithImage(with image: UIImage?, location: CLLocation?, completion: @escaping (_ error: Error?) -> (Swift.Void)) {
-        let data = UIImageJPEGRepresentation(image!, 0.9)
+//        let data = UIImageJPEGRepresentation(image!, 0.9)
         if #available(iOS 9.0, *) {
             PHPhotoLibrary.shared().performChanges({
-                let options = PHAssetResourceCreationOptions()
-                options.shouldMoveFile = true
+//                let options = PHAssetResourceCreationOptions()
+//                options.shouldMoveFile = true
                 let request = PHAssetCreationRequest.creationRequestForAsset(from: image!)
                 
-                request.addResource(with: .photo, data: data!, options: options)
-
                 if location != nil {
                     request.location = location;
                 }
@@ -441,7 +441,7 @@ class TZImageManager: NSObject {
                         completion(nil)
                     } else {
                         completion(error)
-                        debugPrint("保存图片失败 ：\(String(describing: error?.localizedDescription))")
+                        debugPrint("保存图片失败 ：\(error!)")
                     }
                 })
             }

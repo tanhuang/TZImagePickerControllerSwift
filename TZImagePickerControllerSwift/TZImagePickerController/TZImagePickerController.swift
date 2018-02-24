@@ -312,7 +312,9 @@ class TZImagePickerController: UINavigationController {
         rootViewController.columnNumber = columnNumber
         self.pushPhotoPickerVc = pushPhotoPickerVc
         self.columnNumber = columnNumber
+        self.maxImagesCount = maxImagesCount
         self.pickerDelegate = delegate
+
 
         initDelegateData()
 
@@ -445,10 +447,10 @@ class TZImagePickerController: UINavigationController {
         navigationBar.barStyle = .black
         navigationBar.isTranslucent = true
 
-        navigationBar.barTintColor = gof_RGBAColor(34, 34, 34, 1)
+        navigationBar.barTintColor = UIColor(red: 34 / 255.0, green: 34 / 255.0, blue: 34 / 255.0, alpha: 1)
         navigationBar.tintColor = UIColor.white
         automaticallyAdjustsScrollViewInsets = false
-        if !(TZ_isGlobalHideStatusBar != nil) {
+        if !Bundle.TZ_isGlobalHideStatusBar() {
             UIApplication.shared.isStatusBarHidden = false
         }
     }

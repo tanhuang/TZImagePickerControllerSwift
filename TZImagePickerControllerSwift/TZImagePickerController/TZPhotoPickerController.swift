@@ -250,7 +250,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
 
         _bottomToolBar = UIView(frame: CGRect.zero)
-        _bottomToolBar?.backgroundColor = gof_RGBAColor(253, 253, 253, 1)
+        _bottomToolBar?.backgroundColor = UIColor(red: 235 / 255.0, green: 235 / 255.0, blue: 235 / 255.0, alpha: 1)
 
         _previewButton = UIButton(type: .custom)
         _previewButton?.addTarget(self, action: #selector(previewButtonClick), for: .touchUpInside)
@@ -283,7 +283,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         _numberLabel?.backgroundColor = UIColor.clear
 
         _divideLine = UIView()
-        _divideLine?.backgroundColor = gof_RGBAColor(222, 222, 222, 1.0)
+        _divideLine?.backgroundColor = UIColor(red: 222 / 255.0, green: 222 / 255.0, blue: 222 / 255.0, alpha: 1)
 
         _bottomToolBar?.addSubview(_divideLine!)
         _bottomToolBar?.addSubview(_previewButton!)
@@ -350,7 +350,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         // 1.6.8 判断是否满足最小必选张数的限制
         if (tzImagePickerVc?.minImagesCount)! > 0 && (tzImagePickerVc?.selectedModels.count)! < (tzImagePickerVc?.minImagesCount)! {
-            let title = Bundle.tz_localizedString(forKey: "Select a minimum of \((tzImagePickerVc?.minImagesCount)!) photos")
+            let title = String(format: NSLocalizedString("Select a minimum of %zd hotos", tableName: nil, bundle: bundle!, comment: ""), (tzImagePickerVc?.minImagesCount)!)
             _ = tzImagePickerVc?.showAlert(title: title)
             return;
         }
@@ -542,7 +542,10 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
                 tzImagePickerVc?.selectedModels.append(model)
                 self.refreshBottomToolBarStatus()
             } else {
-                _ = tzImagePickerVc?.showAlert(title: Bundle.tz_localizedString(forKey: "Select a maximum of \((tzImagePickerVc?.maxImagesCount)!) hotos"))
+
+                let string = String(format: NSLocalizedString("Select a maximum of %zd hotos", tableName: nil, bundle: bundle!, comment: ""), (tzImagePickerVc?.maxImagesCount)!)
+
+                _ = tzImagePickerVc?.showAlert(title: string)
             }
         }
         UIView.showOscillatoryAnimationWithLayer(layer: (self._numberImageView?.layer)!, type: .smaller)
@@ -586,7 +589,9 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
             self.location = location
         }, failureBlock: { (error) -> (Void) in
             self.location = nil
-        }, geocoderBlock: nil)
+        }, geocoderBlock: { (geocoderArray) -> (Void) in
+            
+        })
 
         let sourceType = UIImagePickerControllerSourceType.camera
         if UIImagePickerController.isSourceTypeAvailable(.camera) {

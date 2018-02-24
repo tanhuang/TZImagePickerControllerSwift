@@ -27,7 +27,6 @@
 		C26B9C422015B209000C2710 /* TZImageCropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C412015B209000C2710 /* TZImageCropManager.swift */; };
 		C26B9C442015B21A000C2710 /* TZLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C432015B21A000C2710 /* TZLocationManager.swift */; };
 		C26B9C462015BC1C000C2710 /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C26B9C452015BC1C000C2710 /* TZImagePickerController.bundle */; };
-		C2B4BFFA2004A83300C231B3 /* TZConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B4BFF92004A83300C231B3 /* TZConfigure.swift */; };
 		C2B4BFFC2004B74600C231B3 /* TZAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B4BFFB2004B74600C231B3 /* TZAssetModel.swift */; };
 		C2B4BFFE2004C10000C231B3 /* TZImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B4BFFD2004C10000C231B3 /* TZImageManager.swift */; };
 		C2DF6D71202A957B00EBD000 /* LxGridViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DF6D70202A957B00EBD000 /* LxGridViewFlowLayout.swift */; };
@@ -81,7 +80,6 @@
 		C26B9C412015B209000C2710 /* TZImageCropManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImageCropManager.swift; sourceTree = "<group>"; };
 		C26B9C432015B21A000C2710 /* TZLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZLocationManager.swift; sourceTree = "<group>"; };
 		C26B9C452015BC1C000C2710 /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TZImagePickerController.bundle; sourceTree = "<group>"; };
-		C2B4BFF92004A83300C231B3 /* TZConfigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZConfigure.swift; sourceTree = "<group>"; };
 		C2B4BFFB2004B74600C231B3 /* TZAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssetModel.swift; sourceTree = "<group>"; };
 		C2B4BFFD2004C10000C231B3 /* TZImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImageManager.swift; sourceTree = "<group>"; };
 		C2DF6D70202A957B00EBD000 /* LxGridViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LxGridViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 				C26B9C3F2015B1F0000C2710 /* TZProgressView.swift */,
 				C26B9C412015B209000C2710 /* TZImageCropManager.swift */,
 				C26B9C432015B21A000C2710 /* TZLocationManager.swift */,
-				C2B4BFF92004A83300C231B3 /* TZConfigure.swift */,
 				C25B9CC22005F17D000AE5A4 /* TZExtension.swift */,
 				C26B9C452015BC1C000C2710 /* TZImagePickerController.bundle */,
 			);
@@ -338,7 +335,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C26B9C3A2015AF4A000C2710 /* TZGifPhotoPreviewController.swift in Sources */,
-				C2B4BFFA2004A83300C231B3 /* TZConfigure.swift in Sources */,
 				C24518C81FFC6FE300ACAD58 /* ViewController.swift in Sources */,
 				C26B9C422015B209000C2710 /* TZImageCropManager.swift in Sources */,
 				C2DF6D71202A957B00EBD000 /* LxGridViewFlowLayout.swift in Sources */,
@@ -553,7 +549,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tanhuag.TZImagePickerControllerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

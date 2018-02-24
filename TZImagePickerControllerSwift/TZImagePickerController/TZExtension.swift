@@ -13,6 +13,10 @@ var bundle: Bundle?
 
 extension Bundle {
 
+    class func TZ_isGlobalHideStatusBar() -> Bool {
+        return (Bundle.main.object(forInfoDictionaryKey: "UIStatusBarHidden") as? Bool) ?? false
+    }
+
     class func tz_imagePickerBundle() -> Bundle {
         let bundle = Bundle(for: TZImagePickerController.classForCoder())
         let url = bundle.url(forResource: "TZImagePickerController", withExtension: "bundle")
@@ -49,18 +53,12 @@ extension UIView {
         let animationScale1 = type == .bigger ? NSNumber(value: 1.15) : NSNumber(value: 0.5)
         let animationScale2 = type == .bigger ? NSNumber(value: 0.92) : NSNumber(value: 1.15)
 
-        UIView.animate(withDuration: 0.15, delay: 0, options: UIViewAnimationOptions(rawValue: UIViewAnimationOptions.beginFromCurrentState.rawValue | UIViewAnimationOptions.curveEaseInOut.rawValue), animations: {
-            layer.setValue(animationScale1, forKey: "transform.scale")
-        }) { (finished) in
-            UIView.animate(withDuration: 0.15, delay: 0, options: UIViewAnimationOptions(rawValue: UIViewAnimationOptions.beginFromCurrentState.rawValue | UIViewAnimationOptions.curveEaseInOut.rawValue), animations: {
-                layer.setValue(animationScale2, forKey: "transform.scale")
-            }) { (finished) in
-                UIView.animate(withDuration: 0.15, delay: 0, options: UIViewAnimationOptions(rawValue: UIViewAnimationOptions.beginFromCurrentState.rawValue | UIViewAnimationOptions.curveEaseInOut.rawValue), animations: {
-
-                    layer.setValue(NSNumber(value: 1.0), forKey: "transform.scale")
-                }, completion: nil)
-            }
-        }
+        let animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.duration = 0.15
+        animation.fromValue = animationScale1
+        animation.toValue = animationScale2
+        animation.autoreverses = true
+        layer.add(animation, forKey: "scale-layer")
     }
 }
 

@@ -85,7 +85,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
-        if !(TZ_isGlobalHideStatusBar != nil) {
+        if !Bundle.TZ_isGlobalHideStatusBar() {
             UIApplication.shared.isStatusBarHidden = true
         }
         if currentIndex > 0 {
@@ -97,7 +97,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        if !(TZ_isGlobalHideStatusBar != nil) {
+        if !Bundle.TZ_isGlobalHideStatusBar() {
             UIApplication.shared.isStatusBarHidden = false
         }
         TZImageManager.manager.shouldFixOrientation = false
@@ -131,7 +131,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         }
 
         _naviBar = UIView(frame: CGRect.zero)
-        _naviBar?.backgroundColor = gof_RGBAColor(34, 34, 34, 0.7)
+        _naviBar?.backgroundColor = UIColor(red: 34 / 255.0, green: 34 / 255.0, blue: 34 / 255.0, alpha: 0.7)
 
         _backButton = UIButton(frame: CGRect.zero)
         _backButton?.setImage(UIImage.imageNamedFromMyBundle(name: "navi_back"), for: .normal)
@@ -156,7 +156,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         }
 
         _toolBar = UIView(frame: .zero)
-        _toolBar?.backgroundColor = gof_RGBAColor(34, 34, 34, 0.7)
+        _toolBar?.backgroundColor = UIColor(red: 34 / 255.0, green: 34 / 255.0, blue: 34 / 255.0, alpha: 0.7)
 
         if _tzImagePickerVc.allowPickingOriginalPhoto {
             _originalPhotoButton = UIButton(type: .custom)

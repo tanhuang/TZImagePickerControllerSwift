@@ -110,7 +110,7 @@ class TZVideoPlayerController: UIViewController {
 
     func configBottomToolBar() {
         _toolBar = UIView(frame: CGRect.zero)
-        _toolBar?.backgroundColor = gof_RGBAColor(34, 34, 34, 0.7)
+        _toolBar?.backgroundColor = UIColor(red: 34 / 255.0, green: 34 / 255.0, blue: 34 / 255.0, alpha: 0.7)
 
         _doneButton = UIButton(type: .custom)
         _doneButton?.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -122,7 +122,7 @@ class TZVideoPlayerController: UIViewController {
             _doneButton?.setTitleColor(tzImagePickerVc?.oKButtonTitleColorNormal, for: UIControlState.normal)
         } else {
             _doneButton?.setTitle(Bundle.tz_localizedString(forKey: "Done"), for: .normal)
-            _doneButton?.setTitleColor(gof_RGBAColor(83, 179, 17, 1.0), for: .normal)
+            _doneButton?.setTitleColor(UIColor(red: 83 / 255.0, green: 179 / 255.0, blue: 17 / 255.0, alpha: 1), for: .normal)
         }
         _toolBar?.addSubview(_doneButton!)
         view.addSubview(_toolBar!)
@@ -139,7 +139,7 @@ class TZVideoPlayerController: UIViewController {
             self.navigationController?.isNavigationBarHidden = true
             _toolBar?.isHidden = true
             _playButton?.setImage(nil, for: .normal)
-            if !(TZ_isGlobalHideStatusBar != nil) {
+            if !Bundle.TZ_isGlobalHideStatusBar() {
                 UIApplication.shared.isStatusBarHidden = true
             }
         } else {
@@ -183,7 +183,7 @@ class TZVideoPlayerController: UIViewController {
         _toolBar?.isHidden = false
         navigationController?.isNavigationBarHidden = false
         _playButton?.setImage(UIImage.imageNamedFromMyBundle(name: "MMVideoPreviewPlay"), for: .normal)
-        if !(TZ_isGlobalHideStatusBar != nil) {
+        if !Bundle.TZ_isGlobalHideStatusBar() {
             UIApplication.shared.isStatusBarHidden = false
         }
     }
