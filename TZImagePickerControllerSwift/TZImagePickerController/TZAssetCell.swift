@@ -252,6 +252,7 @@ class TZAlbumCell: UITableViewCell {
             }
         }
     }
+    
     lazy var selectedCountButton: UIButton = {
         let selectedCountButton = UIButton()
         selectedCountButton.layer.cornerRadius = 12

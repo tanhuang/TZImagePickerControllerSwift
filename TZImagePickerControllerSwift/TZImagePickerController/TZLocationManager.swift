@@ -33,7 +33,7 @@ class TZLocationManager: NSObject, CLLocationManagerDelegate {
 
     /// 开始定位
     func startLocation(successBlock: @escaping ((_ location: CLLocation?, _ oldLocation: CLLocation?) -> (Swift.Void)), failureBlock: @escaping ((_ error: Error?) -> (Swift.Void)), geocoderBlock: @escaping ((_ geocoderArray: Array<CLPlacemark>?) -> (Swift.Void))) {
-        self.locationManager?.stopUpdatingLocation()
+        self.locationManager?.startUpdatingLocation()
         self.success = successBlock
         self.geocode = geocoderBlock
         self.failure = failureBlock

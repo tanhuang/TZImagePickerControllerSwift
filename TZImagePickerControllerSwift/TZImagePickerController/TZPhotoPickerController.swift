@@ -71,7 +71,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
 
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         isSelectOriginalPhoto = (tzImagePickerVc?.isSelectOriginalPhoto)!
-        _showTakePhotoBtn = true
+        _shouldScrollToBottom = true
 
         view.backgroundColor = UIColor.white
         navigationItem.title = model?.name
