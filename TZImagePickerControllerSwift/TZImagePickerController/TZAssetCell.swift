@@ -129,13 +129,15 @@ class TZAssetCell: UICollectionViewCell {
     }()
     private var bigImageRequestID: Int32?
 
+    var representedAssetIdentifier: String!
+
     var model: TZAssetModel? {
         didSet {
+            print("\n representedAssetIdentifier =  \(representedAssetIdentifier) ---- \((model?.asset.localIdentifier)!) --- \(representedAssetIdentifier == (model?.asset.localIdentifier)!)")
             let imageRequestID = TZImageManager.manager.getPhoto(photoWithAsset: model?.asset, photoWidth: self.frame.width, networkAccessAllowed: false, completion: { (photo, info, isDegraded) -> (Void) in
-
                 self.progressView.isHidden = true
-                self.imageView.alpha = 1.0
 
+                self.imageView.alpha = 1.0
                 self.imageView.image = photo
 
                 if !isDegraded! {
@@ -147,7 +149,7 @@ class TZAssetCell: UICollectionViewCell {
             })
 
             if imageRequestID != self.imageRequestID {
-                PHImageManager.default().cancelImageRequest(self.imageRequestID)
+                TZImageManager.manager.cachingImageManager.cancelImageRequest(self.imageRequestID)
             }
             self.imageRequestID = imageRequestID
             self.selectPhotoButton.isSelected = (model?.isSelected)!
@@ -197,7 +199,7 @@ class TZAssetCell: UICollectionViewCell {
             self.fetchBigImage()
         } else {
             if bigImageRequestID != nil  {
-                PHImageManager.default().cancelImageRequest(bigImageRequestID!)
+                TZImageManager.manager.cachingImageManager.cancelImageRequest(bigImageRequestID!)
                 self.hideProgressView()
             }
         }

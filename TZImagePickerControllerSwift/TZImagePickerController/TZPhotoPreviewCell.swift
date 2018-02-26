@@ -135,7 +135,7 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
         didSet {
 
             if (oldValue != nil) && (self.imageRequestID != nil) {
-                PHImageManager.default().cancelImageRequest(imageRequestID!)
+                TZImageManager.manager.cachingImageManager.cancelImageRequest(imageRequestID!)
             }
             self.imageRequestID = TZImageManager.manager.getPhoto(photoWithAsset: asset, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
 

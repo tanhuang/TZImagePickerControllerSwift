@@ -44,8 +44,6 @@ import Photos
     // 决定照片显示与否
     @objc optional func isAssetCanSelect(asset: PHAsset) -> Bool
 
-
-
 }
 
 
@@ -551,7 +549,7 @@ class TZImagePickerController: UINavigationController {
             _HUDContainer?.alpha = 0.7
 
             _HUDIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white)
-
+            
             _HUDLabel = UILabel()
             _HUDLabel?.textAlignment = .center
             _HUDLabel?.text = self.processHintStr

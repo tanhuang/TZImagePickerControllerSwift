@@ -19,7 +19,7 @@ class TZImageManager: NSObject {
 
     weak var pickerDelegate: TZImagePickerControllerDelegate?
 
-    var cachingImageManager: PHCachingImageManager?
+    var cachingImageManager = PHCachingImageManager()
 
     var shouldFixOrientation: Bool = false
 
@@ -284,7 +284,7 @@ class TZImageManager: NSObject {
         for model in photos! {
             let options = PHImageRequestOptions()
             options.resizeMode = .fast;
-            PHImageManager.default().requestImageData(for: model.asset, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
+            cachingImageManager.requestImageData(for: model.asset, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
                 if model.type != .video {
                     dataLength += (imageData?.count)!
                 }
@@ -337,19 +337,26 @@ class TZImageManager: NSObject {
         // 下面两行代码，来自hsjcom，他的github是：https://github.com/hsjcom 表示感谢
         let option = PHImageRequestOptions()
         option.resizeMode = .fast
-        let imageRequestID = PHImageManager.default().requestImage(for: asset!, targetSize: imageSize, contentMode: .aspectFill, options: option, resultHandler: { (result, info) in
+        let imageRequestID = cachingImageManager.requestImage(for: asset!, targetSize: imageSize, contentMode: .aspectFill, options: option, resultHandler: { (result, info) in
 
             guard var result_image = result, let _info = info else {
                 return
             }
             image = result_image
-            let downloadFinined = !(_info[PHImageCancelledKey] != nil) && !(_info[PHImageErrorKey] != nil)
+
+            let isCancelled = _info[PHImageCancelledKey] as? Bool
+            let isError = _info[PHImageErrorKey] as? Bool
+            let downloadFinined = (isCancelled == nil || !isCancelled!) && (isError == nil || !isError!)
             if downloadFinined {
                 result_image = self.fixOrientation(result_image)
                 completion(image, info, info![PHImageResultIsDegradedKey] as? Bool)
             }
+
             // Download image from iCloud / 从iCloud下载图片
-            if _info[PHImageResultIsInCloudKey] != nil && networkAccessAllowed {
+            guard let isCloud = _info[PHImageResultIsInCloudKey] as? Bool else {
+                return
+            }
+            if isCloud && networkAccessAllowed {
                 let options = PHImageRequestOptions()
                 option.progressHandler = { (progress, error, stop, info) in
                     DispatchQueue.main.async(execute: {
@@ -399,7 +406,7 @@ class TZImageManager: NSObject {
         let option = PHImageRequestOptions()
         option.isNetworkAccessAllowed = true
         option.resizeMode = .fast
-        PHImageManager.default().requestImage(for: asset!, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option) { (result, info) in
+        cachingImageManager.requestImage(for: asset!, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option) { (result, info) in
             var result_image = result
             let downloadFinined = !(info![PHImageCancelledKey] != nil) && !(info![PHImageErrorKey] != nil)
             if downloadFinined && (result_image != nil) {
@@ -414,7 +421,7 @@ class TZImageManager: NSObject {
         let option = PHImageRequestOptions()
         option.isNetworkAccessAllowed = true
         option.resizeMode = .fast
-        PHImageManager.default().requestImageData(for: asset!, options: option) { (imageData, dataUTI, orientation, info) in
+        cachingImageManager.requestImageData(for: asset!, options: option) { (imageData, dataUTI, orientation, info) in
             let downloadFinined = !(info![PHImageCancelledKey] != nil)  && !(info![PHImageErrorKey] != nil)
             if downloadFinined && imageData != nil {
                 completion(imageData, info, false)
@@ -469,7 +476,7 @@ class TZImageManager: NSObject {
                 progressHandler(progress, error, stop, info)
             })
         }
-        PHImageManager.default().requestPlayerItem(forVideo: asset!, options: option) { (playerItem, info) in
+        cachingImageManager.requestPlayerItem(forVideo: asset!, options: option) { (playerItem, info) in
             guard playerItem != nil, info != nil else {
                 return
             }
@@ -482,7 +489,7 @@ class TZImageManager: NSObject {
         options.version = .original
         options.deliveryMode = .automatic
         options.isNetworkAccessAllowed = true
-        PHImageManager.default().requestAVAsset(forVideo: asset!, options: options) { (avasset, audioMix, info) in
+        cachingImageManager.requestAVAsset(forVideo: asset!, options: options) { (avasset, audioMix, info) in
             self.startExportVideoAsset(avasset as? AVURLAsset, completion: completion)
         }
     }

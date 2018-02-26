@@ -10,7 +10,7 @@ import UIKit
 import Photos
 import CoreLocation
 
-class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, TZAssetCellDelegate {
+class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, TZAssetCellDelegate {
 
     var isFirstAppear: Bool = false
     var columnNumber: Int = 0
@@ -114,6 +114,13 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
 
         if _models == nil {
             self.fetchAssetModels()
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if collectionView != nil {
+            self.updateCachedAssets()
         }
     }
 
@@ -468,6 +475,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
             model = _models?[indexPath.row - 1]
         }
         cell.allowPickingGif = (tzImagePickerVc?.allowPickingGif)!
+        cell.representedAssetIdentifier = model?.asset.localIdentifier
         cell.model = model
         cell.showSelectBtn = (tzImagePickerVc?.showSelectBtn)!
         cell.allowPreview = (tzImagePickerVc?.allowPreview)!
@@ -695,6 +703,10 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         })
     }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateCachedAssets()
+    }
+
 
     //MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -774,7 +786,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     //MARK: - Asset Caching
 
     func resetCachedAssets() {
-        TZImageManager.manager.cachingImageManager?.stopCachingImagesForAllAssets()
+        TZImageManager.manager.cachingImageManager.stopCachingImagesForAllAssets()
         self.previousPreheatRect = CGRect.zero;
     }
 
@@ -806,8 +818,8 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
             let assetsToStopCaching = self.assetsAtIndexPaths(indexPaths: removedIndexPaths)
 
             // Update the assets the PHCachingImageManager is caching.
-            TZImageManager.manager.cachingImageManager?.startCachingImages(for: assetsToStartCaching! as! [PHAsset], targetSize: AssetGridThumbnailSize, contentMode: PHImageContentMode.aspectFill, options: nil)
-            TZImageManager.manager.cachingImageManager?.startCachingImages(for: assetsToStopCaching! as! [PHAsset], targetSize: AssetGridThumbnailSize, contentMode: PHImageContentMode.aspectFill, options: nil)
+            TZImageManager.manager.cachingImageManager.startCachingImages(for: assetsToStartCaching! as! [PHAsset], targetSize: AssetGridThumbnailSize, contentMode: PHImageContentMode.aspectFill, options: nil)
+            TZImageManager.manager.cachingImageManager.startCachingImages(for: assetsToStopCaching! as! [PHAsset], targetSize: AssetGridThumbnailSize, contentMode: PHImageContentMode.aspectFill, options: nil)
             // Store the preheat rect to compare against in the future.
             self.previousPreheatRect = preheatRect!;
         }

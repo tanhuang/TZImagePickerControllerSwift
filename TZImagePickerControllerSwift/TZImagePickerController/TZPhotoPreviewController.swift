@@ -497,26 +497,26 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         // 如果正在预览的是视频，隐藏原图按钮
         if (!isHideNaviBar) {
             if (model.type == .video) {
-                _originalPhotoButton?.isHidden = true;
-                _originalPhotoLabel?.isHidden = true;
+                _originalPhotoButton?.isHidden = true
+                _originalPhotoLabel?.isHidden = true
             } else {
-                _originalPhotoButton?.isHidden = false;
+                _originalPhotoButton?.isHidden = false
                 if (isSelectOriginalPhoto) {
-                    _originalPhotoLabel?.isHidden = false;
+                    _originalPhotoLabel?.isHidden = false
                 }
             }
         }
 
-        _doneButton?.isHidden = false;
-        _selectButton?.isHidden = !(_tzImagePickerVc?.showSelectBtn)!;
+        _doneButton?.isHidden = false
+        _selectButton?.isHidden = !(_tzImagePickerVc?.showSelectBtn)!
         // 让宽度/高度小于 最小可选照片尺寸 的图片不能选中
         if !TZImageManager.manager.isPhoto(selectableWithAsset: model.asset) {
-            _numberLabel?.isHidden = true;
-            _numberImageView?.isHidden = true;
-            _selectButton?.isHidden = true;
-            _originalPhotoButton?.isHidden = true;
-            _originalPhotoLabel?.isHidden = true;
-            _doneButton?.isHidden = true;
+            _numberLabel?.isHidden = true
+            _numberImageView?.isHidden = true
+            _selectButton?.isHidden = true
+            _originalPhotoButton?.isHidden = true
+            _originalPhotoLabel?.isHidden = true
+            _doneButton?.isHidden = true
         }
 
     }
