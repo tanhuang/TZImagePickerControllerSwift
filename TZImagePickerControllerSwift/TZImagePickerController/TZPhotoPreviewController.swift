@@ -280,9 +280,9 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         var offSetWidth = scrollView.contentOffset.x;
-        offSetWidth = offSetWidth +  ((view.frame.width + 20) * 0.5);
+        offSetWidth = offSetWidth +  ((view.frame.width + 20) * 0.5)
 
-        let index = offSetWidth / (view.frame.width + 20);
+        let index = offSetWidth / (view.frame.width + 20)
 
         if (Int(index) < models.count && currentIndex != Int(index)) {
             currentIndex = Int(index)
@@ -355,7 +355,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         let model = models[currentIndex]
         if !selectButton.isSelected {
             if _tzImagePickerVc.selectedModels.count >= _tzImagePickerVc.maxImagesCount {
-                let title = Bundle.tz_localizedString(forKey: "Select a maximum of \(_tzImagePickerVc.maxImagesCount) photos")
+                let title = String(format: NSLocalizedString("Select a maximum of %zd photos", tableName: nil, bundle: bundle!, comment: ""), _tzImagePickerVc.maxImagesCount)
                 _ = _tzImagePickerVc.showAlert(title: title)
                 return
             } else {

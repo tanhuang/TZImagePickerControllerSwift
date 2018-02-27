@@ -74,6 +74,13 @@ class TZCollectionView: UICollectionView {
         }
         return super.touchesShouldCancel(in: view)
     }
+
+
+    func indexPathsForElements(in rect: CGRect) -> [IndexPath] {
+        let allLayoutAttributes = collectionViewLayout.layoutAttributesForElements(in: rect)!
+        return allLayoutAttributes.map { $0.indexPath }
+    }
+
 }
 
 

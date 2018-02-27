@@ -69,6 +69,8 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        resetCachedAssets()
+
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         isSelectOriginalPhoto = (tzImagePickerVc?.isSelectOriginalPhoto)!
         _shouldScrollToBottom = true
@@ -226,6 +228,8 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
             self.configBottomToolBar()
 
             self.scrollCollectionViewToBottom()
+
+            self.updateCachedAssets()
         }
     }
 
@@ -357,7 +361,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         // 1.6.8 判断是否满足最小必选张数的限制
         if (tzImagePickerVc?.minImagesCount)! > 0 && (tzImagePickerVc?.selectedModels.count)! < (tzImagePickerVc?.minImagesCount)! {
-            let title = String(format: NSLocalizedString("Select a minimum of %zd hotos", tableName: nil, bundle: bundle!, comment: ""), (tzImagePickerVc?.minImagesCount)!)
+            let title = String(format: NSLocalizedString("Select a minimum of %zd photos", tableName: nil, bundle: bundle!, comment: ""), (tzImagePickerVc?.minImagesCount)!)
             _ = tzImagePickerVc?.showAlert(title: title)
             return;
         }
@@ -377,7 +381,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         TZImageManager.manager.shouldFixOrientation = true
         var alertView: UIAlertController?
         for (index, model) in (tzImagePickerVc?.selectedModels.enumerated())! {
-            _ = TZImageManager.manager.getPhoto(photoWithAsset: model.asset, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
+            _ = TZImageManager.manager.getPhoto(with: model.asset, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
                 if isDegraded != nil && isDegraded! {
                     return
                 }
@@ -475,7 +479,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
             model = _models?[indexPath.row - 1]
         }
         cell.allowPickingGif = (tzImagePickerVc?.allowPickingGif)!
-        cell.representedAssetIdentifier = model?.asset.localIdentifier
+        cell.representedAssetIdentifier = (model?.asset.localIdentifier)!
         cell.model = model
         cell.showSelectBtn = (tzImagePickerVc?.showSelectBtn)!
         cell.allowPreview = (tzImagePickerVc?.allowPreview)!
@@ -550,8 +554,8 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
                 tzImagePickerVc?.selectedModels.append(model)
                 self.refreshBottomToolBarStatus()
             } else {
-
-                let string = String(format: NSLocalizedString("Select a maximum of %zd hotos", tableName: nil, bundle: bundle!, comment: ""), (tzImagePickerVc?.maxImagesCount)!)
+                let string = String(format:
+                    NSLocalizedString("Select a maximum of %zd photos", tableName: nil, bundle: bundle!, comment: ""), (tzImagePickerVc?.maxImagesCount)!)
 
                 _ = tzImagePickerVc?.showAlert(title: string)
             }
@@ -570,8 +574,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
             if appName == nil {
                 appName = Bundle.main.infoDictionary?["CFBundleName"]
             }
-            let message = Bundle.tz_localizedString(forKey: "Please allow \(appName!) to access your camera in \"Settings -> Privacy -> Camera\"")
-
+            let message = String(format: NSLocalizedString("Please allow %@ to access your camera in \"Settings -> Privacy -> Camera\"", tableName: nil, bundle: bundle!, comment: ""), appName! as! CVarArg)
             let alert = UIAlertController(title: Bundle.tz_localizedString(forKey: "Can not use camera"), message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: Bundle.tz_localizedString(forKey: "Cancel"), style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: Bundle.tz_localizedString(forKey: "Setting"), style: .default, handler: { (action) in
@@ -791,77 +794,104 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     }
 
     func updateCachedAssets() {
-        let isViewVisible = self.isViewLoaded && self.view.window != nil
-        if !isViewVisible { return }
+        // Update only if the view is visible.
+        guard isViewLoaded && view.window != nil else { return }
 
         // The preheat window is twice the height of the visible rect.
-        var preheatRect = collectionView?.bounds
-        preheatRect = preheatRect?.insetBy(dx: 0, dy: -0.5 * (preheatRect?.height)!)
+        let visibleRect = CGRect(origin: collectionView!.contentOffset, size: collectionView!.bounds.size)
+        let preheatRect = visibleRect.insetBy(dx: 0, dy: -0.5 * visibleRect.height)
 
         /*
          Check if the collection view is showing an area that is significantly
          different to the last preheated area.
          */
-        let delta = abs((preheatRect?.midY)! - (self.previousPreheatRect.midY))
-        if delta > (collectionView?.bounds.height)! / 3.0 {
+        let delta = abs(preheatRect.midY - previousPreheatRect.midY)
+        guard delta > view.bounds.height / 3 else { return }
 
-            // Compute the assets to start caching and to stop caching.
-            var addedIndexPaths = Array<IndexPath>()
-            var removedIndexPaths = Array<IndexPath>()
-            self.computeDifferenceBetweenRect(oldRect: self.previousPreheatRect, newRect: preheatRect, removedHandler: { (removedRect) -> (Void) in
-                removedIndexPaths = self.aapl_indexPaths(for: removedRect)!
-            }, addedHandler: { (addedRect) -> (Void) in
-                addedIndexPaths = self.aapl_indexPaths(for: addedRect)!
-            })
+        // Compute the assets to start caching and to stop caching.
+        let (addedRects, removedRects) = differencesBetweenRects(previousPreheatRect, preheatRect)
+        let addedAssets = addedRects
+            .flatMap { rect in collectionView!.indexPathsForElements(in: rect) }
+            .map { indexPath in _models![indexPath.item < (_models?.count)! ? indexPath.item : (_models?.count)! - 1].asset }
+        let removedAssets = removedRects
+            .flatMap { rect in collectionView!.indexPathsForElements(in: rect) }
+            .map { indexPath in _models![indexPath.item < (_models?.count)! ? indexPath.item : (_models?.count)! - 1].asset }
 
-            let assetsToStartCaching = self.assetsAtIndexPaths(indexPaths: addedIndexPaths)
-            let assetsToStopCaching = self.assetsAtIndexPaths(indexPaths: removedIndexPaths)
+        // Update the assets the PHCachingImageManager is caching.
+        TZImageManager.manager.cachingImageManager.startCachingImages(for: addedAssets,
+                                        targetSize: AssetGridThumbnailSize, contentMode: .aspectFill, options: nil)
+        TZImageManager.manager.cachingImageManager.stopCachingImages(for: removedAssets,
+                                       targetSize: AssetGridThumbnailSize, contentMode: .aspectFill, options: nil)
 
-            // Update the assets the PHCachingImageManager is caching.
-            TZImageManager.manager.cachingImageManager.startCachingImages(for: assetsToStartCaching! as! [PHAsset], targetSize: AssetGridThumbnailSize, contentMode: PHImageContentMode.aspectFill, options: nil)
-            TZImageManager.manager.cachingImageManager.startCachingImages(for: assetsToStopCaching! as! [PHAsset], targetSize: AssetGridThumbnailSize, contentMode: PHImageContentMode.aspectFill, options: nil)
-            // Store the preheat rect to compare against in the future.
-            self.previousPreheatRect = preheatRect!;
-        }
+        // Store the preheat rect to compare against in the future.
+        previousPreheatRect = preheatRect
     }
 
-    func computeDifferenceBetweenRect(oldRect: CGRect?, newRect: CGRect?, removedHandler: ((_ removedRect: CGRect?) -> (Swift.Void))?, addedHandler: ((_ addedRect: CGRect?) -> (Swift.Void))?)  {
-        guard let _oldRect = oldRect, let _newRect = newRect else {
-            addedHandler?(nil)
-            removedHandler?(nil)
-            return
-        }
 
-        if _newRect.intersects(_oldRect) {
-            let oldMaxY = _oldRect.maxY
-            let oldMinY = _oldRect.minY
-            let newMaxY = _newRect.maxY
-            let newMinY = _newRect.minY
-
-            if (newMaxY > oldMaxY) {
-                let rectToAdd = CGRect(x: _newRect.origin.x, y: oldMaxY, width: _newRect.size.width, height: (newMaxY - oldMaxY));
-                addedHandler?(rectToAdd)
+    fileprivate func differencesBetweenRects(_ old: CGRect, _ new: CGRect) -> (added: [CGRect], removed: [CGRect]) {
+        if old.intersects(new) {
+            var added = [CGRect]()
+            if new.maxY > old.maxY {
+                added += [CGRect(x: new.origin.x, y: old.maxY,
+                                 width: new.width, height: new.maxY - old.maxY)]
             }
-
-            if (oldMinY > newMinY) {
-                let rectToAdd = CGRect(x: _newRect.origin.x, y: newMinY, width: _newRect.size.width, height: (oldMinY - newMinY));
-                addedHandler?(rectToAdd);
+            if old.minY > new.minY {
+                added += [CGRect(x: new.origin.x, y: new.minY,
+                                 width: new.width, height: old.minY - new.minY)]
             }
-
-            if (newMaxY < oldMaxY) {
-                let rectToRemove = CGRect(x: _newRect.origin.x, y: newMaxY, width: _newRect.size.width, height: (oldMaxY - newMaxY));
-                removedHandler?(rectToRemove);
+            var removed = [CGRect]()
+            if new.maxY < old.maxY {
+                removed += [CGRect(x: new.origin.x, y: new.maxY,
+                                   width: new.width, height: old.maxY - new.maxY)]
             }
-
-            if (oldMinY < newMinY) {
-                let rectToRemove = CGRect(x: _newRect.origin.x, y: oldMinY, width: _newRect.size.width, height: (newMinY - oldMinY));
-                removedHandler?(rectToRemove);
+            if old.minY < new.minY {
+                removed += [CGRect(x: new.origin.x, y: old.minY,
+                                   width: new.width, height: new.minY - old.minY)]
             }
+            return (added, removed)
         } else {
-            addedHandler?(_newRect);
-            removedHandler?(_oldRect);
+            return ([new], [old])
         }
     }
+
+//
+//    func computeDifferenceBetweenRect(oldRect: CGRect?, newRect: CGRect?, removedHandler: ((_ removedRect: CGRect?) -> (Swift.Void))?, addedHandler: ((_ addedRect: CGRect?) -> (Swift.Void))?)  {
+//        guard let _oldRect = oldRect, let _newRect = newRect else {
+//            addedHandler?(nil)
+//            removedHandler?(nil)
+//            return
+//        }
+//
+//        if _newRect.intersects(_oldRect) {
+//            let oldMaxY = _oldRect.maxY
+//            let oldMinY = _oldRect.minY
+//            let newMaxY = _newRect.maxY
+//            let newMinY = _newRect.minY
+//
+//            if (newMaxY > oldMaxY) {
+//                let rectToAdd = CGRect(x: _newRect.origin.x, y: oldMaxY, width: _newRect.size.width, height: (newMaxY - oldMaxY));
+//                addedHandler?(rectToAdd)
+//            }
+//
+//            if (oldMinY > newMinY) {
+//                let rectToAdd = CGRect(x: _newRect.origin.x, y: newMinY, width: _newRect.size.width, height: (oldMinY - newMinY));
+//                addedHandler?(rectToAdd);
+//            }
+//
+//            if (newMaxY < oldMaxY) {
+//                let rectToRemove = CGRect(x: _newRect.origin.x, y: newMaxY, width: _newRect.size.width, height: (oldMaxY - newMaxY));
+//                removedHandler?(rectToRemove);
+//            }
+//
+//            if (oldMinY < newMinY) {
+//                let rectToRemove = CGRect(x: _newRect.origin.x, y: oldMinY, width: _newRect.size.width, height: (newMinY - oldMinY));
+//                removedHandler?(rectToRemove);
+//            }
+//        } else {
+//            addedHandler?(_newRect);
+//            removedHandler?(_oldRect);
+//        }
+//    }
 
     func assetsAtIndexPaths(indexPaths: Array<IndexPath>?) -> Array<PHAsset?>? {
 

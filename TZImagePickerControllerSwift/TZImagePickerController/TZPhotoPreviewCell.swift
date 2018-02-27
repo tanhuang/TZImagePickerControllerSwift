@@ -112,7 +112,7 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
         didSet {
             scrollView?.setZoomScale(1.0, animated: false)
             if model?.type == .photoGif {
-                _ = TZImageManager.manager.getPhoto(photoWithAsset: model?.asset, networkAccessAllowed: false, completion: { (photo, info, isDegraded) -> (Void) in
+                _ = TZImageManager.manager.getPhoto(with: (model?.asset)!, networkAccessAllowed: false, completion: { (photo, info, isDegraded) -> (Void) in
                     self.imageView?.image = photo
                     self.resizeSubviews()
                     TZImageManager.manager.getOriginalPhotoData(self.model?.asset, completion: { (data, info, isDegraded) -> (Void) in
@@ -121,10 +121,7 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
                             self.resizeSubviews()
                         }
                     })
-
-                }, progressHandler: {
-                    (progress, error, stop, info) -> Void in
-
+                }, progressHandler: { (progress, error, stop, info) -> (Void) in
                 })
             } else {
                 self.asset = model?.asset
@@ -135,13 +132,10 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
         didSet {
 
             if (oldValue != nil) && (self.imageRequestID != nil) {
-                TZImageManager.manager.cachingImageManager.cancelImageRequest(imageRequestID!)
+                PHImageManager.default().cancelImageRequest(imageRequestID!)
             }
-            self.imageRequestID = TZImageManager.manager.getPhoto(photoWithAsset: asset, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
+            self.imageRequestID = TZImageManager.manager.getPhoto(with: asset!, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
 
-//                if oldValue != nil && !(oldValue?.isEqual(self.asset))! {
-//                    return
-//                }
                 self.imageView?.image = photo
                 self.resizeSubviews()
                 self.progressView?.isHidden = true
@@ -151,9 +145,6 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
                 }
             }, progressHandler: { (progress, error, stop, info) -> (Void) in
                 var progress = progress!
-//                if !(oldValue?.isEqual(self.asset))! {
-//                    return
-//                }
                 self.progressView?.isHidden = false
                 self.bringSubview(toFront: self.progressView!)
                 progress = progress > 0.02 ? progress : 0.02
@@ -371,11 +362,8 @@ class TZVideoPreviewCell: TZAssetPreviewCell {
             player = nil
         }
 
-        _ = TZImageManager.manager.getPhoto(photoWithAsset: self.model?.asset, completion: { (photo, info, isDegraded) -> (Void) in
+        _ = TZImageManager.manager.getPhoto(with: (self.model?.asset)!, completion: { (photo, info, isDegraded) -> (Void) in
             self.cover = photo
-        }, progressHandler: {
-            (progress, error, stop, info) -> Void in
-
         })
 
         TZImageManager.manager.getVideo(self.model?.asset, progressHandler: {

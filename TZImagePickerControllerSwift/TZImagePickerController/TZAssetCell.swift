@@ -34,8 +34,6 @@ class TZAssetCell: UICollectionViewCell {
         return selectPhotoButton
     }()
 
-//    var didSelectPhotoBlock: ((_ isSelect: Bool) -> (Swift.Void))?
-
     var type: TZAssetCellType? {
         didSet {
             if type == .photo || type == .livePhoto || (type == .photoGif && !self.allowPreview || self.allowPickingMultipleVideo) {
@@ -133,13 +131,17 @@ class TZAssetCell: UICollectionViewCell {
 
     var model: TZAssetModel? {
         didSet {
-            print("\n representedAssetIdentifier =  \(representedAssetIdentifier) ---- \((model?.asset.localIdentifier)!) --- \(representedAssetIdentifier == (model?.asset.localIdentifier)!)")
-            let imageRequestID = TZImageManager.manager.getPhoto(photoWithAsset: model?.asset, photoWidth: self.frame.width, networkAccessAllowed: false, completion: { (photo, info, isDegraded) -> (Void) in
+            let imageRequestID = TZImageManager.manager.getPhoto(with: (model?.asset)!, photoWidth: self.frame.width, networkAccessAllowed: false, completion: { (photo, info, isDegraded) -> (Void) in
+
                 self.progressView.isHidden = true
-
                 self.imageView.alpha = 1.0
-                self.imageView.image = photo
 
+                if self.representedAssetIdentifier == self.model?.asset.localIdentifier {
+                    self.imageView.image = photo
+                } else {
+                    PHImageManager.default().cancelImageRequest(self.imageRequestID)
+                }
+                
                 if !isDegraded! {
                     self.imageRequestID = 0
                 }
@@ -148,8 +150,8 @@ class TZAssetCell: UICollectionViewCell {
 
             })
 
-            if imageRequestID != self.imageRequestID {
-                TZImageManager.manager.cachingImageManager.cancelImageRequest(self.imageRequestID)
+            if imageRequestID != 0 && self.imageRequestID != 0 && (imageRequestID != self.imageRequestID) {
+                PHImageManager.default().cancelImageRequest(self.imageRequestID)
             }
             self.imageRequestID = imageRequestID
             self.selectPhotoButton.isSelected = (model?.isSelected)!
@@ -170,10 +172,9 @@ class TZAssetCell: UICollectionViewCell {
     }
 
     func fetchBigImage() {
-        self.bigImageRequestID =  TZImageManager.manager.getPhoto(photoWithAsset: model?.asset, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
-
+        self.bigImageRequestID = TZImageManager.manager.getPhoto(with: (model?.asset)!, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
             self.hideProgressView()
-        }) { (progress, error, stop, info) -> (Void) in
+        }, progressHandler: { (progress, error, stop, info) -> (Void) in
             if (self.model?.isSelected)! {
                 let time = progress! > 0.02 ? progress! : 0.02
                 self.progressView.progress = CGFloat(time)
@@ -183,10 +184,10 @@ class TZAssetCell: UICollectionViewCell {
                     self.hideProgressView()
                 }
             } else {
-                _ = stop.move()
+                stop.pointee = true
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
-        }
+        })
     }
 
     @objc func selectPhotoButtonClick(sender: UIButton) {
@@ -199,7 +200,7 @@ class TZAssetCell: UICollectionViewCell {
             self.fetchBigImage()
         } else {
             if bigImageRequestID != nil  {
-                TZImageManager.manager.cachingImageManager.cancelImageRequest(bigImageRequestID!)
+                PHImageManager.default().cancelImageRequest(bigImageRequestID!)
                 self.hideProgressView()
             }
         }

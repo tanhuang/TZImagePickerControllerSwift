@@ -302,9 +302,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
             debugPrint("\(photos.count) ---\(assets.count) ---- \(isSelectOriginalPhoto) --- \((infoArr?.count)!)")
         }
-//        [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-//
-//        }];
+        
         self.present(imagePickerVc, animated: true, completion: nil)
     }
 

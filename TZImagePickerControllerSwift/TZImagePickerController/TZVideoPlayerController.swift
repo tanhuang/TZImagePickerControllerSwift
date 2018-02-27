@@ -64,12 +64,9 @@ class TZVideoPlayerController: UIViewController {
     
 
     func configMoviePlayer() {
-        _ = TZImageManager.manager.getPhoto(photoWithAsset: model?.asset, completion: { (photo, info, isDegraded) -> (Void) in
+        _ = TZImageManager.manager.getPhoto(with: (model?.asset)!) { (photo, info, isDegraded) -> (Void) in
             self._cover = photo
-        }, progressHandler: {
-            (progress, error, stop, info) -> Void in
-
-        })
+        }
 
         TZImageManager.manager.getVideo(model?.asset, progressHandler: {
             (progress, error, stop, info) -> (Void) in

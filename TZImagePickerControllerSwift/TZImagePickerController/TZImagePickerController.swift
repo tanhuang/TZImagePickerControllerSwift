@@ -74,8 +74,8 @@ class TZImagePickerController: UINavigationController {
             if (self.childViewControllers.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
                 let albumPickerVC: TZAlbumPickerController = self.childViewControllers.first as! TZAlbumPickerController
                 albumPickerVC.columnNumber = columnNumber
-                TZImageManager.manager.columnNumber = columnNumber
             }
+            TZImageManager.manager.columnNumber = columnNumber
         }
     }
 
@@ -332,7 +332,7 @@ class TZImagePickerController: UINavigationController {
             }
             var appName = infoDict?["CFBundleDisplayName"]
             if appName == nil { appName = infoDict?["CFBundleName"] }
-            let tipText = "Allow \(Bundle.tz_localizedString(forKey: appName as! String)) to access your album in \"Settings -> Privacy -> Photos\""
+            let tipText = String(format: NSLocalizedString("Allow %@ to access your album in \"Settings -> Privacy -> Photos\"", tableName: nil, bundle: bundle!, comment: ""), Bundle.tz_localizedString(forKey: appName as! String))
             _tipLabel?.text = tipText
             view.addSubview(_tipLabel!)
 
@@ -422,8 +422,8 @@ class TZImagePickerController: UINavigationController {
         if (self.childViewControllers.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
             let albumPickerVC: TZAlbumPickerController = self.childViewControllers.first as! TZAlbumPickerController
             albumPickerVC.columnNumber = columnNumber
-            TZImageManager.manager.columnNumber = columnNumber
         }
+        TZImageManager.manager.columnNumber = columnNumber
 
         TZImageManager.manager.pickerDelegate = pickerDelegate
 

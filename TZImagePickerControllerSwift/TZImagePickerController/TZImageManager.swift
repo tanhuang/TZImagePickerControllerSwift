@@ -181,7 +181,6 @@ class TZImageManager: NSObject {
 
         var photoArr = Array<TZAssetModel>()
         result.enumerateObjects { (asset, index, stop) in
-            debugPrint("\(asset)")
             let model = self.asset(modelWithAsset: asset, allowPickingVideo: allowPickingVideo, allowPickingImage: allowPickingImage)
             if (model != nil) {
                 photoArr.append(model!)
@@ -284,7 +283,7 @@ class TZImageManager: NSObject {
         for model in photos! {
             let options = PHImageRequestOptions()
             options.resizeMode = .fast;
-            cachingImageManager.requestImageData(for: model.asset, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
+            PHImageManager.default().requestImageData(for: model.asset, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
                 if model.type != .video {
                     dataLength += (imageData?.count)!
                 }
@@ -310,16 +309,38 @@ class TZImageManager: NSObject {
     }
     //MARK: - - Get Photo
 
-    func getPhoto(photoWithAsset asset: PHAsset?, photoWidth: CGFloat = 0, networkAccessAllowed: Bool = true, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)), progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) -> Int32 {
+    func getPhoto(with asset: PHAsset, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) -> Int32 {
+        var fullScreenWidth = TZScreenWidth
+        if fullScreenWidth > photoPreviewMaxWidth {
+            fullScreenWidth = photoPreviewMaxWidth
+        }
+        return self.getPhoto(with: asset, photoWidth: fullScreenWidth, networkAccessAllowed: true, completion: completion, progressHandler: { (progress, error, stop, info) -> (Void) in
 
-        let  fullScreenWidth = photoWidth > photoPreviewMaxWidth ? photoPreviewMaxWidth : TZScreenWidth
+        })
+    }
+
+    func getPhoto(with asset: PHAsset, photoWidth: CGFloat, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) -> Int32 {
+        return self.getPhoto(with: asset, photoWidth: photoWidth, networkAccessAllowed: true, completion: completion, progressHandler: { (progress, error, stop, info) -> (Void) in
+
+        })
+    }
+
+    func getPhoto(with asset: PHAsset, networkAccessAllowed: Bool, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)), progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) -> Int32 {
+        var fullScreenWidth = TZScreenWidth
+        if fullScreenWidth > photoPreviewMaxWidth {
+            fullScreenWidth = photoPreviewMaxWidth
+        }
+        return self.getPhoto(with: asset, photoWidth: photoWidth, networkAccessAllowed: networkAccessAllowed, completion: completion, progressHandler: progressHandler)
+    }
+
+    func getPhoto(with asset: PHAsset, photoWidth: CGFloat, networkAccessAllowed: Bool, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)), progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) -> Int32 {
 
         var imageSize = CGSize.zero
-        if fullScreenWidth < TZScreenWidth && fullScreenWidth < photoPreviewMaxWidth {
+        if photoWidth < TZScreenWidth && photoWidth < photoPreviewMaxWidth {
             imageSize = AssetGridThumbnailSize
         } else {
-            let aspectRatio: CGFloat = CGFloat(asset!.pixelWidth) / CGFloat(asset!.pixelHeight);
-            var pixelWidth: CGFloat = fullScreenWidth * TZScreenScale * 1.5;
+            let aspectRatio: CGFloat = CGFloat(asset.pixelWidth) / CGFloat(asset.pixelHeight)
+            var pixelWidth: CGFloat = photoWidth * TZScreenScale * 1.5;
             // 超宽图片
             if (aspectRatio > 1.8) {
                 pixelWidth = pixelWidth * aspectRatio;
@@ -337,7 +358,7 @@ class TZImageManager: NSObject {
         // 下面两行代码，来自hsjcom，他的github是：https://github.com/hsjcom 表示感谢
         let option = PHImageRequestOptions()
         option.resizeMode = .fast
-        let imageRequestID = cachingImageManager.requestImage(for: asset!, targetSize: imageSize, contentMode: .aspectFill, options: option, resultHandler: { (result, info) in
+        let imageRequestID = PHImageManager.default().requestImage(for: asset, targetSize: imageSize, contentMode: .aspectFill, options: option, resultHandler: { (result, info) in
 
             guard var result_image = result, let _info = info else {
                 return
@@ -366,7 +387,7 @@ class TZImageManager: NSObject {
 
                 options.isNetworkAccessAllowed = true
                 options.resizeMode = .fast
-                PHImageManager.default().requestImageData(for: asset!, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
+                PHImageManager.default().requestImageData(for: asset, options: options, resultHandler: { (imageData, dataUTI, orientation, info) in
                     var resultImage = UIImage(data: imageData!, scale: 0.1)
                     resultImage = self.scaleImage(resultImage, to: imageSize)
                     if resultImage == nil {
@@ -387,7 +408,7 @@ class TZImageManager: NSObject {
         if !self.sortAscendingByModificationDate {
             asset = model?.result?.firstObject
         }
-        _ = TZImageManager.manager.getPhoto(photoWithAsset: asset, photoWidth: 80, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
+        _ = TZImageManager.manager.getPhoto(with: asset!, photoWidth: 80, networkAccessAllowed: true, completion: { (photo, info, isDegraded) -> (Void) in
             completion(photo)
 
         }, progressHandler:{
@@ -421,7 +442,7 @@ class TZImageManager: NSObject {
         let option = PHImageRequestOptions()
         option.isNetworkAccessAllowed = true
         option.resizeMode = .fast
-        cachingImageManager.requestImageData(for: asset!, options: option) { (imageData, dataUTI, orientation, info) in
+        PHImageManager.default().requestImageData(for: asset!, options: option) { (imageData, dataUTI, orientation, info) in
             let downloadFinined = !(info![PHImageCancelledKey] != nil)  && !(info![PHImageErrorKey] != nil)
             if downloadFinined && imageData != nil {
                 completion(imageData, info, false)
@@ -476,7 +497,7 @@ class TZImageManager: NSObject {
                 progressHandler(progress, error, stop, info)
             })
         }
-        cachingImageManager.requestPlayerItem(forVideo: asset!, options: option) { (playerItem, info) in
+        PHImageManager.default().requestPlayerItem(forVideo: asset!, options: option) { (playerItem, info) in
             guard playerItem != nil, info != nil else {
                 return
             }
@@ -489,7 +510,7 @@ class TZImageManager: NSObject {
         options.version = .original
         options.deliveryMode = .automatic
         options.isNetworkAccessAllowed = true
-        cachingImageManager.requestAVAsset(forVideo: asset!, options: options) { (avasset, audioMix, info) in
+        PHImageManager.default().requestAVAsset(forVideo: asset!, options: options) { (avasset, audioMix, info) in
             self.startExportVideoAsset(avasset as? AVURLAsset, completion: completion)
         }
     }
