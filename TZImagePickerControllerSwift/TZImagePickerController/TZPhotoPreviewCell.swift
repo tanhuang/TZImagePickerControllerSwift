@@ -276,7 +276,7 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
         return imageContainerView
     }
 
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         scrollView.contentInset = UIEdgeInsets.zero
     }
 
@@ -300,14 +300,14 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
             // 1.7.2 如果允许裁剪,需要让图片的任意部分都能在裁剪框内，于是对_scrollView做了如下处理：
             // 1.让contentSize增大(裁剪框右下角的图片部分)
             let contentWidthAdd = (self.scrollView?.frame.width)! - cropRect.maxX
-            let contentHeightAdd = (min((imageContainerView?.frame.height)!, self.frame.height) - self.cropRect.size.height) / 2;
-            let newSizeW = (self.scrollView?.contentSize.width)! + contentWidthAdd;
-            let newSizeH = max((self.scrollView?.contentSize.height)!, self.frame.height) + contentHeightAdd;
-            scrollView?.contentSize = CGSize(width: newSizeW, height: newSizeH);
-            scrollView?.alwaysBounceVertical = true;
+            let contentHeightAdd = (min((imageContainerView?.frame.height)!, self.frame.height) - self.cropRect.size.height) / 2
+            let newSizeW = (self.scrollView?.contentSize.width)! + contentWidthAdd
+            let newSizeH = max((self.scrollView?.contentSize.height)!, self.frame.height) + contentHeightAdd
+            scrollView?.contentSize = CGSize(width: newSizeW, height: newSizeH)
+            scrollView?.alwaysBounceVertical = true
             // 2.让scrollView新增滑动区域（裁剪框左上角的图片部分）
             if (contentHeightAdd > 0 || contentWidthAdd > 0) {
-                scrollView?.contentInset = UIEdgeInsetsMake(contentHeightAdd, cropRect.origin.x, 0, 0);
+                scrollView?.contentInset = UIEdgeInsetsMake(contentHeightAdd, cropRect.origin.x, 0, 0)
             } else {
                 scrollView?.contentInset = UIEdgeInsets.zero;
             }
