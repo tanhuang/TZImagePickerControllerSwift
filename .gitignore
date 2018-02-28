@@ -5,3 +5,4 @@ UserInterface.xcuserstate
 *.xcuserstate
 fastlane
 Gemfile
+.DS_Store

@@ -122,7 +122,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if collectionView != nil {
-            self.updateCachedAssets()
+            // self.updateCachedAssets()
         }
     }
 
@@ -221,7 +221,6 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         DispatchQueue.main.async {
             let tzImagePickerVc = self.navigationController as? TZImagePickerController
             tzImagePickerVc?.hideProgressHUD()
-
             self.checkSelectedModels()
             self.configCollectionView()
             self.collectionView?.isHidden = true
@@ -229,7 +228,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
 
             self.scrollCollectionViewToBottom()
 
-            self.updateCachedAssets()
+            // self.updateCachedAssets()
         }
     }
 
@@ -694,20 +693,20 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
 
     func checkSelectedModels() {
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
-        var selectedAssets1 = [PHAsset]()
         _ = self._models?.map({ model1 in
             model1.isSelected = false
+            var selectedAssets = [PHAsset]()
             _ = tzImagePickerVc?.selectedModels.map({ model2 in
-                selectedAssets1.append(model2.asset)
+                selectedAssets.append(model2.asset)
             })
-            if selectedAssets1.contains(model1.asset) {
+            if selectedAssets.contains(model1.asset) {
                 model1.isSelected = true
             }
         })
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.updateCachedAssets()
+        // self.updateCachedAssets()
     }
 
 
