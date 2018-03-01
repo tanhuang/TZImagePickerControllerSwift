@@ -158,11 +158,10 @@ class TZImageManager: NSObject {
                         return
                     }
 
-                let model = self.modelWithResult(result: tz_fetchResult, name: collection.localizedTitle!, isCameraRoll: true)
                 if collection.assetCollectionSubtype == .smartAlbumUserLibrary {
-                    albumArr.insert(model, at: 0)
+                    albumArr.insert(self.modelWithResult(result: tz_fetchResult, name: collection.localizedTitle!, isCameraRoll: true), at: 0)
                 } else {
-                    albumArr.append(model)
+                    albumArr.append(self.modelWithResult(result: tz_fetchResult, name: collection.localizedTitle!, isCameraRoll: false))
                 }
             })
         }

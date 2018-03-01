@@ -24,12 +24,8 @@ import Photos
 
     @objc optional func tz_imagePickerControllerDidCancel(_ picker: TZImagePickerController)
 
-//    - (void)tz_imagePickerControllerDidCancel:(TZImagePickerController *)picker;
-
     // If user picking a video, this callback will be called.
-    // If system version > iOS8,asset is kind of PHAsset class, else is ALAsset class.
     // 如果用户选择了一个视频，下面的handle会被执行
-    // 如果系统版本大于iOS8，asset是PHAsset类的对象，否则是ALAsset类的对象
     @objc optional func imagePickerController(_ picker: TZImagePickerController, didFinishPickingVideo coverImage: UIImage, sourceAssets: PHAsset)
 
     // If user picking a gif image, this callback will be called.
@@ -314,9 +310,7 @@ class TZImagePickerController: UINavigationController {
         self.maxImagesCount = maxImagesCount
         self.pickerDelegate = delegate
 
-
         initDelegateData()
-
 
         if TZImageManager.manager.authorizationStatusAuthorized() {
             pushPhotoPickerViewController()

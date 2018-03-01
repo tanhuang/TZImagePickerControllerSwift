@@ -22,9 +22,8 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
         isFirstAppear = true
         view.backgroundColor = UIColor.white
 
-        guard let imagePickerVc = self.navigationController as? TZImagePickerController else {
-            return
-        }
+        guard let imagePickerVc = self.navigationController as? TZImagePickerController else { return }
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: imagePickerVc.cancelBtnTitleStr, style: .plain, target: imagePickerVc, action: #selector(imagePickerVc.cancelButtonClick))
     }
 
@@ -36,15 +35,16 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let imagePickerVc = self.navigationController as? TZImagePickerController
-        imagePickerVc?.hideProgressHUD()
-        if (imagePickerVc?.allowTakePicture)! {
+        guard let imagePickerVc = self.navigationController as? TZImagePickerController else { return }
+
+        imagePickerVc.hideProgressHUD()
+        if imagePickerVc.allowTakePicture {
             self.navigationItem.title = Bundle.tz_localizedString(forKey: "Photos")
-        } else if (imagePickerVc?.allowPickingVideo)! {
+        } else if imagePickerVc.allowPickingVideo {
             self.navigationItem.title = Bundle.tz_localizedString(forKey: "Videos")
         }
 
-        if self.isFirstAppear && (imagePickerVc?.navLeftBarButtonSettingBlock == nil) {
+        if self.isFirstAppear && (imagePickerVc.navLeftBarButtonSettingBlock == nil) {
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: Bundle.tz_localizedString(forKey: "Back"), style: .plain, target: nil, action: nil)
             self.isFirstAppear = false
         }
@@ -53,11 +53,11 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func configTableView() {
+        guard let imagePickerVc = self.navigationController as? TZImagePickerController else { return }
         DispatchQueue.global().async {
-            let imagePickerVc = self.navigationController as? TZImagePickerController
-            TZImageManager.manager.getAllAlbums(allowPickingVideo: (imagePickerVc?.allowPickingVideo)!, allowPickingImage: (imagePickerVc?.allowPickingImage)!, completion: { models in
+            TZImageManager.manager.getAllAlbums(allowPickingVideo: imagePickerVc.allowPickingVideo, allowPickingImage: imagePickerVc.allowPickingImage, completion: { models in
                 self.albumArr = models
-                _ = self.albumArr.map { $0.selectedModels = imagePickerVc?.selectedModels }
+                _ = self.albumArr.map { $0.selectedModels = imagePickerVc.selectedModels }
             })
             DispatchQueue.main.async(execute: {
                 if self.tableView == nil {
@@ -80,16 +80,12 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: TZAlbumCell? = tableView.dequeueReusableCell(withIdentifier: "TZAlbumCell") as? TZAlbumCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TZAlbumCell") as! TZAlbumCell
         let imagePickerVc = self.navigationController as? TZImagePickerController
-        cell?.selectedCountButton.backgroundColor = imagePickerVc?.oKButtonTitleColorNormal
-        cell?.model = albumArr[indexPath.row]
-        cell?.accessoryType = .disclosureIndicator
-        return cell!
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
+        cell.selectedCountButton.backgroundColor = imagePickerVc?.oKButtonTitleColorNormal
+        cell.model = albumArr[indexPath.row]
+        cell.accessoryType = .disclosureIndicator
+        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

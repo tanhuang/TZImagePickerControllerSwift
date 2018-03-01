@@ -232,7 +232,6 @@ class TZAssetCell: UICollectionViewCell {
         self.type = TZAssetCellType(rawValue: (self.model?.type.rawValue)!)
         let isSelectedBtn = self.showSelectBtn
         self.showSelectBtn = isSelectedBtn
-
     }
 }
 

@@ -69,7 +69,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        resetCachedAssets()
+//        resetCachedAssets()
 
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         isSelectOriginalPhoto = (tzImagePickerVc?.isSelectOriginalPhoto)!
