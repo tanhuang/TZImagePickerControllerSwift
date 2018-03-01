@@ -181,6 +181,7 @@ class TZImagePickerController: UINavigationController {
     /// 用户选中过的图片数组
     var selectedAssets = [PHAsset]() {
         didSet {
+            selectedModels.removeAll()
             for asset in selectedAssets {
                 let model = TZAssetModel(asset: asset, type: TZImageManager.manager.getAssetType(asset: asset), isSelected: false, timeLength: "0")
                 model.isSelected = true

@@ -370,22 +370,27 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
             }
         } else {
             let selectedModels = _tzImagePickerVc.selectedModels
-            for (index, model_item) in selectedModels.enumerated() {
-                if model.asset.isEqual(model_item.asset) {
-                    _tzImagePickerVc.selectedModels.remove(at: index)
-                    break
-                }
-                if self.photos.count > 0 {
-                    let selectedAssetsTmp = _tzImagePickerVc.selectedAssets
-                    for (index, asset) in selectedAssetsTmp.enumerated() {
-                        if asset.isEqual(_assetsTemp[currentIndex]) {
-                            _tzImagePickerVc.selectedAssets.remove(at: index)
+            for model_item in selectedModels {
+                if model.asset.localIdentifier == model_item.asset.localIdentifier {
+                    let selectedModelsTmp = _tzImagePickerVc.selectedModels
+                    for (index, model1) in selectedModelsTmp.enumerated() {
+                        if model1.isEqual(model_item) {
+                            _tzImagePickerVc.selectedModels.remove(at: index)
                             break
                         }
                     }
-                    self.photos.remove(at: (self.photos.index(of: _photosTemp[currentIndex]))!)
+                    if self.photos.count > 0 {
+                        let selectedAssetsTmp = _tzImagePickerVc.selectedAssets
+                        for (index, asset) in selectedAssetsTmp.enumerated() {
+                            if asset.isEqual(_assetsTemp[currentIndex]) {
+                                _tzImagePickerVc.selectedAssets.remove(at: index)
+                                break
+                            }
+                        }
+                        self.photos.remove(at: (self.photos.index(of: _photosTemp[currentIndex]))!)
+                    }
+                    break
                 }
-                break
             }
         }
         model.isSelected = !selectButton.isSelected
@@ -480,12 +485,13 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     }
 
     func refreshNaviBarAndBottomBarState() {
-        let _tzImagePickerVc = self.navigationController as? TZImagePickerController
+        guard let _tzImagePickerVc = self.navigationController as? TZImagePickerController  else { return }
+
         let model = models[currentIndex]
-        _selectButton?.isSelected = model.isSelected;
-        _numberLabel?.text = "\((_tzImagePickerVc?.selectedModels.count)!)"
-        _numberImageView?.isHidden = ((_tzImagePickerVc?.selectedModels.count)! <= 0 || isHideNaviBar || isCropImage)
-        _numberLabel?.isHidden = ((_tzImagePickerVc?.selectedModels.count)! <= 0 || isHideNaviBar || isCropImage)
+        _selectButton?.isSelected = model.isSelected
+        _numberLabel?.text = "\(_tzImagePickerVc.selectedModels.count)"
+        _numberImageView?.isHidden = (_tzImagePickerVc.selectedModels.count <= 0 || isHideNaviBar || isCropImage)
+        _numberLabel?.isHidden = (_tzImagePickerVc.selectedModels.count <= 0 || isHideNaviBar || isCropImage)
 
         _originalPhotoButton?.isSelected = isSelectOriginalPhoto
         _originalPhotoLabel?.isHidden = !(_originalPhotoButton?.isSelected)!
@@ -508,7 +514,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         }
 
         _doneButton?.isHidden = false
-        _selectButton?.isHidden = !(_tzImagePickerVc?.showSelectBtn)!
+        _selectButton?.isHidden = !_tzImagePickerVc.showSelectBtn
         // 让宽度/高度小于 最小可选照片尺寸 的图片不能选中
         if !TZImageManager.manager.isPhoto(selectableWithAsset: model.asset) {
             _numberLabel?.isHidden = true
