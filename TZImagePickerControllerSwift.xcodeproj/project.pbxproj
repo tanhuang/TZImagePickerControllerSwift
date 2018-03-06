@@ -1,0 +1,666 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C222AE58202152A1003C79FE /* TZPhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C222AE57202152A0003C79FE /* TZPhotoPickerController.swift */; };
+		C24518C61FFC6FE300ACAD58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24518C51FFC6FE300ACAD58 /* AppDelegate.swift */; };
+		C24518C81FFC6FE300ACAD58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24518C71FFC6FE300ACAD58 /* ViewController.swift */; };
+		C24518CB1FFC6FE300ACAD58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C24518C91FFC6FE300ACAD58 /* Main.storyboard */; };
+		C24518CD1FFC6FE300ACAD58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C24518CC1FFC6FE300ACAD58 /* Assets.xcassets */; };
+		C24518D01FFC6FE300ACAD58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C24518CE1FFC6FE300ACAD58 /* LaunchScreen.storyboard */; };
+		C24518DB1FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24518DA1FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests.swift */; };
+		C24518E61FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24518E51FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests.swift */; };
+		C24518F91FFCBF2500ACAD58 /* TZImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24518F81FFCBF2500ACAD58 /* TZImagePickerController.swift */; };
+		C24518FC1FFCD57200ACAD58 /* TZTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24518FB1FFCD57200ACAD58 /* TZTestCell.swift */; };
+		C25B9CC32005F17D000AE5A4 /* TZExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25B9CC22005F17D000AE5A4 /* TZExtension.swift */; };
+		C26B9C362015AC26000C2710 /* TZPhotoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C352015AC26000C2710 /* TZPhotoPreviewController.swift */; };
+		C26B9C382015AEBF000C2710 /* TZVideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C372015AEBF000C2710 /* TZVideoPlayerController.swift */; };
+		C26B9C3A2015AF4A000C2710 /* TZGifPhotoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C392015AF4A000C2710 /* TZGifPhotoPreviewController.swift */; };
+		C26B9C3C2015B180000C2710 /* TZPhotoPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C3B2015B180000C2710 /* TZPhotoPreviewCell.swift */; };
+		C26B9C3E2015B1D9000C2710 /* TZAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C3D2015B1D9000C2710 /* TZAssetCell.swift */; };
+		C26B9C402015B1F0000C2710 /* TZProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C3F2015B1F0000C2710 /* TZProgressView.swift */; };
+		C26B9C422015B209000C2710 /* TZImageCropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C412015B209000C2710 /* TZImageCropManager.swift */; };
+		C26B9C442015B21A000C2710 /* TZLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26B9C432015B21A000C2710 /* TZLocationManager.swift */; };
+		C26B9C462015BC1C000C2710 /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C26B9C452015BC1C000C2710 /* TZImagePickerController.bundle */; };
+		C2B4BFFC2004B74600C231B3 /* TZAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B4BFFB2004B74600C231B3 /* TZAssetModel.swift */; };
+		C2B4BFFE2004C10000C231B3 /* TZImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B4BFFD2004C10000C231B3 /* TZImageManager.swift */; };
+		C2DF6D71202A957B00EBD000 /* LxGridViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DF6D70202A957B00EBD000 /* LxGridViewFlowLayout.swift */; };
+		C2F672F3201857C80055BFBE /* TZAlbumPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F672F2201857C80055BFBE /* TZAlbumPickerController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C24518D71FFC6FE300ACAD58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C24518BA1FFC6FE300ACAD58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C24518C11FFC6FE300ACAD58;
+			remoteInfo = TZImagePickerControllerSwift;
+		};
+		C24518E21FFC6FE300ACAD58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C24518BA1FFC6FE300ACAD58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C24518C11FFC6FE300ACAD58;
+			remoteInfo = TZImagePickerControllerSwift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C222AE57202152A0003C79FE /* TZPhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZPhotoPickerController.swift; sourceTree = "<group>"; };
+		C24518C21FFC6FE300ACAD58 /* TZImagePickerControllerSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TZImagePickerControllerSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C24518C51FFC6FE300ACAD58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C24518C71FFC6FE300ACAD58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C24518CA1FFC6FE300ACAD58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C24518CC1FFC6FE300ACAD58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C24518CF1FFC6FE300ACAD58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C24518D11FFC6FE300ACAD58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C24518D61FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TZImagePickerControllerSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C24518DA1FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImagePickerControllerSwiftTests.swift; sourceTree = "<group>"; };
+		C24518DC1FFC6FE300ACAD58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C24518E11FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TZImagePickerControllerSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C24518E51FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImagePickerControllerSwiftUITests.swift; sourceTree = "<group>"; };
+		C24518E71FFC6FE400ACAD58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C24518F81FFCBF2500ACAD58 /* TZImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImagePickerController.swift; sourceTree = "<group>"; };
+		C24518FB1FFCD57200ACAD58 /* TZTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZTestCell.swift; sourceTree = "<group>"; };
+		C24A0B60203FB5A200ADF8BF /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/Main.strings"; sourceTree = "<group>"; };
+		C24A0B61203FB5A200ADF8BF /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C24A0B6D203FC3D500ADF8BF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C25B9CC22005F17D000AE5A4 /* TZExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZExtension.swift; sourceTree = "<group>"; };
+		C26B9C352015AC26000C2710 /* TZPhotoPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZPhotoPreviewController.swift; sourceTree = "<group>"; };
+		C26B9C372015AEBF000C2710 /* TZVideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZVideoPlayerController.swift; sourceTree = "<group>"; };
+		C26B9C392015AF4A000C2710 /* TZGifPhotoPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZGifPhotoPreviewController.swift; sourceTree = "<group>"; };
+		C26B9C3B2015B180000C2710 /* TZPhotoPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZPhotoPreviewCell.swift; sourceTree = "<group>"; };
+		C26B9C3D2015B1D9000C2710 /* TZAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssetCell.swift; sourceTree = "<group>"; };
+		C26B9C3F2015B1F0000C2710 /* TZProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZProgressView.swift; sourceTree = "<group>"; };
+		C26B9C412015B209000C2710 /* TZImageCropManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImageCropManager.swift; sourceTree = "<group>"; };
+		C26B9C432015B21A000C2710 /* TZLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZLocationManager.swift; sourceTree = "<group>"; };
+		C26B9C452015BC1C000C2710 /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TZImagePickerController.bundle; sourceTree = "<group>"; };
+		C2B4BFFB2004B74600C231B3 /* TZAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssetModel.swift; sourceTree = "<group>"; };
+		C2B4BFFD2004C10000C231B3 /* TZImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImageManager.swift; sourceTree = "<group>"; };
+		C2DF6D70202A957B00EBD000 /* LxGridViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LxGridViewFlowLayout.swift; sourceTree = "<group>"; };
+		C2F672F2201857C80055BFBE /* TZAlbumPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAlbumPickerController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C24518BF1FFC6FE300ACAD58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C24518D31FFC6FE300ACAD58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C24518DE1FFC6FE300ACAD58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C24518B91FFC6FE300ACAD58 = {
+			isa = PBXGroup;
+			children = (
+				C24518C41FFC6FE300ACAD58 /* TZImagePickerControllerSwift */,
+				C24518D91FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests */,
+				C24518E41FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests */,
+				C24518C31FFC6FE300ACAD58 /* Products */,
+				C24A0B6C203FC3D500ADF8BF /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C24518C31FFC6FE300ACAD58 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C24518C21FFC6FE300ACAD58 /* TZImagePickerControllerSwift.app */,
+				C24518D61FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests.xctest */,
+				C24518E11FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C24518C41FFC6FE300ACAD58 /* TZImagePickerControllerSwift */ = {
+			isa = PBXGroup;
+			children = (
+				C24518F71FFCBEFD00ACAD58 /* TZImagePickerController */,
+				C24518C51FFC6FE300ACAD58 /* AppDelegate.swift */,
+				C24518C71FFC6FE300ACAD58 /* ViewController.swift */,
+				C24518C91FFC6FE300ACAD58 /* Main.storyboard */,
+				C24518FB1FFCD57200ACAD58 /* TZTestCell.swift */,
+				C2DF6D70202A957B00EBD000 /* LxGridViewFlowLayout.swift */,
+				C24518CC1FFC6FE300ACAD58 /* Assets.xcassets */,
+				C24518CE1FFC6FE300ACAD58 /* LaunchScreen.storyboard */,
+				C24518D11FFC6FE300ACAD58 /* Info.plist */,
+			);
+			path = TZImagePickerControllerSwift;
+			sourceTree = "<group>";
+		};
+		C24518D91FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				C24518DA1FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests.swift */,
+				C24518DC1FFC6FE300ACAD58 /* Info.plist */,
+			);
+			path = TZImagePickerControllerSwiftTests;
+			sourceTree = "<group>";
+		};
+		C24518E41FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C24518E51FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests.swift */,
+				C24518E71FFC6FE400ACAD58 /* Info.plist */,
+			);
+			path = TZImagePickerControllerSwiftUITests;
+			sourceTree = "<group>";
+		};
+		C24518F71FFCBEFD00ACAD58 /* TZImagePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				C24518F81FFCBF2500ACAD58 /* TZImagePickerController.swift */,
+				C2F672F2201857C80055BFBE /* TZAlbumPickerController.swift */,
+				C26B9C352015AC26000C2710 /* TZPhotoPreviewController.swift */,
+				C222AE57202152A0003C79FE /* TZPhotoPickerController.swift */,
+				C26B9C372015AEBF000C2710 /* TZVideoPlayerController.swift */,
+				C26B9C392015AF4A000C2710 /* TZGifPhotoPreviewController.swift */,
+				C2B4BFFB2004B74600C231B3 /* TZAssetModel.swift */,
+				C2B4BFFD2004C10000C231B3 /* TZImageManager.swift */,
+				C26B9C3B2015B180000C2710 /* TZPhotoPreviewCell.swift */,
+				C26B9C3D2015B1D9000C2710 /* TZAssetCell.swift */,
+				C26B9C3F2015B1F0000C2710 /* TZProgressView.swift */,
+				C26B9C412015B209000C2710 /* TZImageCropManager.swift */,
+				C26B9C432015B21A000C2710 /* TZLocationManager.swift */,
+				C25B9CC22005F17D000AE5A4 /* TZExtension.swift */,
+				C26B9C452015BC1C000C2710 /* TZImagePickerController.bundle */,
+			);
+			path = TZImagePickerController;
+			sourceTree = "<group>";
+		};
+		C24A0B6C203FC3D500ADF8BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C24A0B6D203FC3D500ADF8BF /* MobileCoreServices.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C24518C11FFC6FE300ACAD58 /* TZImagePickerControllerSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C24518EA1FFC6FE400ACAD58 /* Build configuration list for PBXNativeTarget "TZImagePickerControllerSwift" */;
+			buildPhases = (
+				C24518BE1FFC6FE300ACAD58 /* Sources */,
+				C24518BF1FFC6FE300ACAD58 /* Frameworks */,
+				C24518C01FFC6FE300ACAD58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TZImagePickerControllerSwift;
+			productName = TZImagePickerControllerSwift;
+			productReference = C24518C21FFC6FE300ACAD58 /* TZImagePickerControllerSwift.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C24518D51FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C24518ED1FFC6FE400ACAD58 /* Build configuration list for PBXNativeTarget "TZImagePickerControllerSwiftTests" */;
+			buildPhases = (
+				C24518D21FFC6FE300ACAD58 /* Sources */,
+				C24518D31FFC6FE300ACAD58 /* Frameworks */,
+				C24518D41FFC6FE300ACAD58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C24518D81FFC6FE300ACAD58 /* PBXTargetDependency */,
+			);
+			name = TZImagePickerControllerSwiftTests;
+			productName = TZImagePickerControllerSwiftTests;
+			productReference = C24518D61FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C24518E01FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C24518F01FFC6FE400ACAD58 /* Build configuration list for PBXNativeTarget "TZImagePickerControllerSwiftUITests" */;
+			buildPhases = (
+				C24518DD1FFC6FE300ACAD58 /* Sources */,
+				C24518DE1FFC6FE300ACAD58 /* Frameworks */,
+				C24518DF1FFC6FE300ACAD58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C24518E31FFC6FE300ACAD58 /* PBXTargetDependency */,
+			);
+			name = TZImagePickerControllerSwiftUITests;
+			productName = TZImagePickerControllerSwiftUITests;
+			productReference = C24518E11FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C24518BA1FFC6FE300ACAD58 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TZ;
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Tan.huang;
+				TargetAttributes = {
+					C24518C11FFC6FE300ACAD58 = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+					};
+					C24518D51FFC6FE300ACAD58 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C24518C11FFC6FE300ACAD58;
+					};
+					C24518E01FFC6FE300ACAD58 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C24518C11FFC6FE300ACAD58;
+					};
+				};
+			};
+			buildConfigurationList = C24518BD1FFC6FE300ACAD58 /* Build configuration list for PBXProject "TZImagePickerControllerSwift" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans-CN",
+			);
+			mainGroup = C24518B91FFC6FE300ACAD58;
+			productRefGroup = C24518C31FFC6FE300ACAD58 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C24518C11FFC6FE300ACAD58 /* TZImagePickerControllerSwift */,
+				C24518D51FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests */,
+				C24518E01FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C24518C01FFC6FE300ACAD58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C24518D01FFC6FE300ACAD58 /* LaunchScreen.storyboard in Resources */,
+				C26B9C462015BC1C000C2710 /* TZImagePickerController.bundle in Resources */,
+				C24518CD1FFC6FE300ACAD58 /* Assets.xcassets in Resources */,
+				C24518CB1FFC6FE300ACAD58 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C24518D41FFC6FE300ACAD58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C24518DF1FFC6FE300ACAD58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C24518BE1FFC6FE300ACAD58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C26B9C3A2015AF4A000C2710 /* TZGifPhotoPreviewController.swift in Sources */,
+				C24518C81FFC6FE300ACAD58 /* ViewController.swift in Sources */,
+				C26B9C422015B209000C2710 /* TZImageCropManager.swift in Sources */,
+				C2DF6D71202A957B00EBD000 /* LxGridViewFlowLayout.swift in Sources */,
+				C26B9C402015B1F0000C2710 /* TZProgressView.swift in Sources */,
+				C2B4BFFC2004B74600C231B3 /* TZAssetModel.swift in Sources */,
+				C26B9C3E2015B1D9000C2710 /* TZAssetCell.swift in Sources */,
+				C26B9C382015AEBF000C2710 /* TZVideoPlayerController.swift in Sources */,
+				C222AE58202152A1003C79FE /* TZPhotoPickerController.swift in Sources */,
+				C24518FC1FFCD57200ACAD58 /* TZTestCell.swift in Sources */,
+				C26B9C3C2015B180000C2710 /* TZPhotoPreviewCell.swift in Sources */,
+				C24518F91FFCBF2500ACAD58 /* TZImagePickerController.swift in Sources */,
+				C2F672F3201857C80055BFBE /* TZAlbumPickerController.swift in Sources */,
+				C24518C61FFC6FE300ACAD58 /* AppDelegate.swift in Sources */,
+				C2B4BFFE2004C10000C231B3 /* TZImageManager.swift in Sources */,
+				C25B9CC32005F17D000AE5A4 /* TZExtension.swift in Sources */,
+				C26B9C442015B21A000C2710 /* TZLocationManager.swift in Sources */,
+				C26B9C362015AC26000C2710 /* TZPhotoPreviewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C24518D21FFC6FE300ACAD58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C24518DB1FFC6FE300ACAD58 /* TZImagePickerControllerSwiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C24518DD1FFC6FE300ACAD58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C24518E61FFC6FE300ACAD58 /* TZImagePickerControllerSwiftUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C24518D81FFC6FE300ACAD58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C24518C11FFC6FE300ACAD58 /* TZImagePickerControllerSwift */;
+			targetProxy = C24518D71FFC6FE300ACAD58 /* PBXContainerItemProxy */;
+		};
+		C24518E31FFC6FE300ACAD58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C24518C11FFC6FE300ACAD58 /* TZImagePickerControllerSwift */;
+			targetProxy = C24518E21FFC6FE300ACAD58 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C24518C91FFC6FE300ACAD58 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C24518CA1FFC6FE300ACAD58 /* Base */,
+				C24A0B60203FB5A200ADF8BF /* zh-Hans-CN */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C24518CE1FFC6FE300ACAD58 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C24518CF1FFC6FE300ACAD58 /* Base */,
+				C24A0B61203FB5A200ADF8BF /* zh-Hans-CN */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C24518E81FFC6FE400ACAD58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C24518E91FFC6FE400ACAD58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C24518EB1FFC6FE400ACAD58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AWVPG73994;
+				INFOPLIST_FILE = TZImagePickerControllerSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanhuag.TZImagePickerControllerSwift;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C24518EC1FFC6FE400ACAD58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AWVPG73994;
+				INFOPLIST_FILE = TZImagePickerControllerSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanhuag.TZImagePickerControllerSwift;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C24518EE1FFC6FE400ACAD58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3X7RRL7Z68;
+				INFOPLIST_FILE = TZImagePickerControllerSwiftTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanhuag.TZImagePickerControllerSwiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TZImagePickerControllerSwift.app/TZImagePickerControllerSwift";
+			};
+			name = Debug;
+		};
+		C24518EF1FFC6FE400ACAD58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3X7RRL7Z68;
+				INFOPLIST_FILE = TZImagePickerControllerSwiftTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanhuag.TZImagePickerControllerSwiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TZImagePickerControllerSwift.app/TZImagePickerControllerSwift";
+			};
+			name = Release;
+		};
+		C24518F11FFC6FE400ACAD58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3X7RRL7Z68;
+				INFOPLIST_FILE = TZImagePickerControllerSwiftUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanhuag.TZImagePickerControllerSwiftUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TZImagePickerControllerSwift;
+			};
+			name = Debug;
+		};
+		C24518F21FFC6FE400ACAD58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3X7RRL7Z68;
+				INFOPLIST_FILE = TZImagePickerControllerSwiftUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanhuag.TZImagePickerControllerSwiftUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TZImagePickerControllerSwift;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C24518BD1FFC6FE300ACAD58 /* Build configuration list for PBXProject "TZImagePickerControllerSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C24518E81FFC6FE400ACAD58 /* Debug */,
+				C24518E91FFC6FE400ACAD58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C24518EA1FFC6FE400ACAD58 /* Build configuration list for PBXNativeTarget "TZImagePickerControllerSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C24518EB1FFC6FE400ACAD58 /* Debug */,
+				C24518EC1FFC6FE400ACAD58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C24518ED1FFC6FE400ACAD58 /* Build configuration list for PBXNativeTarget "TZImagePickerControllerSwiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C24518EE1FFC6FE400ACAD58 /* Debug */,
+				C24518EF1FFC6FE400ACAD58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C24518F01FFC6FE400ACAD58 /* Build configuration list for PBXNativeTarget "TZImagePickerControllerSwiftUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C24518F11FFC6FE400ACAD58 /* Debug */,
+				C24518F21FFC6FE400ACAD58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C24518BA1FFC6FE300ACAD58 /* Project object */;
+}
