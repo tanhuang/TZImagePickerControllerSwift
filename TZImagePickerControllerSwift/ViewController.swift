@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  TZImagePickerControllerSwift
 //
-//  Created by 希达 on 2018/1/3.
-//  Copyright © 2018年 Tan.huang. All rights reserved.
+//  Created by Huang.Tan on 2018/1/3.
+//  Copyright © 2018年 Huang.Tan All rights reserved.
 //
 
 import UIKit
@@ -133,7 +133,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TZTestCell", for: indexPath) as! TZTestCell
         cell.videoImageView?.isHidden = true
         if indexPath.row == selectedPhotos.count {
-            cell.imageView?.image = UIImage(named: "AlbumAddBtn.png")
+            let image = UIImage(named: "AlbumAddBtn")
+            cell.imageView?.image = image
             cell.deleteBtn?.isHidden = true;
             cell.gifLable?.isHidden = true;
         } else {

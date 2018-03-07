@@ -2,8 +2,8 @@
 //  TZPhotoPreviewController.swift
 //  TZImagePickerControllerSwift
 //
-//  Created by 希达 on 2018/1/22.
-//  Copyright © 2018年 Tan.huang. All rights reserved.
+//  Created by Huang.Tan on 2018/1/22.
+//  Copyright © 2018年 Huang.Tan All rights reserved.
 //
 
 import UIKit
@@ -308,7 +308,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         if tzImagePickerVc.allowPickingMultipleVideo && model.type == .video {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TZVideoPreviewCell", for: indexPath) as! TZVideoPreviewCell
         } else if tzImagePickerVc.allowPickingMultipleVideo && model.type == .photoGif && tzImagePickerVc.allowPickingGif {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TZGifPreviewCell", for: indexPath) as! TZVideoPreviewCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TZGifPreviewCell", for: indexPath) as! TZGifPreviewCell
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TZPhotoPreviewCell", for: indexPath) as! TZPhotoPreviewCell
             (cell as! TZPhotoPreviewCell).cropRect = tzImagePickerVc.cropRect

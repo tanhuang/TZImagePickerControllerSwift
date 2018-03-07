@@ -2,8 +2,8 @@
 //  TZPhotoPreviewView.swift
 //  TZImagePickerControllerSwift
 //
-//  Created by 希达 on 2018/1/22.
-//  Copyright © 2018年 Tan.huang. All rights reserved.
+//  Created by Huang.Tan on 2018/1/22.
+//  Copyright © 2018年 Huang.Tan All rights reserved.
 //
 
 import UIKit

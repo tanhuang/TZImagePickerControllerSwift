@@ -2,8 +2,8 @@
 //  TZAssetCell.swift
 //  TZImagePickerControllerSwift
 //
-//  Created by 希达 on 2018/1/22.
-//  Copyright © 2018年 Tan.huang. All rights reserved.
+//  Created by Huang.Tan on 2018/1/22.
+//  Copyright © 2018年 Huang.Tan All rights reserved.
 //
 
 import UIKit
@@ -246,6 +246,7 @@ class TZAlbumCell: UITableViewCell {
             TZImageManager.manager.getPostImageWithAlbumModel(imageWithAlbumModel: model) { (postImage) -> (Void) in
                 self.posterImageView.image = postImage
             }
+
             if model?.selectedCount != 0 {
                 self.selectedCountButton.isHidden = false
                 self.selectedCountButton.setTitle("\((model?.selectedCount)!)", for: .normal)

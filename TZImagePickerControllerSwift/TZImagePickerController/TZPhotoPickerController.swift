@@ -2,8 +2,8 @@
 //  TZPhotoPickerController.swift
 //  TZImagePickerControllerSwift
 //
-//  Created by 希达 on 2018/1/22.
-//  Copyright © 2018年 Tan.huang. All rights reserved.
+//  Created by Huang.Tan on 2018/1/22.
+//  Copyright © 2018年 Huang.Tan All rights reserved.
 //
 
 import UIKit
@@ -532,31 +532,31 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
 
 
     func tz_assetCell(_ cell: TZAssetCell,_ model: TZAssetModel, _ isSelect: Bool) {
-        let tzImagePickerVc = self.navigationController as? TZImagePickerController
+
+        guard let tzImagePickerVc = self.navigationController as? TZImagePickerController else { return }
         // 1. cancel select / 取消选择
         if (isSelect) {
             cell.selectPhotoButton.isSelected = false
             model.isSelected = false
-            let selectedModels = (tzImagePickerVc?.selectedModels)!
-            for model_item in selectedModels {
-                if TZImageManager.manager.getAssetType(asset: model.asset) == TZImageManager.manager.getAssetType(asset: model_item.asset) {
-                    tzImagePickerVc?.selectedModels.remove(at: (tzImagePickerVc?.selectedModels.index(of: model_item))!)
+            for (index, model_item) in tzImagePickerVc.selectedModels.enumerated() {
+                if  model.asset.localIdentifier == model_item.asset.localIdentifier {
+                    tzImagePickerVc.selectedModels.remove(at:index)
                     break
                 }
             }
             self.refreshBottomToolBarStatus()
         } else {
             // 2. select:check if over the maxImagesCount / 选择照片,检查是否超过了最大个数的限制
-            if (tzImagePickerVc?.selectedModels.count)! < (tzImagePickerVc?.maxImagesCount)! {
+            if tzImagePickerVc.selectedModels.count < tzImagePickerVc.maxImagesCount {
                 cell.selectPhotoButton.isSelected = true
                 model.isSelected = true
-                tzImagePickerVc?.selectedModels.append(model)
+                tzImagePickerVc.selectedModels.append(model)
                 self.refreshBottomToolBarStatus()
             } else {
                 let string = String(format:
-                    NSLocalizedString("Select a maximum of %zd photos", tableName: nil, bundle: bundle!, comment: ""), (tzImagePickerVc?.maxImagesCount)!)
+                    NSLocalizedString("Select a maximum of %zd photos", tableName: nil, bundle: bundle!, comment: ""), tzImagePickerVc.maxImagesCount)
 
-                _ = tzImagePickerVc?.showAlert(title: string)
+                _ = tzImagePickerVc.showAlert(title: string)
             }
         }
         UIView.showOscillatoryAnimationWithLayer(layer: (self._numberImageView?.layer)!, type: .smaller)
