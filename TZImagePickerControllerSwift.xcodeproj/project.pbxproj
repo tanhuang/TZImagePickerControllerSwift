@@ -80,7 +80,6 @@
 		C26B9C412015B209000C2710 /* TZImageCropManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImageCropManager.swift; sourceTree = "<group>"; };
 		C26B9C432015B21A000C2710 /* TZLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZLocationManager.swift; sourceTree = "<group>"; };
 		C26B9C452015BC1C000C2710 /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TZImagePickerController.bundle; sourceTree = "<group>"; };
-		C2B0760A204E7B9600D22B20 /* TZImagePickerControllerSwift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TZImagePickerControllerSwift.entitlements; sourceTree = "<group>"; };
 		C2B4BFFB2004B74600C231B3 /* TZAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZAssetModel.swift; sourceTree = "<group>"; };
 		C2B4BFFD2004C10000C231B3 /* TZImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TZImageManager.swift; sourceTree = "<group>"; };
 		C2DF6D70202A957B00EBD000 /* LxGridViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LxGridViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -136,7 +135,6 @@
 		C24518C41FFC6FE300ACAD58 /* TZImagePickerControllerSwift */ = {
 			isa = PBXGroup;
 			children = (
-				C2B0760A204E7B9600D22B20 /* TZImagePickerControllerSwift.entitlements */,
 				C24518F71FFCBEFD00ACAD58 /* TZImagePickerController */,
 				C24518C51FFC6FE300ACAD58 /* AppDelegate.swift */,
 				C24518C71FFC6FE300ACAD58 /* ViewController.swift */,
