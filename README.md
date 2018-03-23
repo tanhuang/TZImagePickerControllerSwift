@@ -9,3 +9,4 @@ TZImagePickerControllerSwift版
 
 ![Objcetive-C版](https://github.com/banchichen/TZImagePickerController)
 
+![](https://github.com/tanhuang/TZImagePickerControllerSwift/blob/master/2018-03-23%2010_36_28.gif)
