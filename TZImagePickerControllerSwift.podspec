@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TZImagePickerControllerSwift"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "A clone of UIImagePickerController, support picking multiple photos、original photo and video"
   s.homepage     = "https://github.com/tanhuang/TZImagePickerControllerSwift"
   s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.swift_version = "4.0"
   s.ios.deployment_target = "8.0"
-  s.source       = { :git => "https://github.com/tanhuang/TZImagePickerControllerSwift.git", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/tanhuang/TZImagePickerControllerSwift.git", :tag => s.version }
   s.requires_arc = true
-  s.resources    = "TZImagePickerControllerSwift/TZImagePickerController/*.{png,xib,nib,bundle}"
-  s.source_files = "TZImagePickerControllerSwift/TZImagePickerController/*.swift"
+  s.resources    = "/TZImagePickerController/*.{png,xib,nib,bundle}"
+  s.source_files = "/TZImagePickerController/*.swift"
 end
