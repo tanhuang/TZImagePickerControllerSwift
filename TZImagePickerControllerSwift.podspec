@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "8.0"
   s.source       = { :git => "https://github.com/tanhuang/TZImagePickerControllerSwift.git", :tag => s.version }
   s.requires_arc = true
-  s.resources    = "/TZImagePickerController/*.{png,xib,nib,bundle}"
-  s.source_files = "/TZImagePickerController/*.swift"
+  s.resources    = "TZImagePickerControllerSwift/TZImagePickerController/*.{png,xib,nib,bundle}"
+  s.source_files = "TZImagePickerControllerSwift/TZImagePickerController/*.swift"
 end
