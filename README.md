@@ -12,7 +12,8 @@ TZImagePickerControllerSwift版
 ![](https://github.com/tanhuang/TZImagePickerControllerSwift/blob/master/2018-03-23%2010_36_28.gif)
 
 
-=== 一. Installation 安装
+一. Installation 安装
+===
 CocoaPods
 
     pod 'TZImagePickerControllerSwift'
@@ -21,7 +22,8 @@ CocoaPods
 
     将TZImagePickerController文件夹拽入项目中
     
-=== 二. Example 例子
+二. Example 例子
+===
 ```
         let imagePickerVc = TZImagePickerController(delegate: self, maxImagesCount: Int(self.maxCountTF.text!)!, columnNumber: Int(self.columnNumberTF.text!)!, pushPhotoPickerVc: true)
 
@@ -102,4 +104,5 @@ CocoaPods
 ```
 
 三. Requirements 要求
+===
  iOS8及以上系统可使用. ARC环境. Swift4
