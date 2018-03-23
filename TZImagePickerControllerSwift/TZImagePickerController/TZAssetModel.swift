@@ -9,7 +9,7 @@
 import UIKit
 import Photos.PHAsset
 
-enum TZAssetModelMediaType: Int {
+public enum TZAssetModelMediaType: Int {
     case photo = 0
     case livePhoto
     case photoGif
@@ -17,13 +17,13 @@ enum TZAssetModelMediaType: Int {
     case audio
 }
 
-class TZAssetModel: NSObject {
-    var asset: PHAsset
-    var isSelected: Bool
-    var type: TZAssetModelMediaType
-    var timeLength: String
+public class TZAssetModel: NSObject {
+    public var asset: PHAsset
+    public var isSelected: Bool
+    public var type: TZAssetModelMediaType
+    public var timeLength: String
 
-    init(asset: PHAsset, type: TZAssetModelMediaType, isSelected: Bool, timeLength: String) {
+    public init(asset: PHAsset, type: TZAssetModelMediaType, isSelected: Bool, timeLength: String) {
         self.asset = asset
         self.type = type
         self.isSelected = isSelected
@@ -33,17 +33,17 @@ class TZAssetModel: NSObject {
 }
 
 
-class TZAlbumModel: NSObject {
+public class TZAlbumModel: NSObject {
 
-    var name: String = ""       ///< The album name
-    var count: Int = 0       ///< Count of photos the album contain
+    public var name: String = ""       ///< The album name
+    public var count: Int = 0       ///< Count of photos the album contain
 
-    var models: [TZAssetModel]?
-    var selectedCount: Int = 0
+    public var models: [TZAssetModel]?
+    public var selectedCount: Int = 0
 
-    var isCameraRoll: Bool = false
+    public var isCameraRoll: Bool = false
 
-    var result: PHFetchResult<PHAsset>? {
+    public var result: PHFetchResult<PHAsset>? {
         didSet {
             let allowPickingImage = UserDefaults.standard.object(forKey: "tz_allowPickingImage") as! Bool
             let allowPickingVideo = UserDefaults.standard.object(forKey: "tz_allowPickingVideo") as! Bool
@@ -57,7 +57,7 @@ class TZAlbumModel: NSObject {
         }
     }             ///< PHFetchResult<PHAsset>
 
-    var selectedModels: [TZAssetModel]? {
+    public var selectedModels: [TZAssetModel]? {
         didSet {
             if self.models != nil {
                 self.checkSelectedModels()

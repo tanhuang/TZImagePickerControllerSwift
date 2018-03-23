@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-@objc protocol TZImagePickerControllerDelegate: NSObjectProtocol {
+@objc public protocol TZImagePickerControllerDelegate: NSObjectProtocol {
     // The picker should dismiss itself; when it dismissed these handle will be called.
     // You can also set autoDismiss to NO, then the picker don't dismiss itself.
     // If isOriginalPhoto is YES, user picked the original photo.
@@ -43,7 +43,7 @@ import Photos
 }
 
 
-class TZImagePickerController: UINavigationController {
+public class TZImagePickerController: UINavigationController {
     //MARK: - private
     private var _timer: Timer?
     private var _tipLabel: UILabel?
@@ -76,7 +76,7 @@ class TZImagePickerController: UINavigationController {
     }
 
     /// Default is 9 / 默认最大可选9张图片
-    var maxImagesCount: Int = 9 {
+    public var maxImagesCount: Int = 9 {
         didSet {
             if maxImagesCount > 1 {
                 showSelectBtn = true
@@ -88,29 +88,29 @@ class TZImagePickerController: UINavigationController {
     //MARK: - open
     /// The minimum count photos user must pick, Default is 0
     /// 最小照片必选张数,默认是0
-    var minImagesCount: Int = 0
+    public var minImagesCount: Int = 0
 
     /// Always enale the done button, not require minimum 1 photo be picked
     /// 让完成按钮一直可以点击，无须最少选择一张图片
-    var alwaysEnableDoneBtn: Bool = true
+    public var alwaysEnableDoneBtn: Bool = true
 
     /// Sort photos ascending by modificationDate，Default is YES
     /// 对照片排序，按修改时间升序，默认是YES。如果设置为NO,最新的照片会显示在最前面，内部的拍照按钮会排在第一个
-    var sortAscendingByModificationDate: Bool = true {
+    public var sortAscendingByModificationDate: Bool = true {
         didSet {
             TZImageManager.manager.sortAscendingByModificationDate = sortAscendingByModificationDate;
         }
     }
 
     /// The pixel width of output image, Default is 828px / 导出图片的宽度，默认828像素宽
-    var photoWidth: CGFloat = 828.0 {
+    public var photoWidth: CGFloat = 828.0 {
         didSet {
             TZImageManager.manager.photoWidth = photoWidth
         }
     }
 
     /// Default is 600px / 默认600像素宽
-    var photoPreviewMaxWidth: CGFloat = 600.0 {
+    public var photoPreviewMaxWidth: CGFloat = 600.0 {
         didSet {
             if photoPreviewMaxWidth > 800 {
                 photoPreviewMaxWidth = 800
@@ -123,7 +123,7 @@ class TZImagePickerController: UINavigationController {
 
     /// Default is 15, While fetching photo, HUD will dismiss automatic if timeout;
     /// 超时时间，默认为15秒，当取图片时间超过15秒还没有取成功时，会自动dismiss HUD；
-    var timeout: TimeInterval = 15 {
+    public var timeout: TimeInterval = 15 {
         didSet {
             if timeout < 5 {
                 timeout = 5
@@ -135,26 +135,26 @@ class TZImagePickerController: UINavigationController {
 
     /// Default is YES, if set NO, the original photo button will hide. user can't picking original photo.
     /// 默认为YES，如果设置为NO,原图按钮将隐藏，用户不能选择发送原图
-    var allowPickingOriginalPhoto: Bool = true
+    public var allowPickingOriginalPhoto: Bool = true
 
     /// Default is YES, if set NO, user can't picking video.
     /// 默认为YES，如果设置为NO,用户将不能选择视频
-    var allowPickingVideo: Bool = true {
+    public var allowPickingVideo: Bool = true {
         didSet {
             UserDefaults.standard.set(allowPickingImage, forKey: "tz_allowPickingVideo")
             UserDefaults.standard.synchronize()
         }
     }
     /// Default is NO / 默认为NO，为YES时可以多选视频/gif图片，和照片共享最大可选张数maxImagesCount的限制
-    var allowPickingMultipleVideo: Bool = false
+    public var allowPickingMultipleVideo: Bool = false
 
     /// Default is NO, if set YES, user can picking gif image.
     /// 默认为NO，如果设置为YES,用户可以选择gif图片
-    var allowPickingGif: Bool = false
+    public var allowPickingGif: Bool = false
 
     /// Default is YES, if set NO, user can't picking image.
     /// 默认为YES，如果设置为NO,用户将不能选择发送图片
-    var allowPickingImage: Bool = true {
+    public var allowPickingImage: Bool = true {
         didSet {
             UserDefaults.standard.set(allowPickingImage, forKey: "tz_allowPickingImage")
             UserDefaults.standard.synchronize()
@@ -163,19 +163,19 @@ class TZImagePickerController: UINavigationController {
 
     /// Default is YES, if set NO, user can't take picture.
     /// 默认为YES，如果设置为NO,拍照按钮将隐藏,用户将不能选择照片
-    var allowTakePicture: Bool = true
+    public var allowTakePicture: Bool = true
 
     /// Default is YES, if set NO, user can't preview photo.
     /// 默认为YES，如果设置为NO,预览按钮将隐藏,用户将不能去预览照片
-    var allowPreview: Bool = true
+    public var allowPreview: Bool = true
 
     /// Default is YES, if set NO, the picker don't dismiss itself.
     /// 默认为YES，如果设置为NO, 选择器将不会自己dismiss
-    var autoDismiss: Bool = true
+    public var autoDismiss: Bool = true
 
     /// The photos user have selected
     /// 用户选中过的图片数组
-    var selectedAssets = [PHAsset]() {
+    public var selectedAssets = [PHAsset]() {
         didSet {
             selectedModels.removeAll()
             for asset in selectedAssets {
@@ -185,28 +185,28 @@ class TZImagePickerController: UINavigationController {
             }
         }
     }
-    var selectedModels = [TZAssetModel]()
+    public var selectedModels = [TZAssetModel]()
 
     /// Minimum selectable photo width, Default is 0
     /// 最小可选中的图片宽度，默认是0，小于这个宽度的图片不可选中
-    var minPhotoWidthSelectable: CGFloat = 0 {
+    public var minPhotoWidthSelectable: CGFloat = 0 {
         didSet {
             TZImageManager.manager.minPhotoWidthSelectable = minPhotoWidthSelectable
         }
     }
-    var minPhotoHeightSelectable: Int = 0
+    public var minPhotoHeightSelectable: Int = 0
     /// Hide the photo what can not be selected, Default is NO
     /// 隐藏不可以选中的图片，默认是NO，不推荐将其设置为YES
-    var hideWhenCanNotSelect: Bool = false {
+    public var hideWhenCanNotSelect: Bool = false {
         didSet {
             TZImageManager.manager.hideWhenCanNotSelect = hideWhenCanNotSelect
         }
     }
     /// 顶部statusBar 是否为系统默认的黑色，默认为NO
-    var isStatusBarDefault: Bool = false
+    public var isStatusBarDefault: Bool = false
     /// Single selection mode, valid when maxImagesCount = 1
     /// 单选模式,maxImagesCount为1时才生效
-    var showSelectBtn: Bool = false {
+    public var showSelectBtn: Bool = false {
         didSet {
             if showSelectBtn == false && maxImagesCount > 1 {
                 showSelectBtn = true
@@ -214,7 +214,7 @@ class TZImagePickerController: UINavigationController {
         }
     } ///< 在单选模式下，照片列表页中，显示选择按钮,默认为NO
 
-    var allowCrop: Bool = false {
+    public var allowCrop: Bool = false {
         didSet {
             if allowCrop {
                 self.allowPickingOriginalPhoto = false
@@ -222,86 +222,86 @@ class TZImagePickerController: UINavigationController {
             }
         }
     }            ///< 允许裁剪,默认为YES，showSelectBtn为NO才生效
-    var cropRect: CGRect = CGRect.zero {
+    public var cropRect: CGRect = CGRect.zero {
         didSet {
             cropRectPortrait = cropRect
             let widthHeight = cropRect.size.width
             cropRectLandscape = CGRect(x: (view.frame.height - widthHeight) * 0.5, y: cropRect.origin.x, width: widthHeight, height: widthHeight)
         }
     }           ///< 裁剪框的尺寸
-    var cropRectPortrait: CGRect = CGRect.zero;   ///< 裁剪框的尺寸(竖屏)
-    var cropRectLandscape: CGRect = CGRect.zero;  ///< 裁剪框的尺寸(横屏)
-    var needCircleCrop: Bool = false;       ///< 需要圆形裁剪框
-    var circleCropRadius: CGFloat = 0 {
+    public var cropRectPortrait: CGRect = CGRect.zero;   ///< 裁剪框的尺寸(竖屏)
+    public var cropRectLandscape: CGRect = CGRect.zero;  ///< 裁剪框的尺寸(横屏)
+    public var needCircleCrop: Bool = false;       ///< 需要圆形裁剪框
+    public var circleCropRadius: CGFloat = 0 {
         didSet {
             cropRect = CGRect(x: view.frame.width * 0.5 - circleCropRadius, y: view.frame.height * 0.5 - circleCropRadius, width: circleCropRadius * 2, height: circleCropRadius * 2)
         }
     };  ///< 圆形裁剪框半径大小
-    var cropViewSettingBlock: ((_ cropView: UIView) -> Void)? ///< 自定义裁剪框的其他属性
-    var navLeftBarButtonSettingBlock: ((_ leftButton: UIButton) -> Void)?    ///< 自定义返回按钮样式及其属性
+    public var cropViewSettingBlock: ((_ cropView: UIView) -> Void)? ///< 自定义裁剪框的其他属性
+    public var navLeftBarButtonSettingBlock: ((_ leftButton: UIButton) -> Void)?    ///< 自定义返回按钮样式及其属性
 
-    var isSelectOriginalPhoto: Bool = false
+    public var isSelectOriginalPhoto: Bool = false
 
-    var takePictureImageName            = "takePicture"
-    var photoSelImageName               = "photo_sel_photoPickerVc"
-    var photoDefImageName               = "photo_def_photoPickerVc"
-    var photoOriginSelImageName         = "photo_original_sel"
-    var photoOriginDefImageName         = "photo_original_def"
-    var photoPreviewOriginDefImageName  = "preview_original_def"
-    var photoNumberIconImageName        = "photo_number_icon"
+    public var takePictureImageName            = "takePicture"
+    public var photoSelImageName               = "photo_sel_photoPickerVc"
+    public var photoDefImageName               = "photo_def_photoPickerVc"
+    public var photoOriginSelImageName         = "photo_original_sel"
+    public var photoOriginDefImageName         = "photo_original_def"
+    public var photoPreviewOriginDefImageName  = "preview_original_def"
+    public var photoNumberIconImageName        = "photo_number_icon"
 
     /// Appearance / 外观颜色 + 按钮文字
-    var oKButtonTitleColorNormal = UIColor(red: 83/255.0, green: 179/255.0, blue: 17/255.0, alpha: 1)
-    var oKButtonTitleColorDisabled = UIColor(red: 83/255.0, green: 179/255.0, blue: 17/255.0, alpha: 1)
+    public var oKButtonTitleColorNormal = UIColor(red: 83/255.0, green: 179/255.0, blue: 17/255.0, alpha: 1)
+    public var oKButtonTitleColorDisabled = UIColor(red: 83/255.0, green: 179/255.0, blue: 17/255.0, alpha: 1)
     
-    var naviBgColor: UIColor? {
+    public var naviBgColor: UIColor? {
         didSet {
             self.navigationBar.barTintColor = naviBgColor
         }
     }
-    var naviTitleColor: UIColor? {
+    public var naviTitleColor: UIColor? {
         didSet {
             self.configNaviTitleAppearance()
         }
     }
-    var naviTitleFont: UIFont? {
+    public var naviTitleFont: UIFont? {
         didSet {
             self.configNaviTitleAppearance()
         }
     }
-    var barItemTextColor: UIColor? {
+    public var barItemTextColor: UIColor? {
         didSet {
             self.configBarButtonItemAppearance()
         }
     }
-    var barItemTextFont: UIFont? {
+    public var barItemTextFont: UIFont? {
         didSet {
             self.configBarButtonItemAppearance()
         }
     }
 
-    var doneBtnTitleStr = Bundle.tz_localizedString(forKey: "Done")
-    var cancelBtnTitleStr = Bundle.tz_localizedString(forKey: "Cancel")
-    var previewBtnTitleStr = Bundle.tz_localizedString(forKey: "Preview")
-    var fullImageBtnTitleStr = Bundle.tz_localizedString(forKey: "Full image")
-    var settingBtnTitleStr = Bundle.tz_localizedString(forKey: "Setting")
-    var processHintStr = Bundle.tz_localizedString(forKey: "Processing...")
+    public var doneBtnTitleStr = Bundle.tz_localizedString(forKey: "Done")
+    public var cancelBtnTitleStr = Bundle.tz_localizedString(forKey: "Cancel")
+    public var previewBtnTitleStr = Bundle.tz_localizedString(forKey: "Preview")
+    public var fullImageBtnTitleStr = Bundle.tz_localizedString(forKey: "Full image")
+    public var settingBtnTitleStr = Bundle.tz_localizedString(forKey: "Setting")
+    public var processHintStr = Bundle.tz_localizedString(forKey: "Processing...")
 
 
-    var didFinishPickingPhotosWithInfosHandle: ((_ photos: Array<UIImage>, _ assets: Array<PHAsset>, _ isSelectOriginalPhoto: Bool, _ infos: Array<Dictionary<String, Any>>?) -> (Swift.Void))?
-    var imagePickerControllerDidCancelHandle: (() -> (Swift.Void))?
+    public var didFinishPickingPhotosWithInfosHandle: ((_ photos: Array<UIImage>, _ assets: Array<PHAsset>, _ isSelectOriginalPhoto: Bool, _ infos: Array<Dictionary<String, Any>>?) -> (Swift.Void))?
+    public var imagePickerControllerDidCancelHandle: (() -> (Swift.Void))?
 
     // If user picking a video, this handle will be called.
     // 如果用户选择了一个视频，下面的handle会被执行
-    var didFinishPickingVideoHandle: ((_ coverImage: UIImage, _ asset: PHAsset) -> (Swift.Void))?
+    public var didFinishPickingVideoHandle: ((_ coverImage: UIImage, _ asset: PHAsset) -> (Swift.Void))?
 
     // If user picking a gif image, this callback will be called.
     // 如果用户选择了一个gif图片，下面的handle会被执行
-    var didFinishPickingGifImageHandle: ((_ animatedImage: UIImage, _ sourceAssets: PHAsset) -> (Swift.Void))?
+    public var didFinishPickingGifImageHandle: ((_ animatedImage: UIImage, _ sourceAssets: PHAsset) -> (Swift.Void))?
 
-    weak var pickerDelegate: TZImagePickerControllerDelegate?
+    public weak var pickerDelegate: TZImagePickerControllerDelegate?
 
-    init(delegate: TZImagePickerControllerDelegate, maxImagesCount: Int = 9, columnNumber: Int = 4, pushPhotoPickerVc: Bool = true) {
+    public init(delegate: TZImagePickerControllerDelegate, maxImagesCount: Int = 9, columnNumber: Int = 4, pushPhotoPickerVc: Bool = true) {
         let rootViewController = TZAlbumPickerController()
         super.init(rootViewController: rootViewController)
         rootViewController.columnNumber = columnNumber
@@ -343,7 +343,7 @@ class TZImagePickerController: UINavigationController {
     }
 
     /// This init method just for previewing photos / 用这个初始化方法以预览图片
-    init(selectedAssets: Array<PHAsset>, selectedPhotos: Array<UIImage>, index: Int) {
+    public init(selectedAssets: Array<PHAsset>, selectedPhotos: Array<UIImage>, index: Int) {
         let rootViewController = TZPhotoPreviewController()
         super.init(rootViewController: rootViewController)
         self.selectedAssets = selectedAssets
@@ -360,7 +360,7 @@ class TZImagePickerController: UINavigationController {
     }
 
     /// This init method for crop photo / 用这个初始化方法以裁剪图片
-    init(cropTypeWithAsset asset: PHAsset, photo: UIImage, completion: ((_ cropImage: UIImage?, _ asset: PHAsset?) -> ())?) {
+    public init(cropTypeWithAsset asset: PHAsset, photo: UIImage, completion: ((_ cropImage: UIImage?, _ asset: PHAsset?) -> ())?) {
         let rootViewController = TZPhotoPreviewController()
         super.init(rootViewController: rootViewController)
         self.maxImagesCount = 1
@@ -380,7 +380,7 @@ class TZImagePickerController: UINavigationController {
         }
     }
 
-    func initCropData() {
+    private func initCropData() {
         if maxImagesCount > 1 {
             showSelectBtn = true
             allowCrop = false
@@ -398,7 +398,7 @@ class TZImagePickerController: UINavigationController {
         }
     }
 
-    func initSelecedData() {
+    private func initSelecedData() {
         for asset in selectedAssets {
             let model = TZAssetModel(asset: asset, type: TZImageManager.manager.getAssetType(asset: asset), isSelected: false, timeLength: "0")
             model.isSelected = true
@@ -406,7 +406,7 @@ class TZImagePickerController: UINavigationController {
         }
     }
 
-    func initDelegateData() {
+    private func initDelegateData() {
 
         if columnNumber <= 2 {
             columnNumber = 2
@@ -428,12 +428,12 @@ class TZImagePickerController: UINavigationController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     //MARK: - override
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.white
@@ -448,25 +448,25 @@ class TZImagePickerController: UINavigationController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _originStatusBarStyle = UIApplication.shared.statusBarStyle
 
         UIApplication.shared.statusBarStyle = self.isStatusBarDefault ? .default : .lightContent
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.statusBarStyle = _originStatusBarStyle!
 
     }
     
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         _HUDContainer?.frame = CGRect(x: (view.frame.width - 120) * 0.5, y: (view.frame.height - 90) * 0.5, width: 120, height: 90)
@@ -474,7 +474,7 @@ class TZImagePickerController: UINavigationController {
         _HUDLabel?.frame = CGRect(x: 0, y: 40, width: 120, height: 50)
     }
 
-    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+    override public func pushViewController(_ viewController: UIViewController, animated: Bool) {
         viewController.automaticallyAdjustsScrollViewInsets = false
         if _timer != nil {
             _timer?.invalidate()
@@ -484,7 +484,7 @@ class TZImagePickerController: UINavigationController {
     }
 
     //MARK: - UIContentContainer
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.willInterfaceOrientionChange()
         if size.width > size.height {
             cropRect = cropRectLandscape
@@ -500,7 +500,6 @@ class TZImagePickerController: UINavigationController {
             }
         }
     }
-
 
     func pushPhotoPickerViewController() {
         _didPushPhotoPickerVc = false
@@ -573,11 +572,11 @@ class TZImagePickerController: UINavigationController {
 
 
     //MARK: - Click Method
-    @objc func settingBtnClick(_ sender: UIButton) {
+    @objc private func settingBtnClick(_ sender: UIButton) {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
 
-    @objc func observeAuthrizationStatusChange() {
+    @objc private func observeAuthrizationStatusChange() {
         if TZImageManager.manager.authorizationStatusAuthorized() {
             _tipLabel?.removeFromSuperview()
             _settingBtn?.removeFromSuperview()
