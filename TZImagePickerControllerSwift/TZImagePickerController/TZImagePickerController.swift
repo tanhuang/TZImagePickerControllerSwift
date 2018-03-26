@@ -381,6 +381,7 @@ public class TZImagePickerController: UINavigationController {
     }
 
     private func initCropData() {
+
         if maxImagesCount > 1 {
             showSelectBtn = true
             allowCrop = false
@@ -391,14 +392,13 @@ public class TZImagePickerController: UINavigationController {
             self.allowPickingGif = false
         }
 
-        for asset in selectedAssets {
-            let model = TZAssetModel(asset: asset, type: TZImageManager.manager.getAssetType(asset: asset), isSelected: false, timeLength: "0")
-            model.isSelected = true
-            selectedModels.append(model)
-        }
+        initSelecedData()
     }
 
     private func initSelecedData() {
+
+        configAllowPicking()
+
         for asset in selectedAssets {
             let model = TZAssetModel(asset: asset, type: TZImageManager.manager.getAssetType(asset: asset), isSelected: false, timeLength: "0")
             model.isSelected = true
@@ -413,6 +413,8 @@ public class TZImagePickerController: UINavigationController {
         } else if columnNumber >= 6 {
             columnNumber = 6
         }
+        
+        configAllowPicking()
 
         if (self.childViewControllers.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
             let albumPickerVC: TZAlbumPickerController = self.childViewControllers.first as! TZAlbumPickerController
@@ -422,6 +424,12 @@ public class TZImagePickerController: UINavigationController {
 
         TZImageManager.manager.pickerDelegate = pickerDelegate
 
+    }
+
+    func configAllowPicking() {
+        UserDefaults.standard.set(true, forKey: "tz_allowPickingImage")
+        UserDefaults.standard.set(true, forKey: "tz_allowPickingVideo")
+        UserDefaults.standard.synchronize()
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
