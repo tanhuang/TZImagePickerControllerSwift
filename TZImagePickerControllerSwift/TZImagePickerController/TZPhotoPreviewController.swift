@@ -13,11 +13,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
 
 
     var models = Array<TZAssetModel>()                  ///< All photo models / 所有图片模型数组
-    var photos = Array<UIImage>() {
-        didSet {
-            _photosTemp = photos
-        }
-    }                  ///< All photos  / 所有图片数组
+    var photos = Array<UIImage>()               ///< All photos  / 所有图片数组
     var currentIndex: Int = 0           ///< Index of the photo user click / 用户点击的图片的索引
     var isSelectOriginalPhoto: Bool = false       ///< If YES,return original photo / 是否返回原图
     var isCropImage: Bool = false
@@ -28,7 +24,6 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     var doneButtonClickBlock: ((_ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
     var doneButtonClickBlockCropMode: ((_ cropedImage: UIImage?, _ asset: PHAsset?) -> (Swift.Void))?
     var doneButtonClickBlockWithPreviewType: ((_ photos: Array<UIImage>?, _ assets: Array<PHAsset>?, _ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
-
 
 
     private var _collectionView: UICollectionView?
@@ -57,7 +52,6 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     private var alertView:Any?
 
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,6 +62,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
             self._assetsTemp = (_tzImagePickerVc?.selectedAssets)!
             self.isSelectOriginalPhoto = (_tzImagePickerVc?.isSelectOriginalPhoto)!
         }
+        self._photosTemp = photos;
 
         self.configCollectionView()
         self.configCustomNaviBar()
@@ -360,9 +355,10 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
                 return
             } else {
                 _tzImagePickerVc.selectedModels.append(model)
-                if self.photos.count > 0 {
+                if !self.photos.isEmpty {
                     _tzImagePickerVc.selectedAssets.append(_assetsTemp[currentIndex])
-                    self.photos.append(_photosTemp[currentIndex])
+                    let photo = _photosTemp[currentIndex]
+                    self.photos.append(photo)
                 }
                 if model.type == .video && !_tzImagePickerVc.allowPickingMultipleVideo {
                     _ = _tzImagePickerVc.showAlert(title: Bundle.tz_localizedString(forKey: "Select the video when in multi state, we will handle the video as a photo"))
@@ -379,15 +375,19 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
                             break
                         }
                     }
-                    if self.photos.count > 0 {
+                    if !self.photos.isEmpty {
                         let selectedAssetsTmp = _tzImagePickerVc.selectedAssets
-                        for (index, asset) in selectedAssetsTmp.enumerated() {
+                        for i in 0 ..< selectedAssetsTmp.count {
+                            let asset = selectedAssetsTmp[i]
                             if asset.isEqual(_assetsTemp[currentIndex]) {
-                                _tzImagePickerVc.selectedAssets.remove(at: index)
+                                _tzImagePickerVc.selectedAssets.remove(at: i)
                                 break
                             }
                         }
-                        self.photos.remove(at: (self.photos.index(of: _photosTemp[currentIndex]))!)
+//                        for (index, asset) in selectedAssetsTmp.enumerated() {
+//                        }
+                        let index = self.photos.index(of: _photosTemp[currentIndex])
+                        self.photos.remove(at: index!)
                     }
                     break
                 }

@@ -644,6 +644,21 @@ public class TZImagePickerController: UINavigationController {
     */
 
     deinit {
+        print("_HUDContainer = %ld", CFGetRetainCount(_HUDContainer))
+        var count : UInt32 = 0
+
+        let ivars = class_copyIvarList(UIGestureRecognizer.self,&count)!
+
+        for i in 0..<count{
+
+            let nameP = ivar_getName(ivars[Int(i)])
+
+            let name = String(cString:nameP!)
+
+            print(name)
+
+        }
+
         debugPrint("释放了...\(self.classForCoder)")
     }
 

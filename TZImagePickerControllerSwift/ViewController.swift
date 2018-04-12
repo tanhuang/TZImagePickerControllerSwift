@@ -40,7 +40,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: - 
     lazy var collectionView: UICollectionView = {
         let margin: CGFloat = 4
-        let itemWH: CGFloat = (view.frame.width - 2 * margin - 4) / 3 - margin
+        let width = view.frame.width - 2 * margin - 4
+        var itemWH: CGFloat = width / 3 - margin
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.itemSize = CGSize(width: itemWH, height: itemWH)
         flowlayout.minimumInteritemSpacing = margin
@@ -94,12 +95,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
             self.scrollView.contentSize = CGSize(width: 0, height: contentSizeH + 5)
         }
-
-        _margin = 4;
-        _itemWH = (self.view.frame.width - 2 * _margin - 4) / 3 - _margin;
-        layout?.itemSize = CGSize(width: _itemWH, height: _itemWH);
-        layout?.minimumInteritemSpacing = _margin;
-        layout?.minimumLineSpacing = _margin;
+        let width = self.view.frame.width - 2 * _margin - 4
+        _margin = 4
+        _itemWH = width / 3 - _margin
+        layout?.itemSize = CGSize(width: _itemWH, height: _itemWH)
+        layout?.minimumInteritemSpacing = _margin
+        layout?.minimumLineSpacing = _margin
         self.collectionView.setCollectionViewLayout(layout!, animated: false)
         self.collectionView.frame = CGRect(x: 0, y: contentSizeH, width: self.view.frame.width, height: self.view.frame.height - contentSizeH);
     }
@@ -188,6 +189,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     self?.selectedPhotos = photos
                     self?.selectedAssets = assets
                     self?.collectionView.reloadData()
+                    self?._isSelectOriginalPhoto = isSelectOriginalPhoto
                     let margin = (self?._margin)! + (self?._itemWH)!
                     let height = CGFloat((self?.selectedPhotos.count)! + 2) / 3  * margin
                     self?.collectionView.contentSize = CGSize(width: 0, height: height)
@@ -404,7 +406,7 @@ extension ViewController: TZImagePickerControllerDelegate {
     /// User click cancel button
     /// 取消
     func tz_imagePickerControllerDidCancel(_ picker: TZImagePickerController) {
-
+        print("取消")
     }
 
     // The picker should dismiss itself; when it dismissed these handle will be called.

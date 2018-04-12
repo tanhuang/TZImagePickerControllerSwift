@@ -36,7 +36,7 @@ class TZAssetCell: UICollectionViewCell {
 
     var type: TZAssetCellType? {
         didSet {
-            if type == .photo || type == .livePhoto || (type == .photoGif && !self.allowPreview || self.allowPickingMultipleVideo) {
+            if type == .photo || type == .livePhoto || (type == .photoGif && !self.allowPickingGif || self.allowPickingMultipleVideo) {
                 selectImageView.isHidden = false
                 selectPhotoButton.isHidden = false
                 bottomView.isHidden = true
@@ -156,9 +156,11 @@ class TZAssetCell: UICollectionViewCell {
             self.imageRequestID = imageRequestID
             self.selectPhotoButton.isSelected = (model?.isSelected)!
             self.selectImageView.image = self.selectPhotoButton.isSelected ? UIImage.imageNamedFromMyBundle(name: photoSelImageName!) : UIImage.imageNamedFromMyBundle(name: photoDefImageName!)
-            self.type = (model?.type.hashValue).map { TZAssetCellType(rawValue: $0) }!
 
-            if TZImageManager.manager.isPhoto(selectableWithAsset: (model?.asset)!) {
+            self.type = TZAssetCellType(rawValue: (model?.type.rawValue)!)
+//            self.type = (model?.type.hashValue).map { TZAssetCellType(rawValue: $0) }!
+
+            if !TZImageManager.manager.isPhoto(selectableWithAsset: (model?.asset)!) {
                 if self.selectImageView.isHidden == false {
                     self.selectImageView.isHidden = true
                     self.selectPhotoButton.isHidden = true
