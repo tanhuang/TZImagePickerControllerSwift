@@ -194,6 +194,7 @@ public class TZImagePickerController: UINavigationController {
             TZImageManager.manager.minPhotoWidthSelectable = minPhotoWidthSelectable
         }
     }
+
     public var minPhotoHeightSelectable: Int = 0
     /// Hide the photo what can not be selected, Default is NO
     /// 隐藏不可以选中的图片，默认是NO，不推荐将其设置为YES
@@ -202,6 +203,7 @@ public class TZImagePickerController: UINavigationController {
             TZImageManager.manager.hideWhenCanNotSelect = hideWhenCanNotSelect
         }
     }
+
     /// 顶部statusBar 是否为系统默认的黑色，默认为NO
     public var isStatusBarDefault: Bool = false
     /// Single selection mode, valid when maxImagesCount = 1
@@ -222,6 +224,7 @@ public class TZImagePickerController: UINavigationController {
             }
         }
     }            ///< 允许裁剪,默认为YES，showSelectBtn为NO才生效
+
     public var cropRect: CGRect = CGRect.zero {
         didSet {
             cropRectPortrait = cropRect
@@ -229,6 +232,7 @@ public class TZImagePickerController: UINavigationController {
             cropRectLandscape = CGRect(x: (view.frame.height - widthHeight) * 0.5, y: cropRect.origin.x, width: widthHeight, height: widthHeight)
         }
     }           ///< 裁剪框的尺寸
+
     public var cropRectPortrait: CGRect = CGRect.zero;   ///< 裁剪框的尺寸(竖屏)
     public var cropRectLandscape: CGRect = CGRect.zero;  ///< 裁剪框的尺寸(横屏)
     public var needCircleCrop: Bool = false;       ///< 需要圆形裁剪框
@@ -237,6 +241,7 @@ public class TZImagePickerController: UINavigationController {
             cropRect = CGRect(x: view.frame.width * 0.5 - circleCropRadius, y: view.frame.height * 0.5 - circleCropRadius, width: circleCropRadius * 2, height: circleCropRadius * 2)
         }
     };  ///< 圆形裁剪框半径大小
+
     public var cropViewSettingBlock: ((_ cropView: UIView) -> Void)? ///< 自定义裁剪框的其他属性
     public var navLeftBarButtonSettingBlock: ((_ leftButton: UIButton) -> Void)?    ///< 自定义返回按钮样式及其属性
 
@@ -259,26 +264,31 @@ public class TZImagePickerController: UINavigationController {
             self.navigationBar.barTintColor = naviBgColor
         }
     }
+
     public var naviTitleColor: UIColor? {
         didSet {
             self.configNaviTitleAppearance()
         }
     }
+
     public var naviTitleFont: UIFont? {
         didSet {
             self.configNaviTitleAppearance()
         }
     }
+
     public var barItemTextColor: UIColor? {
         didSet {
             self.configBarButtonItemAppearance()
         }
     }
+
     public var barItemTextFont: UIFont? {
         didSet {
             self.configBarButtonItemAppearance()
         }
     }
+
 
     public var doneBtnTitleStr = Bundle.tz_localizedString(forKey: "Done")
     public var cancelBtnTitleStr = Bundle.tz_localizedString(forKey: "Cancel")
@@ -380,6 +390,7 @@ public class TZImagePickerController: UINavigationController {
         }
     }
 
+
     private func initCropData() {
 
         if maxImagesCount > 1 {
@@ -406,6 +417,7 @@ public class TZImagePickerController: UINavigationController {
         }
     }
 
+
     private func initDelegateData() {
 
         if columnNumber <= 2 {
@@ -413,7 +425,7 @@ public class TZImagePickerController: UINavigationController {
         } else if columnNumber >= 6 {
             columnNumber = 6
         }
-        
+
         configAllowPicking()
 
         if (self.childViewControllers.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
@@ -441,6 +453,7 @@ public class TZImagePickerController: UINavigationController {
     }
 
     //MARK: - override
+
     override public func viewDidLoad() {
         super.viewDidLoad()
 
@@ -456,10 +469,12 @@ public class TZImagePickerController: UINavigationController {
         }
     }
 
+
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -468,12 +483,13 @@ public class TZImagePickerController: UINavigationController {
         UIApplication.shared.statusBarStyle = self.isStatusBarDefault ? .default : .lightContent
     }
 
+
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.statusBarStyle = _originStatusBarStyle!
-
     }
     
+
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -481,6 +497,7 @@ public class TZImagePickerController: UINavigationController {
         _HUDIndicatorView?.frame = CGRect(x: 45, y: 15, width: 30, height: 30)
         _HUDLabel?.frame = CGRect(x: 0, y: 40, width: 120, height: 50)
     }
+
 
     override public func pushViewController(_ viewController: UIViewController, animated: Bool) {
         viewController.automaticallyAdjustsScrollViewInsets = false
@@ -492,6 +509,7 @@ public class TZImagePickerController: UINavigationController {
     }
 
     //MARK: - UIContentContainer
+
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.willInterfaceOrientionChange()
         if size.width > size.height {
@@ -580,6 +598,7 @@ public class TZImagePickerController: UINavigationController {
 
 
     //MARK: - Click Method
+
     @objc private func settingBtnClick(_ sender: UIButton) {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
@@ -644,20 +663,6 @@ public class TZImagePickerController: UINavigationController {
     */
 
     deinit {
-        print("_HUDContainer = %ld", CFGetRetainCount(_HUDContainer))
-        var count : UInt32 = 0
-
-        let ivars = class_copyIvarList(UIGestureRecognizer.self,&count)!
-
-        for i in 0..<count{
-
-            let nameP = ivar_getName(ivars[Int(i)])
-
-            let name = String(cString:nameP!)
-
-            print(name)
-
-        }
 
         debugPrint("释放了...\(self.classForCoder)")
     }

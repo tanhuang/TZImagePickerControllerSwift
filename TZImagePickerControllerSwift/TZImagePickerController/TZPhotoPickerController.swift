@@ -534,10 +534,12 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     func tz_assetCell(_ cell: TZAssetCell,_ model: TZAssetModel, _ isSelect: Bool) {
 
         guard let tzImagePickerVc = self.navigationController as? TZImagePickerController else { return }
+
         // 1. cancel select / 取消选择
         if (isSelect) {
             cell.selectPhotoButton.isSelected = false
             model.isSelected = false
+
             for (index, model_item) in tzImagePickerVc.selectedModels.enumerated() {
                 if  model.asset.localIdentifier == model_item.asset.localIdentifier {
                     tzImagePickerVc.selectedModels.remove(at:index)
@@ -555,7 +557,6 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
             } else {
                 let string = String(format:
                     NSLocalizedString("Select a maximum of %zd photos", tableName: nil, bundle: bundle!, comment: ""), tzImagePickerVc.maxImagesCount)
-
                 _ = tzImagePickerVc.showAlert(title: string)
             }
         }

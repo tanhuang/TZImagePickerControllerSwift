@@ -25,7 +25,6 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     var doneButtonClickBlockCropMode: ((_ cropedImage: UIImage?, _ asset: PHAsset?) -> (Swift.Void))?
     var doneButtonClickBlockWithPreviewType: ((_ photos: Array<UIImage>?, _ assets: Array<PHAsset>?, _ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
 
-
     private var _collectionView: UICollectionView?
     private var _layout: UICollectionViewFlowLayout?
     private var _photosTemp = Array<UIImage>()
@@ -50,7 +49,6 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
 
     private var progress: Double = 0.0
     private var alertView:Any?
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -355,6 +353,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
                 return
             } else {
                 _tzImagePickerVc.selectedModels.append(model)
+
                 if !self.photos.isEmpty {
                     _tzImagePickerVc.selectedAssets.append(_assetsTemp[currentIndex])
                     let photo = _photosTemp[currentIndex]
@@ -375,6 +374,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
                             break
                         }
                     }
+
                     if !self.photos.isEmpty {
                         let selectedAssetsTmp = _tzImagePickerVc.selectedAssets
                         for i in 0 ..< selectedAssetsTmp.count {

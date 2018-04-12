@@ -156,7 +156,6 @@ class TZAssetCell: UICollectionViewCell {
             self.imageRequestID = imageRequestID
             self.selectPhotoButton.isSelected = (model?.isSelected)!
             self.selectImageView.image = self.selectPhotoButton.isSelected ? UIImage.imageNamedFromMyBundle(name: photoSelImageName!) : UIImage.imageNamedFromMyBundle(name: photoDefImageName!)
-
             self.type = TZAssetCellType(rawValue: (model?.type.rawValue)!)
 //            self.type = (model?.type.hashValue).map { TZAssetCellType(rawValue: $0) }!
 
@@ -248,7 +247,7 @@ class TZAlbumCell: UITableViewCell {
             TZImageManager.manager.getPostImageWithAlbumModel(imageWithAlbumModel: model) { (postImage) -> (Void) in
                 self.posterImageView.image = postImage
             }
-
+            
             if model?.selectedCount != 0 {
                 self.selectedCountButton.isHidden = false
                 self.selectedCountButton.setTitle("\((model?.selectedCount)!)", for: .normal)

@@ -40,6 +40,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: - 
     lazy var collectionView: UICollectionView = {
         let margin: CGFloat = 4
+
         let width = view.frame.width - 2 * margin - 4
         var itemWH: CGFloat = width / 3 - margin
         let flowlayout = UICollectionViewFlowLayout()

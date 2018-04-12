@@ -17,6 +17,7 @@ public enum TZAssetModelMediaType: Int {
     case audio
 }
 
+
 public class TZAssetModel: NSObject {
     public var asset: PHAsset
     public var isSelected: Bool
