@@ -46,10 +46,10 @@ public class TZAlbumModel: NSObject {
 
     public var result: PHFetchResult<PHAsset>? {
         didSet {
-            let allowPickingImage = UserDefaults.standard.object(forKey: "tz_allowPickingImage") as? Bool
-            let allowPickingVideo = UserDefaults.standard.object(forKey: "tz_allowPickingVideo") as? Bool
+            let allowPickingImage = TZImageManager.manager.allowPickingImage
+            let allowPickingVideo = TZImageManager.manager.allowPickingVideo
 
-            TZImageManager.manager.getAssets(assetsFromFetchResult: result!, allowPickingVideo: allowPickingVideo ?? true, allowPickingImage: allowPickingImage ?? true) { (models) -> (Void) in
+            TZImageManager.manager.getAssets(assetsFromFetchResult: result!, allowPickingVideo: allowPickingVideo, allowPickingImage: allowPickingImage) { (models) -> (Void) in
                 self.models = models
                 if self.selectedModels != nil {
                     self.checkSelectedModels()

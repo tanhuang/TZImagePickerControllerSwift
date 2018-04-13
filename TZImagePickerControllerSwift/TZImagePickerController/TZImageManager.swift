@@ -54,6 +54,13 @@ class TZImageManager: NSObject {
     var minPhotoHeightSelectable: CGFloat = 0
     var hideWhenCanNotSelect: Bool = false
 
+
+    /// Default is YES, if set NO, user can't picking video.
+    /// 默认为YES，如果设置为NO,用户将不能选择视频
+    public var allowPickingVideo: Bool = true
+    /// 默认为YES，如果设置为NO,用户将不能选择发送图片
+    public var allowPickingImage: Bool = true
+
     private var TZScreenWidth: CGFloat = UIScreen.main.bounds.size.width
     private var TZScreenScale: CGFloat = 2.0
     private var AssetGridThumbnailSize: CGSize = .zero
@@ -86,28 +93,47 @@ class TZImageManager: NSObject {
 
     //MARK: - Get Album
     func getCameraRollAlbum(allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping (_ model: TZAlbumModel) -> Swift.Void) {
+        
         let option = PHFetchOptions()
         if allowPickingVideo == false {
-            option.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.image)")
+            option.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.image.rawValue)")
         }
         if allowPickingImage == false {
-            option.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.video)")
+            option.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.video.rawValue)")
         }
         if self.sortAscendingByModificationDate == false {
             option.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: self.sortAscendingByModificationDate)]
         }
         let smartAlbums = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.albumRegular, options: nil)
         smartAlbums.enumerateObjects { (collection, index, stop) in
-            if collection.assetCollectionSubtype == .smartAlbumUserLibrary {
+            if self.isCameraRollAlbum(collection) {
                 let fetchResult = PHAsset.fetchAssets(in: collection, options: option)
                 let model = self.modelWithResult(result: fetchResult, name: collection.localizedTitle!, isCameraRoll: true)
                 completion(model)
-
-                stop.pointee = true
             }
         }
     }
-    
+
+    func isCameraRollAlbum(_ metadata: PHCollection) -> Bool {
+        if metadata.isMember(of: PHAssetCollection.classForCoder()) {
+            let metadata = metadata as! PHAssetCollection
+            var versionStr = UIDevice.current.systemVersion.replacingOccurrences(of: ".", with: "")
+            if versionStr.count <= 1 {
+                versionStr = versionStr.appending("00")
+            } else if versionStr.count <= 2 {
+                versionStr = versionStr.appending("0")
+            }
+            let version = Int(versionStr) ?? 0
+            if version >= 800 && version <= 802 {
+                return metadata.assetCollectionSubtype == .smartAlbumRecentlyAdded
+            } else {
+                return metadata.assetCollectionSubtype == .smartAlbumUserLibrary
+            }
+        }
+        return false;
+    }
+
+
     func getAllAlbums(allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping ((_ array: [TZAlbumModel]) -> Swift.Void)) {
         var albumArr = [TZAlbumModel]()
         let option = PHFetchOptions()

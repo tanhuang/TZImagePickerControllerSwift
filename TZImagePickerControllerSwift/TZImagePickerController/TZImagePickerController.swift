@@ -141,8 +141,7 @@ public class TZImagePickerController: UINavigationController {
     /// 默认为YES，如果设置为NO,用户将不能选择视频
     public var allowPickingVideo: Bool = true {
         didSet {
-            UserDefaults.standard.set(allowPickingImage, forKey: "tz_allowPickingVideo")
-            UserDefaults.standard.synchronize()
+            TZImageManager.manager.allowPickingVideo = allowPickingVideo
         }
     }
     /// Default is NO / 默认为NO，为YES时可以多选视频/gif图片，和照片共享最大可选张数maxImagesCount的限制
@@ -156,8 +155,7 @@ public class TZImagePickerController: UINavigationController {
     /// 默认为YES，如果设置为NO,用户将不能选择发送图片
     public var allowPickingImage: Bool = true {
         didSet {
-            UserDefaults.standard.set(allowPickingImage, forKey: "tz_allowPickingImage")
-            UserDefaults.standard.synchronize()
+            TZImageManager.manager.allowPickingImage = allowPickingImage
         }
     }
 
@@ -409,8 +407,6 @@ public class TZImagePickerController: UINavigationController {
 
     private func initSelecedData() {
 
-        configAllowPicking()
-
         for asset in selectedAssets {
             let model = TZAssetModel(asset: asset, type: TZImageManager.manager.getAssetType(asset: asset), isSelected: false, timeLength: "0")
             model.isSelected = true
@@ -427,8 +423,6 @@ public class TZImagePickerController: UINavigationController {
             columnNumber = 6
         }
 
-        configAllowPicking()
-
         if (self.childViewControllers.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
             let albumPickerVC: TZAlbumPickerController = self.childViewControllers.first as! TZAlbumPickerController
             albumPickerVC.columnNumber = columnNumber
@@ -437,12 +431,6 @@ public class TZImagePickerController: UINavigationController {
 
         TZImageManager.manager.pickerDelegate = pickerDelegate
 
-    }
-
-    func configAllowPicking() {
-        UserDefaults.standard.set(true, forKey: "tz_allowPickingImage")
-        UserDefaults.standard.set(true, forKey: "tz_allowPickingVideo")
-        UserDefaults.standard.synchronize()
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
