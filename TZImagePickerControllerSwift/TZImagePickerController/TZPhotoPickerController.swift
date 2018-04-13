@@ -643,9 +643,11 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
             self?.isSelectOriginalPhoto = isSelectOriginalPhoto!
             self?.doneButtonClick()
         }
-        photoPreviewVc.doneButtonClickBlockCropMode = {[weak self] (cropedImage, asset) -> (Void) in
-            self?.didGetAll(photos: [cropedImage], assets: [asset], infoArr: nil)
-            } as? ((UIImage?, PHAsset?) -> (Void))
+
+        photoPreviewVc.doneButtonClickBlockCropMode = {
+            [weak self] (cropedImage, asset) -> (Void) in
+            self?.didGetAll(photos: [cropedImage!], assets: [asset!], infoArr: nil)
+        }
         navigationController?.pushViewController(photoPreviewVc, animated: true)
     }
 

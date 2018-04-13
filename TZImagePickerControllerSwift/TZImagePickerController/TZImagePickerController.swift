@@ -383,6 +383,7 @@ public class TZImagePickerController: UINavigationController {
         rootViewController.photos = [photo]
         rootViewController.isCropImage = true
         rootViewController.currentIndex = 0
+
         rootViewController.doneButtonClickBlockCropMode = {[weak self] (cropImage, asset) -> (Void) in
             self?.dismiss(animated: true, completion: {
                 completion?(cropImage, asset)

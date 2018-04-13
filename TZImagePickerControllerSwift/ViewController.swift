@@ -304,7 +304,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // 你可以通过block或者代理，来得到用户选择的照片.
         imagePickerVc.didFinishPickingPhotosWithInfosHandle = { (photos, assets, isSelectOriginalPhoto, infoArr) -> (Void) in
 
-            debugPrint("\(photos.count) ---\(assets.count) ---- \(isSelectOriginalPhoto) --- \((infoArr?.count)!)")
+            debugPrint("\(photos.count) ---\(assets.count) ---- \(isSelectOriginalPhoto) --- \(infoArr)")
         }
         
         self.present(imagePickerVc, animated: true, completion: nil)

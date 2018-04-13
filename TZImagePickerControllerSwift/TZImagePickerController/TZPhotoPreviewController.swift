@@ -225,9 +225,11 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
                 cropView?.clipsToBounds = true
             }
             view.addSubview(cropView!)
-            if (_tzImagePickerVc?.cropViewSettingBlock != nil) {
-                _tzImagePickerVc?.cropViewSettingBlock?(cropView!)
-            }
+
+            _tzImagePickerVc?.cropViewSettingBlock?(cropView!)
+
+            view.bringSubview(toFront: _naviBar!)
+            view.bringSubview(toFront: _toolBar!)
         }
     }
 
