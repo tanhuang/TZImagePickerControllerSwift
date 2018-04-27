@@ -206,13 +206,14 @@ public class TZImagePickerController: UINavigationController {
     public var isStatusBarDefault: Bool = false
     /// Single selection mode, valid when maxImagesCount = 1
     /// 单选模式,maxImagesCount为1时才生效
+    ///< 在单选模式下，照片列表页中，显示选择按钮,默认为NO
     public var showSelectBtn: Bool = false {
         didSet {
             if showSelectBtn == false && maxImagesCount > 1 {
                 showSelectBtn = true
             }
         }
-    } ///< 在单选模式下，照片列表页中，显示选择按钮,默认为NO
+    }
 
     public var allowCrop: Bool = false {
         didSet {
@@ -392,11 +393,6 @@ public class TZImagePickerController: UINavigationController {
 
     private func initCropData() {
 
-        if maxImagesCount > 1 {
-            showSelectBtn = true
-            allowCrop = false
-        }
-
         if allowCrop {
             self.allowPickingOriginalPhoto = false
             self.allowPickingGif = false
@@ -416,6 +412,11 @@ public class TZImagePickerController: UINavigationController {
 
 
     private func initDelegateData() {
+
+        if maxImagesCount > 1 {
+            showSelectBtn = true
+            allowCrop = false
+        }
 
         if columnNumber <= 2 {
             columnNumber = 2

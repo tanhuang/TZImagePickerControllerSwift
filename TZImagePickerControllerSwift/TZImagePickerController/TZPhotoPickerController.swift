@@ -477,12 +477,12 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         } else {
             model = _models?[indexPath.row - 1]
         }
-        cell.allowPreview = (tzImagePickerVc?.allowPreview)!
         cell.allowPickingGif = (tzImagePickerVc?.allowPickingGif)!
         cell.representedAssetIdentifier = (model?.asset.localIdentifier)!
         cell.model = model
         cell.showSelectBtn = (tzImagePickerVc?.showSelectBtn)!
         cell.delegate = self
+        cell.allowPreview = (tzImagePickerVc?.allowPreview)!
         return cell
     }
 
