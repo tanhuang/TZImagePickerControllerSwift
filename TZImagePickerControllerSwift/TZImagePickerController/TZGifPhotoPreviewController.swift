@@ -8,9 +8,9 @@
 
 import UIKit
 
-class TZGifPhotoPreviewController: UIViewController {
+public class TZGifPhotoPreviewController: UIViewController {
 
-    var model: TZAssetModel?
+    public var model: TZAssetModel?
 
 
     private var _toolBar: UIView?
@@ -21,7 +21,7 @@ class TZGifPhotoPreviewController: UIViewController {
 
     private var _originStatusBarStyle: UIStatusBarStyle?
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
 
@@ -34,18 +34,18 @@ class TZGifPhotoPreviewController: UIViewController {
         self.configBottomToolBar()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _originStatusBarStyle = UIApplication.shared.statusBarStyle
         UIApplication.shared.statusBarStyle = .lightContent
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.statusBarStyle = _originStatusBarStyle!
     }
 
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         _previewView?.frame = self.view.bounds;
@@ -54,12 +54,12 @@ class TZGifPhotoPreviewController: UIViewController {
         _toolBar?.frame = CGRect(x: 0, y: self.view.frame.height - 44, width: self.view.frame.width, height: 44);
     }
 
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    func configPreviewView() {
+    public func configPreviewView() {
         _previewView = TZPhotoPreviewView(frame: CGRect.zero)
         _previewView?.model = self.model;
         _previewView?.singleTapGestureBlock = {[weak self] () -> (Void) in
@@ -68,7 +68,7 @@ class TZGifPhotoPreviewController: UIViewController {
         view.addSubview(_previewView!)
     }
 
-    func configBottomToolBar() {
+    public func configBottomToolBar() {
         _toolBar = UIView(frame: CGRect.zero)
         _toolBar?.backgroundColor = UIColor(red: 34 / 255.0, green: 34 / 255.0, blue: 34 / 255.0, alpha: 0.7)
 
@@ -100,7 +100,7 @@ class TZGifPhotoPreviewController: UIViewController {
     }
 
     //MARK: - Click Event
-    func signleTapAction() {
+    public func signleTapAction() {
         _toolBar?.isHidden = !(_toolBar?.isHidden)!
         navigationController?.isNavigationBarHidden = (_toolBar?.isHidden)!
 
@@ -124,7 +124,7 @@ class TZGifPhotoPreviewController: UIViewController {
         }
     }
 
-    func callDelegateMethod() {
+    public func callDelegateMethod() {
 
         let imagePickerVc = self.navigationController as? TZImagePickerController
         let animatedImage = _previewView?.imageView?.image

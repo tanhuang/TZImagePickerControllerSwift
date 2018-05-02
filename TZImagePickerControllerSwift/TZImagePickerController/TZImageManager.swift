@@ -11,7 +11,7 @@ import Photos
 import AssetsLibrary
 import AVFoundation
 
-class TZImageManager: NSObject {
+public class TZImageManager: NSObject {
 
     static let manager = TZImageManager()
 
@@ -19,14 +19,14 @@ class TZImageManager: NSObject {
 
     weak var pickerDelegate: TZImagePickerControllerDelegate?
 
-    var cachingImageManager = PHCachingImageManager()
+    public var cachingImageManager = PHCachingImageManager()
 
-    var shouldFixOrientation: Bool = false
+    public var shouldFixOrientation: Bool = false
 
     /// Default is 600px / 默认600像素宽
-    var photoPreviewMaxWidth: CGFloat = 600
+    public var photoPreviewMaxWidth: CGFloat = 600
     /// The pixel width of output image, Default is 828px / 导出图片的宽度，默认828像素宽
-    var photoWidth: CGFloat = 828 {
+    public var photoWidth: CGFloat = 828 {
         didSet {
             TZScreenWidth = photoWidth * 0.5
         }
@@ -34,7 +34,7 @@ class TZImageManager: NSObject {
 
     /// Default is 4, Use in photos collectionView in TZPhotoPickerController
     /// 默认4列, TZPhotoPickerController中的照片collectionView
-    var columnNumber: Int = 4 {
+    public var columnNumber: Int = 4 {
         didSet {
             TZScreenWidth = UIScreen.main.bounds.width
             TZScreenScale = 2.0
@@ -46,13 +46,13 @@ class TZImageManager: NSObject {
     }
     /// Sort photos ascending by modificationDate，Default is true
     /// 对照片排序，按修改时间升序，默认是YES。如果设置为NO,最新的照片会显示在最前面，内部的拍照按钮会排在第一个
-    var sortAscendingByModificationDate: Bool = true
+    public var sortAscendingByModificationDate: Bool = true
 
     /// Minimum selectable photo width, Default is 0
     /// 最小可选中的图片宽度，默认是0，小于这个宽度的图片不可选中
-    var minPhotoWidthSelectable: CGFloat = 0
-    var minPhotoHeightSelectable: CGFloat = 0
-    var hideWhenCanNotSelect: Bool = false
+    public var minPhotoWidthSelectable: CGFloat = 0
+    public var minPhotoHeightSelectable: CGFloat = 0
+    public var hideWhenCanNotSelect: Bool = false
 
 
     /// Default is YES, if set NO, user can't picking video.
@@ -66,7 +66,7 @@ class TZImageManager: NSObject {
     private var AssetGridThumbnailSize: CGSize = .zero
 
 
-    func authorizationStatusAuthorized() -> Bool {
+    public func authorizationStatusAuthorized() -> Bool {
         let status = TZImageManager.authorizationStatus()
         if status == 0 {
             self.requestAuthorizationWithCompletion({ })
@@ -78,7 +78,7 @@ class TZImageManager: NSObject {
         return PHPhotoLibrary.authorizationStatus().rawValue
     }
 
-    func requestAuthorizationWithCompletion(_ completion: @escaping () -> Swift.Void) {
+    public func requestAuthorizationWithCompletion(_ completion: @escaping () -> Swift.Void) {
         let callCompletionBlock = {
             DispatchQueue.main.async {
                 completion()
@@ -92,7 +92,7 @@ class TZImageManager: NSObject {
     }
 
     //MARK: - Get Album
-    func getCameraRollAlbum(allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping (_ model: TZAlbumModel) -> Swift.Void) {
+    public func getCameraRollAlbum(allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping (_ model: TZAlbumModel) -> Swift.Void) {
         
         let option = PHFetchOptions()
         if allowPickingVideo == false {
@@ -114,7 +114,7 @@ class TZImageManager: NSObject {
         }
     }
 
-    func isCameraRollAlbum(_ metadata: PHCollection) -> Bool {
+    public func isCameraRollAlbum(_ metadata: PHCollection) -> Bool {
         if metadata.isMember(of: PHAssetCollection.classForCoder()) {
             let metadata = metadata as! PHAssetCollection
             var versionStr = UIDevice.current.systemVersion.replacingOccurrences(of: ".", with: "")
@@ -134,7 +134,7 @@ class TZImageManager: NSObject {
     }
 
 
-    func getAllAlbums(allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping ((_ array: [TZAlbumModel]) -> Swift.Void)) {
+    public func getAllAlbums(allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping ((_ array: [TZAlbumModel]) -> Swift.Void)) {
         var albumArr = [TZAlbumModel]()
         let option = PHFetchOptions()
         if !allowPickingVideo {
@@ -197,12 +197,12 @@ class TZImageManager: NSObject {
         }
     }
 
-    func isCameraRollAlbum(metadata: PHAssetCollection) -> Bool {
+    public func isCameraRollAlbum(metadata: PHAssetCollection) -> Bool {
         return metadata.assetCollectionSubtype == PHAssetCollectionSubtype.smartAlbumUserLibrary
     }
     //MARK: - Get Assets
     /// Get Assets 获得照片数组
-    func getAssets(assetsFromFetchResult result: PHFetchResult<PHAsset>, allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping ((_ models: Array<TZAssetModel>?) -> (Swift.Void))) {
+    public func getAssets(assetsFromFetchResult result: PHFetchResult<PHAsset>, allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping ((_ models: Array<TZAssetModel>?) -> (Swift.Void))) {
 
         var photoArr = Array<TZAssetModel>()
         result.enumerateObjects { (asset, index, stop) in
@@ -216,7 +216,7 @@ class TZImageManager: NSObject {
 
     ///  Get asset at index 获得下标为index的单个照片
     ///  if index beyond bounds, return nil in callback 如果索引越界, 在回调中返回 nil
-    func getAsset(assetfromFetchResult result: PHFetchResult<PHAsset>, atIndex: Int, allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping ((_ model: TZAssetModel?) -> (Swift.Void))) {
+    public func getAsset(assetfromFetchResult result: PHFetchResult<PHAsset>, atIndex: Int, allowPickingVideo: Bool, allowPickingImage: Bool, completion: @escaping ((_ model: TZAssetModel?) -> (Swift.Void))) {
         if result.count < atIndex {
             completion(nil)
             return
@@ -228,7 +228,7 @@ class TZImageManager: NSObject {
 
     }
 
-    func asset(modelWithAsset asset: PHAsset, allowPickingVideo: Bool, allowPickingImage: Bool) -> TZAssetModel? {
+    public func asset(modelWithAsset asset: PHAsset, allowPickingVideo: Bool, allowPickingImage: Bool) -> TZAssetModel? {
         //TODO: 过滤照片
         var canSelect = true
         if (self.pickerDelegate?.responds(to: #selector(self.pickerDelegate?.isAssetCanSelect(asset:))))! {
@@ -256,7 +256,7 @@ class TZImageManager: NSObject {
         return model
     }
 
-    func getAssetType(asset: PHAsset) -> TZAssetModelMediaType {
+    public func getAssetType(asset: PHAsset) -> TZAssetModelMediaType {
         var type = TZAssetModelMediaType.photo
         switch asset.mediaType {
         case .audio: type = .audio
@@ -272,7 +272,7 @@ class TZImageManager: NSObject {
         return type
     }
 
-    func getNewTimeFromDurationSecond(duration: Int) -> String {
+    public func getNewTimeFromDurationSecond(duration: Int) -> String {
         var newTime = ""
         if duration < 10 {
             newTime = "0:0\(duration)"
@@ -291,7 +291,7 @@ class TZImageManager: NSObject {
     }
 
     /// 检查照片大小是否满足最小要求
-    func isPhoto(selectableWithAsset asset: PHAsset) -> Bool {
+    public func isPhoto(selectableWithAsset asset: PHAsset) -> Bool {
         let photoSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
         if self.minPhotoWidthSelectable > photoSize.width || self.minPhotoHeightSelectable > photoSize.height {
             return false
@@ -299,7 +299,7 @@ class TZImageManager: NSObject {
         return true
     }
 
-    func getPhotos(bytesWithArray photos: Array<TZAssetModel>?, completion:  @escaping  ((_ totalBytes: String?) -> (Swift.Void))) {
+    public func getPhotos(bytesWithArray photos: Array<TZAssetModel>?, completion:  @escaping  ((_ totalBytes: String?) -> (Swift.Void))) {
         if (photos?.isEmpty)! {
             return
         }
@@ -321,7 +321,7 @@ class TZImageManager: NSObject {
         }
     }
 
-    func getBytesFromDataLength(dataLength: Double) -> String {
+    public func getBytesFromDataLength(dataLength: Double) -> String {
         if dataLength >= 0.1 * (1024 * 1024) {
             let sizeKBDouble = dataLength / 1024.0 / 1024.0
             return "\(sizeKBDouble.rounded(toPlaces: 1))M"
@@ -334,7 +334,7 @@ class TZImageManager: NSObject {
     }
     //MARK: - - Get Photo
 
-    func getPhoto(with asset: PHAsset, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) -> Int32 {
+    public func getPhoto(with asset: PHAsset, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) -> Int32 {
         var fullScreenWidth = TZScreenWidth
         if fullScreenWidth > photoPreviewMaxWidth {
             fullScreenWidth = photoPreviewMaxWidth
@@ -344,13 +344,13 @@ class TZImageManager: NSObject {
         })
     }
 
-    func getPhoto(with asset: PHAsset, photoWidth: CGFloat, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) -> Int32 {
+    public func getPhoto(with asset: PHAsset, photoWidth: CGFloat, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) -> Int32 {
         return self.getPhoto(with: asset, photoWidth: photoWidth, networkAccessAllowed: true, completion: completion, progressHandler: { (progress, error, stop, info) -> (Void) in
 
         })
     }
 
-    func getPhoto(with asset: PHAsset, networkAccessAllowed: Bool, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)), progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) -> Int32 {
+    public func getPhoto(with asset: PHAsset, networkAccessAllowed: Bool, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)), progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) -> Int32 {
         var fullScreenWidth = TZScreenWidth
         if fullScreenWidth > photoPreviewMaxWidth {
             fullScreenWidth = photoPreviewMaxWidth
@@ -358,7 +358,7 @@ class TZImageManager: NSObject {
         return self.getPhoto(with: asset, photoWidth: photoWidth, networkAccessAllowed: networkAccessAllowed, completion: completion, progressHandler: progressHandler)
     }
 
-    func getPhoto(with asset: PHAsset, photoWidth: CGFloat, networkAccessAllowed: Bool, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)), progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) -> Int32 {
+    public func getPhoto(with asset: PHAsset, photoWidth: CGFloat, networkAccessAllowed: Bool, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)), progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) -> Int32 {
 
         var imageSize = CGSize.zero
         if photoWidth < TZScreenWidth && photoWidth < photoPreviewMaxWidth {
@@ -428,7 +428,7 @@ class TZImageManager: NSObject {
     }
 
     /// Get postImage / 获取封面图
-    func getPostImageWithAlbumModel(imageWithAlbumModel model: TZAlbumModel?, completion: @escaping ((_ photo: UIImage?) -> (Swift.Void))) {
+    public func getPostImageWithAlbumModel(imageWithAlbumModel model: TZAlbumModel?, completion: @escaping ((_ photo: UIImage?) -> (Swift.Void))) {
         var asset = model?.result?.lastObject
         if !self.sortAscendingByModificationDate {
             asset = model?.result?.firstObject
@@ -442,13 +442,13 @@ class TZImageManager: NSObject {
         })
     }
     /// Get Original Photo / 获取原图
-    func getOriginalPhoto(photoWithAsset asset: PHAsset?, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) {
+    public func getOriginalPhoto(photoWithAsset asset: PHAsset?, completion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) {
         self.getOriginalPhoto(photoWithAsset: asset) { (photo, info, isDegraded) -> (Void) in
             completion(photo, info)
         }
     }
 
-    func getOriginalPhoto(photoWithAsset asset: PHAsset?, newCompletion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) {
+    public func getOriginalPhoto(photoWithAsset asset: PHAsset?, newCompletion: @escaping ((_ photo: UIImage?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void))) {
         let option = PHImageRequestOptions()
         option.isNetworkAccessAllowed = true
         option.resizeMode = .fast
@@ -463,7 +463,7 @@ class TZImageManager: NSObject {
         }
     }
 
-    func getOriginalPhotoData(_ asset: PHAsset?, completion: @escaping (_ data: Data?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)) {
+    public func getOriginalPhotoData(_ asset: PHAsset?, completion: @escaping (_ data: Data?, _ info: Dictionary<AnyHashable, Any>?, _ isDegraded: Bool?) -> (Swift.Void)) {
         let option = PHImageRequestOptions()
         option.isNetworkAccessAllowed = true
         option.resizeMode = .fast
@@ -476,7 +476,7 @@ class TZImageManager: NSObject {
     }
 
     //MARK: - Save photo
-    func savePhotoWithImage(with image: UIImage?, location: CLLocation?, completion: @escaping (_ error: Error?) -> (Swift.Void)) {
+    public func savePhotoWithImage(with image: UIImage?, location: CLLocation?, completion: @escaping (_ error: Error?) -> (Swift.Void)) {
 //        let data = UIImageJPEGRepresentation(image!, 0.9)
         if #available(iOS 9.0, *) {
             PHPhotoLibrary.shared().performChanges({
@@ -514,7 +514,7 @@ class TZImageManager: NSObject {
         }
     }
     //MARK: - Get Video
-    func getVideo(_ asset: PHAsset?, progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void)), completion: @escaping ((_ playerItem: AVPlayerItem?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) {
+    public func getVideo(_ asset: PHAsset?, progressHandler: @escaping ((_ progress: Double?, _ error: Error?, _ stop: UnsafeMutablePointer<ObjCBool>?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void)), completion: @escaping ((_ playerItem: AVPlayerItem?, _ info: Dictionary<AnyHashable, Any>?) -> (Swift.Void))) {
         let option = PHVideoRequestOptions()
         option.isNetworkAccessAllowed = true
         option.progressHandler = { (progress, error, stop, info) in
@@ -530,7 +530,7 @@ class TZImageManager: NSObject {
         }
     }
     //MARK: - Export video
-    func getVideoOutput(_ asset: PHAsset?, completion: ((_ outputPath: String?) -> (Swift.Void))?) {
+    public func getVideoOutput(_ asset: PHAsset?, completion: ((_ outputPath: String?) -> (Swift.Void))?) {
         let options = PHVideoRequestOptions()
         options.version = .original
         options.deliveryMode = .automatic
@@ -540,7 +540,7 @@ class TZImageManager: NSObject {
         }
     }
 
-    func startExportVideoAsset(_ videoAsset: AVURLAsset?, completion: ((_ outputPath: String?) -> (Swift.Void))?) {
+    public func startExportVideoAsset(_ videoAsset: AVURLAsset?, completion: ((_ outputPath: String?) -> (Swift.Void))?) {
         // Find compatible presets by video asset.
         let presets = AVAssetExportSession.exportPresets(compatibleWith: videoAsset!)
 
@@ -693,7 +693,7 @@ class TZImageManager: NSObject {
     }
 
     /// 修正图片方向
-    func fixOrientation(_ aImage: UIImage) -> UIImage {
+    public func fixOrientation(_ aImage: UIImage) -> UIImage {
         if self.shouldFixOrientation == false { return aImage }
          // No-op if the orientation is already correct
         if aImage.imageOrientation == .up { return aImage }

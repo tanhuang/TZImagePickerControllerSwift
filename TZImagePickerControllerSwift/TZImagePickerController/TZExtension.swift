@@ -11,7 +11,7 @@ import UIKit.UIView
 
 var bundle: Bundle?
 
-extension Bundle {
+public extension Bundle {
 
     class func TZ_isGlobalHideStatusBar() -> Bool {
         return (Bundle.main.object(forInfoDictionaryKey: "UIStatusBarHidden") as? Bool) ?? false
@@ -62,13 +62,13 @@ extension UIView {
     }
 }
 
-extension String {
+public extension String {
     func tz_containsString(string: String) -> Bool {
         return self.contains(string)
     }
 }
 
-extension UIImage {
+public extension UIImage {
     class func imageNamedFromMyBundle(name: String) -> UIImage? {
         let imageBundle = Bundle.tz_imagePickerBundle()
         var newname = name
@@ -142,7 +142,7 @@ extension UIImage {
 }
 
 
-extension Double {
+public extension Double {
 
     /// Rounds the double to decimal places value
     func rounded(toPlaces places:Int) -> Double {

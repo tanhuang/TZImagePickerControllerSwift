@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class TZLocationManager: NSObject, CLLocationManagerDelegate {
+public class TZLocationManager: NSObject, CLLocationManagerDelegate {
 
     static var manager: TZLocationManager = {
         let manager = TZLocationManager()
@@ -22,24 +22,24 @@ class TZLocationManager: NSObject, CLLocationManagerDelegate {
     private override init() { }
 
 
-    var locationManager: CLLocationManager?
+    public var locationManager: CLLocationManager?
 
     /// 定位成功的回调block
-    var success: ((_ location: CLLocation?, _ oldLocation: CLLocation?) -> (Swift.Void))?
+    public var success: ((_ location: CLLocation?, _ oldLocation: CLLocation?) -> (Swift.Void))?
     /// 编码成功的回调block
-    var geocode: ((_ geocodeArray: Array<CLPlacemark>?) -> (Swift.Void))?
+    public var geocode: ((_ geocodeArray: Array<CLPlacemark>?) -> (Swift.Void))?
     /// 定位失败的回调block
-    var failure: ((_ error: Error?) -> (Swift.Void))?
+    public var failure: ((_ error: Error?) -> (Swift.Void))?
 
     /// 开始定位
-    func startLocation(successBlock: @escaping ((_ location: CLLocation?, _ oldLocation: CLLocation?) -> (Swift.Void)), failureBlock: @escaping ((_ error: Error?) -> (Swift.Void)), geocoderBlock: @escaping ((_ geocoderArray: Array<CLPlacemark>?) -> (Swift.Void))) {
+    public func startLocation(successBlock: @escaping ((_ location: CLLocation?, _ oldLocation: CLLocation?) -> (Swift.Void)), failureBlock: @escaping ((_ error: Error?) -> (Swift.Void)), geocoderBlock: @escaping ((_ geocoderArray: Array<CLPlacemark>?) -> (Swift.Void))) {
         self.locationManager?.startUpdatingLocation()
         self.success = successBlock
         self.geocode = geocoderBlock
         self.failure = failureBlock
     }
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager .stopUpdatingLocation()
 
         success?(locations.last, locations.first)
@@ -51,7 +51,7 @@ class TZLocationManager: NSObject, CLLocationManagerDelegate {
         })
     }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         if error.localizedDescription == kCLErrorDomain { // 用户禁止定位权限
             debugPrint("用户禁止定位权限 = \(error.localizedDescription)")
             self.locationManager?.delegate = nil

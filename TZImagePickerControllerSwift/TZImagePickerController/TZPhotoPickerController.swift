@@ -10,11 +10,11 @@ import UIKit
 import Photos
 import CoreLocation
 
-class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, TZAssetCellDelegate {
+public class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, TZAssetCellDelegate {
 
-    var isFirstAppear: Bool = false
-    var columnNumber: Int = 0
-    var model: TZAlbumModel?
+    public var isFirstAppear: Bool = false
+    public var columnNumber: Int = 0
+    public var model: TZAlbumModel?
 
     
     private var _models: Array<TZAssetModel>?
@@ -66,7 +66,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     }()
 
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
 //        resetCachedAssets()
@@ -92,18 +92,18 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatusBarOrientationNotification(notification:)), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
     }
 
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         tzImagePickerVc?.isSelectOriginalPhoto = isSelectOriginalPhoto
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         var scale: CGFloat = 2.0
         if UIScreen.main.bounds.size.width > 600 {
@@ -119,14 +119,14 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if collectionView != nil {
             // self.updateCachedAssets()
         }
     }
 
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
 
@@ -186,11 +186,11 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         self.collectionView?.reloadData()
     }
 
-    override var prefersStatusBarHidden: Bool {
+    override public var prefersStatusBarHidden: Bool {
         return false
     }
 
-    func fetchAssetModels() {
+    public func fetchAssetModels() {
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         if isFirstAppear {
             tzImagePickerVc?.showProgressHUD()
@@ -217,7 +217,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
     }
 
-    func initSubviews() {
+    public func initSubviews() {
         DispatchQueue.main.async {
             let tzImagePickerVc = self.navigationController as? TZImagePickerController
             tzImagePickerVc?.hideProgressHUD()
@@ -232,7 +232,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
     }
 
-    func configCollectionView() {
+    public func configCollectionView() {
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
 
         layout = UICollectionViewFlowLayout()
@@ -253,7 +253,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         collectionView?.register(TZAssetCameraCell.classForCoder(), forCellWithReuseIdentifier: "TZAssetCameraCell")
     }
 
-    func configBottomToolBar() {
+    public func configBottomToolBar() {
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         if !((tzImagePickerVc?.showSelectBtn)!) {
             return
@@ -448,7 +448,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
     }
 
     //MARK: - UICollectionViewDataSource && Delegate
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if _showTakePhotoBtn {
             let tzImagePickerVc = self.navigationController as? TZImagePickerController
             if (tzImagePickerVc?.allowPickingImage)! && (tzImagePickerVc?.allowTakePicture)! {
@@ -458,7 +458,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         return (_models?.count)!
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // the cell lead to take a picture / 去拍照的cell
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         if ((tzImagePickerVc?.sortAscendingByModificationDate)! && indexPath.row >= (_models?.count)!) || (!((tzImagePickerVc?.sortAscendingByModificationDate)!) && indexPath.row == 0) && _showTakePhotoBtn {
@@ -486,7 +486,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // take a photo / 去拍照
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         if ((tzImagePickerVc?.sortAscendingByModificationDate)! && indexPath.row >= (_models?.count)!) ||
@@ -594,7 +594,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
     }
     /// 调用相机
-    func pushImagePickerController() {
+    public func pushImagePickerController() {
         // 提前定位
         TZLocationManager.manager.startLocation(successBlock: { (location, oldLocation) -> (Void) in
             self.location = location
@@ -614,7 +614,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
     }
 
-    func refreshBottomToolBarStatus() {
+    public func refreshBottomToolBarStatus() {
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
 
         _previewButton?.isEnabled = (tzImagePickerVc?.selectedModels.count)! > 0;
@@ -651,14 +651,14 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         navigationController?.pushViewController(photoPreviewVc, animated: true)
     }
 
-    func getSelectedPhotoBytes() {
+    public func getSelectedPhotoBytes() {
         let imagePickerVc = self.navigationController as? TZImagePickerController
         TZImageManager.manager.getPhotos(bytesWithArray: imagePickerVc?.selectedModels) { (totalBytes) -> (Void) in
             self._originalPhotoLabel?.text = "(\(totalBytes!))"
         }
     }
 
-    func scaleImage(_ image: UIImage?, to size: CGSize) -> UIImage? {
+    public func scaleImage(_ image: UIImage?, to size: CGSize) -> UIImage? {
         guard let _image = image else {
             return nil
         }
@@ -672,7 +672,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         return newImage
     }
 
-    func scrollCollectionViewToBottom()  {
+    public func scrollCollectionViewToBottom()  {
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         if _shouldScrollToBottom && (_models?.count)! > 0 {
             var item = 0
@@ -694,7 +694,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
     }
 
-    func checkSelectedModels() {
+    public func checkSelectedModels() {
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         _ = self._models?.map({ model1 in
             model1.isSelected = false
@@ -708,13 +708,13 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         })
     }
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // self.updateCachedAssets()
     }
 
 
     //MARK: - UIImagePickerControllerDelegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         picker.dismiss(animated: true, completion: nil)
         let type = info[UIImagePickerControllerMediaType] as! String
         if type == "public.image" {
@@ -737,7 +737,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
     }
 
-    func reloadPhotoArray() {
+    public func reloadPhotoArray() {
         guard let tzImagePickerVc = self.navigationController as? TZImagePickerController else {
             return
         }
@@ -784,18 +784,18 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         }
     }
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
 
     //MARK: - Asset Caching
 
-    func resetCachedAssets() {
+    public func resetCachedAssets() {
         TZImageManager.manager.cachingImageManager.stopCachingImagesForAllAssets()
         self.previousPreheatRect = CGRect.zero;
     }
 
-    func updateCachedAssets() {
+    public func updateCachedAssets() {
         // Update only if the view is visible.
         guard isViewLoaded && view.window != nil else { return }
 
@@ -895,7 +895,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
 //        }
 //    }
 
-    func assetsAtIndexPaths(indexPaths: Array<IndexPath>?) -> Array<PHAsset?>? {
+    public func assetsAtIndexPaths(indexPaths: Array<IndexPath>?) -> Array<PHAsset?>? {
 
         guard let _indexPaths = indexPaths else {
             return nil
@@ -907,7 +907,7 @@ class TZPhotoPickerController: UIViewController, UIImagePickerControllerDelegate
         return assets;
     }
 
-    func aapl_indexPaths(for ElementsInRect: CGRect?) -> Array<IndexPath>? {
+    public func aapl_indexPaths(for ElementsInRect: CGRect?) -> Array<IndexPath>? {
         guard let allLayoutAttributes = collectionView?.collectionViewLayout.layoutAttributesForElements(in: ElementsInRect!) else {
             return nil
         }

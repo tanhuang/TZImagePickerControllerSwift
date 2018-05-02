@@ -8,15 +8,15 @@
 
 import UIKit
 
-class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+public class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var columnNumber: Int = 0
+    public var columnNumber: Int = 0
 
     private var tableView: UITableView?
     private var isFirstAppear: Bool = false
     private var albumArr = Array<TZAlbumModel>()
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         isFirstAppear = true
@@ -27,12 +27,12 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: imagePickerVc.cancelBtnTitleStr, style: .plain, target: imagePickerVc, action: #selector(imagePickerVc.cancelButtonClick))
     }
 
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         guard let imagePickerVc = self.navigationController as? TZImagePickerController else { return }
@@ -52,7 +52,7 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
         configTableView()
     }
 
-    func configTableView() {
+    public func configTableView() {
         guard let imagePickerVc = self.navigationController as? TZImagePickerController else { return }
         DispatchQueue.global().async {
             TZImageManager.manager.getAllAlbums(allowPickingVideo: imagePickerVc.allowPickingVideo, allowPickingImage: imagePickerVc.allowPickingImage, completion: { models in
@@ -75,11 +75,11 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.albumArr.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TZAlbumCell") as! TZAlbumCell
         let imagePickerVc = self.navigationController as? TZImagePickerController
         cell.selectedCountButton.backgroundColor = imagePickerVc?.oKButtonTitleColorNormal
@@ -88,7 +88,7 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
         let photoPickerVc = TZPhotoPickerController()
@@ -98,7 +98,7 @@ class TZAlbumPickerController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         var top: CGFloat = 0

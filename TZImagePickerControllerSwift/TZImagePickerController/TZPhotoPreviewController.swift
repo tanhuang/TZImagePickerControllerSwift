@@ -9,21 +9,21 @@
 import UIKit
 import Photos.PHAsset
 
-class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+public class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
 
-    var models = Array<TZAssetModel>()                  ///< All photo models / 所有图片模型数组
-    var photos = Array<UIImage>()               ///< All photos  / 所有图片数组
-    var currentIndex: Int = 0           ///< Index of the photo user click / 用户点击的图片的索引
-    var isSelectOriginalPhoto: Bool = false       ///< If YES,return original photo / 是否返回原图
-    var isCropImage: Bool = false
+    public var models = Array<TZAssetModel>()                  ///< All photo models / 所有图片模型数组
+    public var photos = Array<UIImage>()               ///< All photos  / 所有图片数组
+    public var currentIndex: Int = 0           ///< Index of the photo user click / 用户点击的图片的索引
+    public var isSelectOriginalPhoto: Bool = false       ///< If YES,return original photo / 是否返回原图
+    public var isCropImage: Bool = false
 
 
     /// Return the new selected photos / 返回最新的选中图片数组
-    var backButtonClickBlock: ((_ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
-    var doneButtonClickBlock: ((_ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
-    var doneButtonClickBlockCropMode: ((_ cropedImage: UIImage?, _ asset: PHAsset?) -> (Swift.Void))?
-    var doneButtonClickBlockWithPreviewType: ((_ photos: Array<UIImage>?, _ assets: Array<PHAsset>?, _ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
+    public var backButtonClickBlock: ((_ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
+    public var doneButtonClickBlock: ((_ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
+    public var doneButtonClickBlockCropMode: ((_ cropedImage: UIImage?, _ asset: PHAsset?) -> (Swift.Void))?
+    public var doneButtonClickBlockWithPreviewType: ((_ photos: Array<UIImage>?, _ assets: Array<PHAsset>?, _ isSelectOriginalPhoto: Bool?) -> (Swift.Void))?
 
     private var _collectionView: UICollectionView?
     private var _layout: UICollectionViewFlowLayout?
@@ -50,7 +50,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     private var progress: Double = 0.0
     private var alertView:Any?
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         TZImageManager.manager.shouldFixOrientation = true
@@ -70,12 +70,12 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatusBarOrientationNotification(notification:)), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
     }
 
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
         if !Bundle.TZ_isGlobalHideStatusBar() {
@@ -87,7 +87,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         self.refreshNaviBarAndBottomBarState()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         if !Bundle.TZ_isGlobalHideStatusBar() {
@@ -96,11 +96,11 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         TZImageManager.manager.shouldFixOrientation = false
     }
 
-    override var prefersStatusBarHidden: Bool {
+    override public var prefersStatusBarHidden: Bool {
         return true
     }
 
-    func configCollectionView() {
+    public func configCollectionView() {
         _layout = UICollectionViewFlowLayout()
         _layout?.scrollDirection = .horizontal
         _collectionView = UICollectionView(frame: .zero, collectionViewLayout: _layout!)
@@ -118,7 +118,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         _collectionView?.register(TZGifPreviewCell.classForCoder(), forCellWithReuseIdentifier: "TZGifPreviewCell")
     }
 
-    func configCustomNaviBar()  {
+    public func configCustomNaviBar()  {
         guard let _tzImagePickerVc = self.navigationController as? TZImagePickerController else {
             return
         }
@@ -142,7 +142,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         view.addSubview(_naviBar!)
     }
 
-    func configBottomToolBar()  {
+    public func configBottomToolBar()  {
 
         guard let _tzImagePickerVc = self.navigationController as? TZImagePickerController else {
             return
@@ -199,7 +199,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         view.addSubview(_toolBar!)
     }
 
-    func configCropView()  {
+    public func configCropView()  {
         let _tzImagePickerVc = self.navigationController as? TZImagePickerController
         if !(_tzImagePickerVc?.showSelectBtn)! && (_tzImagePickerVc?.allowCrop)! {
             cropView?.removeFromSuperview()
@@ -233,7 +233,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
 
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let _tzImagePickerVc = self.navigationController as? TZImagePickerController
 
@@ -272,7 +272,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     }
 
     //MARK: - UIScrollViewDelegate
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         var offSetWidth = scrollView.contentOffset.x;
         offSetWidth = offSetWidth +  ((view.frame.width + 20) * 0.5)
@@ -287,11 +287,11 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
     }
 
     //MARK: - UICollectionViewDataSource && Delegate
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return models.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let tzImagePickerVc = self.navigationController as? TZImagePickerController else {
             return UICollectionViewCell()
         }
@@ -327,13 +327,13 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         return cell!
     }
 
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if cell.isKind(of: TZPhotoPreviewCell.classForCoder()) {
             (cell as! TZPhotoPreviewCell).recoverSubviews()
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if cell.isKind(of: TZPhotoPreviewCell.classForCoder()) {
             (cell as! TZPhotoPreviewCell).recoverSubviews()
         } else if cell.isKind(of: TZVideoPreviewCell.classForCoder()) {
@@ -469,13 +469,13 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
 
-    func didTapPreviewCell()  {
+    public func didTapPreviewCell()  {
         self.isHideNaviBar = !self.isHideNaviBar
         _naviBar?.isHidden = self.isHideNaviBar
         _toolBar?.isHidden = self.isHideNaviBar
     }
 
-    func showPhotoBytes() {
+    public func showPhotoBytes() {
         TZImageManager.manager.getPhotos(bytesWithArray: [models[currentIndex]]) { (totalBytes) -> (Void) in
             self._originalPhotoLabel?.text = "(\(totalBytes!))"
         }
@@ -486,7 +486,7 @@ class TZPhotoPreviewController: UIViewController, UICollectionViewDelegate, UICo
         _offsetItemCount = (_collectionView?.contentOffset.x)! / (_layout?.itemSize.width)!
     }
 
-    func refreshNaviBarAndBottomBarState() {
+    public func refreshNaviBarAndBottomBarState() {
         guard let _tzImagePickerVc = self.navigationController as? TZImagePickerController  else { return }
 
         let model = models[currentIndex]

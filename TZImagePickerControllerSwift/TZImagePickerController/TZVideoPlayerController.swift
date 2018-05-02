@@ -9,9 +9,9 @@
 import UIKit
 import AVFoundation
 
-class TZVideoPlayerController: UIViewController {
+public class TZVideoPlayerController: UIViewController {
 
-    var model: TZAssetModel?
+    public var model: TZAssetModel?
 
 
     private var _player: AVPlayer?
@@ -25,7 +25,7 @@ class TZVideoPlayerController: UIViewController {
 
     private var _originStatusBarStyle: UIStatusBarStyle?
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.black
@@ -37,18 +37,18 @@ class TZVideoPlayerController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(pausePlayerAndShowNaviBar), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _originStatusBarStyle = UIApplication.shared.statusBarStyle
         UIApplication.shared.statusBarStyle = .lightContent
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.statusBarStyle = _originStatusBarStyle!
     }
 
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         _playerLayer?.frame = self.view.bounds;
@@ -57,13 +57,13 @@ class TZVideoPlayerController: UIViewController {
         _toolBar?.frame = CGRect(x: 0, y: view.frame.height - 44, width: view.frame.width, height: 44);
     }
 
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 
-    func configMoviePlayer() {
+    public func configMoviePlayer() {
         _ = TZImageManager.manager.getPhoto(with: (model?.asset)!) { (photo, info, isDegraded) -> (Void) in
             self._cover = photo
         }
@@ -85,7 +85,7 @@ class TZVideoPlayerController: UIViewController {
         }
     }
     /// Show progress，do it next time / 给播放器添加进度更新,下次加上
-    func addProgressObserver() {
+    public func addProgressObserver() {
         let playerItem = _player?.currentItem;
         let progress = _progress;
         _player?.addPeriodicTimeObserver(forInterval: CMTimeMake(Int64(1.0), Int32(1.0)), queue: DispatchQueue.main, using: { (time) in
@@ -97,7 +97,7 @@ class TZVideoPlayerController: UIViewController {
         })
     }
 
-    func configPlayButton() {
+    public func configPlayButton() {
         _playButton = UIButton(type: .custom)
         _playButton?.setImage(UIImage.imageNamedFromMyBundle(name: "MMVideoPreviewPlay"), for: .normal)
         _playButton?.setImage(UIImage.imageNamedFromMyBundle(name: "MMVideoPreviewPlayHL"), for: .highlighted)
@@ -105,7 +105,7 @@ class TZVideoPlayerController: UIViewController {
         view.addSubview(_playButton!)
     }
 
-    func configBottomToolBar() {
+    public func configBottomToolBar() {
         _toolBar = UIView(frame: CGRect.zero)
         _toolBar?.backgroundColor = UIColor(red: 34 / 255.0, green: 34 / 255.0, blue: 34 / 255.0, alpha: 0.7)
 
@@ -161,7 +161,7 @@ class TZVideoPlayerController: UIViewController {
         }
     }
 
-    func callDelegateMethod() {
+    public func callDelegateMethod() {
         guard let imagePickerVc = self.navigationController as? TZImagePickerController  else {
             return
         }

@@ -158,10 +158,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if (showSheet) {
                 let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 alertVC.addAction(UIAlertAction(title: "拍照", style: .default, handler: { (action) in
-
+                    self.takePhoto()
                 }))
                 alertVC.addAction(UIAlertAction(title: "去相册选择", style: .default, handler: { (action) in
-
+                    self.pushTZImagePickerController()
                 }))
                 alertVC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 self.present(alertVC, animated: true, completion: nil)
@@ -304,12 +304,66 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // 你可以通过block或者代理，来得到用户选择的照片.
         imagePickerVc.didFinishPickingPhotosWithInfosHandle = { (photos, assets, isSelectOriginalPhoto, infoArr) -> (Void) in
 
-            debugPrint("\(photos.count) ---\(assets.count) ---- \(isSelectOriginalPhoto) --- \(infoArr)")
+            debugPrint("\(photos.count) ---\(assets.count) ---- \(isSelectOriginalPhoto) --- \(String(describing: infoArr))")
         }
         
         self.present(imagePickerVc, animated: true, completion: nil)
     }
 
+    func takePhoto() {
+        let authStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        if authStatus == .restricted || authStatus == .denied {
+            // 无相机权限 做一个友好的提示
+            let alertVC = UIAlertController(title: "无法使用相机", message: "请在iPhone的\"设置-隐私-相机\"中允许访问相机", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "设置", style: .default, handler: { (action) in
+                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+            }))
+            alertVC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+        } else if authStatus == .notDetermined {
+            // fix issue 466, 防止用户首次拍照拒绝授权时相机页黑屏
+            takePhoto()
+            // 拍照之前还需要检查相册权限
+        } else if TZImageManager.authorizationStatus() == 2 { // 已被拒绝，没有相册权限，将无法保存拍的照片
+            // 无相机权限 做一个友好的提示
+            let alertVC = UIAlertController(title: "无法使用相机", message: "请在iPhone的\"设置-隐私-相机\"中允许访问相机", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "设置", style: .default, handler: { (action) in
+                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+            }))
+            alertVC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+        } else if TZImageManager.authorizationStatus() == 0 { // 未请求过相册权限
+            TZImageManager.manager.requestAuthorizationWithCompletion {
+                self.takePhoto()
+            }
+        } else {
+            pushImagePickerController()
+        }
+    }
+    
+    // 调用相机
+    func pushImagePickerController() {
+        // 提前定位placemark
+        TZLocationManager.manager.startLocation(successBlock: { (location1, location2) -> (Void) in
+            self.location = location1
+        }, failureBlock: { (error) -> (Void) in
+            self.location = nil
+        }, geocoderBlock:{ (placemark) -> (Void) in
+            
+        })
+        
+        let sourceType = UIImagePickerControllerSourceType.camera
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            self.imagePickerVC.sourceType = sourceType
+            self.imagePickerVC.modalPresentationStyle = .overCurrentContext
+            present(self.imagePickerVC, animated: true, completion: nil)
+        } else {
+            print("模拟器中无法打开照相机,请在真机中使用")
+        }
+    }
+
+    
+    
     //MARK: -  click
     @IBAction func showTakePhotoBtnSwitchClick(_ sender: UISwitch) {
         if (sender.isOn) {
