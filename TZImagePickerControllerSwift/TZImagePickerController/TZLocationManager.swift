@@ -11,7 +11,7 @@ import CoreLocation
 
 public class TZLocationManager: NSObject, CLLocationManagerDelegate {
 
-    static var manager: TZLocationManager = {
+    public static var manager: TZLocationManager = {
         let manager = TZLocationManager()
         manager.locationManager = CLLocationManager()
         manager.locationManager?.requestAlwaysAuthorization()

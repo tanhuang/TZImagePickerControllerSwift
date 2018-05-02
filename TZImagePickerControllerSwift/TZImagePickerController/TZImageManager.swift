@@ -13,7 +13,7 @@ import AVFoundation
 
 public class TZImageManager: NSObject {
 
-    static let manager = TZImageManager()
+    public static let manager = TZImageManager()
 
     private override init() { }
 
