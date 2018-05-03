@@ -378,6 +378,9 @@ public class TZImagePickerController: UINavigationController {
 
         /// init初始化属性时，不会调用didSet方法，需要额外设置
         initCropData()
+        
+        let cropViewWH = min(self.view.frame.width, self.view.frame.height) / 3 * 2
+        self.cropRect = CGRect(x: (self.view.frame.width - cropViewWH) * 0.5, y: (self.view.frame.height - cropViewWH) / 2, width: cropViewWH, height: cropViewWH)
 
         rootViewController.photos = [photo]
         rootViewController.isCropImage = true

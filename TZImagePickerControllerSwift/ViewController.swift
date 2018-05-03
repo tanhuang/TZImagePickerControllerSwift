@@ -61,7 +61,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePickerVC.delegate = self
         imagePickerVC.navigationBar.barTintColor = self.navigationController?.navigationBar.barTintColor
         imagePickerVC.navigationBar.tintColor = self.navigationController?.navigationBar.tintColor
-
         let tzBarItem: UIBarButtonItem?, BarItem: UIBarButtonItem?
         if #available(iOS 9.0, *) {
             tzBarItem = UIBarButtonItem.appearance(whenContainedInInstancesOf: [TZImagePickerController.classForCoder() as! UIAppearanceContainer.Type])
@@ -71,7 +70,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             BarItem = UIBarButtonItem.appearance()
         }
         let titleTextAttributes = tzBarItem?.titleTextAttributes(for: .normal) as! [NSAttributedStringKey : Any]?
-        BarItem?.setTitleTextAttributes(titleTextAttributes!, for: .normal)
+        BarItem?.setTitleTextAttributes(titleTextAttributes ?? nil, for: .normal)
         return imagePickerVC
     }()
 
@@ -368,8 +367,58 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        let type = info[UIImagePickerControllerMediaType] as! String
+        if type == "public.image" {
+            let tzImagePickerVc = TZImagePickerController(delegate: self, maxImagesCount: 1)
+            tzImagePickerVc.sortAscendingByModificationDate = self.sortAscendingSwitch.isOn
+            tzImagePickerVc.showProgressHUD()
+            
+            guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+                tzImagePickerVc.hideProgressHUD()
+                debugPrint("image is nil")
+                return
+            }
+            // save photo and get asset / 保存图片，获取到asset
+            TZImageManager.manager.savePhotoWithImage(with: image, location: self.location, completion: { (error) -> (Void) in
+                if error == nil {
+                    TZImageManager.manager.getCameraRollAlbum(allowPickingVideo: false, allowPickingImage: true, completion: { (model) in
+                        TZImageManager.manager.getAssets(assetsFromFetchResult: model.result!, allowPickingVideo: false, allowPickingImage: true, completion: { (models) -> (Void) in
+                            tzImagePickerVc.hideProgressHUD()
+                            var assetModel = models?.first
+                            if tzImagePickerVc.sortAscendingByModificationDate {
+                                assetModel = models?.last
+                            }
+                            if self.allowCropSwitch.isOn {
+                                let imagePicker = TZImagePickerController.init(cropTypeWithAsset: (assetModel?.asset)!, photo: image, completion: { (image, asset) in
+                                    self.refreshCollectionView(asset!, image: image!)
+                                })
+                                imagePicker.circleCropRadius = 100;
+                                self.present(imagePicker, animated: true, completion: nil)
+                            } else {
+                                self.refreshCollectionView((assetModel?.asset)!, image: image)
+                            }
+                        })
+                    })
+                }
+            })
+            self.location = nil;
+        }
+    }
+
+    func refreshCollectionView(_ asset: PHAsset, image:UIImage) {
+        selectedAssets.append(asset)
+        selectedPhotos.append(image)
+        collectionView.reloadData()
+    }
     
-    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        if picker.isKind(of: UIImagePickerController.classForCoder()) {
+            picker.dismiss(animated: true, completion: nil);
+        }
+    }
+
     //MARK: -  click
     @IBAction func showTakePhotoBtnSwitchClick(_ sender: UISwitch) {
         if (sender.isOn) {
