@@ -322,7 +322,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.present(alertVC, animated: true, completion: nil)
         } else if authStatus == .notDetermined {
             // fix issue 466, 防止用户首次拍照拒绝授权时相机页黑屏
-            takePhoto()
+            AVCaptureDevice.requestAccess(for: .video) { (granted) in
+                if granted {
+                    DispatchQueue.main.async {
+                        self.takePhoto()
+                    }
+                }
+            }
             // 拍照之前还需要检查相册权限
         } else if TZImageManager.authorizationStatus() == 2 { // 已被拒绝，没有相册权限，将无法保存拍的照片
             // 无相机权限 做一个友好的提示
