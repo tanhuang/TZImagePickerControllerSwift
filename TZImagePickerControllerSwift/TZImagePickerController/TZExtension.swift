@@ -74,7 +74,7 @@ public extension UIImage {
         var newname = name
         newname.append("@2x")
         let imagePath = imageBundle.path(forResource: newname, ofType: "png")
-        let image = UIImage(contentsOfFile: imagePath!)
+        let image = UIImage(contentsOfFile: imagePath ?? name)
 
         if image != nil {
             return image

@@ -609,8 +609,15 @@ public class TZImagePickerController: UINavigationController {
 
     //MARK: - Private Method
     private func configNaviTitleAppearance() {
-        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : self.naviTitleColor!,
-                                                  NSAttributedStringKey.font: self.naviTitleFont!]
+
+        var textAttrs = [NSAttributedStringKey: Any]()
+        if let naviTitleColor = self.naviTitleColor {
+            textAttrs[NSAttributedStringKey.foregroundColor] = naviTitleColor
+        }
+        if let naviTitleFont = self.naviTitleFont {
+            textAttrs[NSAttributedStringKey.font] = naviTitleFont
+        }
+        self.navigationBar.titleTextAttributes = textAttrs
     }
 
     private func configBarButtonItemAppearance() {
@@ -621,8 +628,14 @@ public class TZImagePickerController: UINavigationController {
             // Fallback on earlier versions
             barItem = UIBarButtonItem.appearance()
         }
-        let textAttrs = [NSAttributedStringKey.foregroundColor: self.barItemTextColor!,
-                         NSAttributedStringKey.font : self.barItemTextFont!] as [NSAttributedStringKey : Any]
+
+        var textAttrs = [NSAttributedStringKey: Any]()
+        if let barItemTextColor = self.barItemTextColor {
+            textAttrs[NSAttributedStringKey.foregroundColor] = barItemTextColor
+        }
+        if let barItemTextFont = self.barItemTextFont {
+            textAttrs[NSAttributedStringKey.font] = barItemTextFont
+        }
         barItem?.setTitleTextAttributes(textAttrs, for: .normal)
     }
 

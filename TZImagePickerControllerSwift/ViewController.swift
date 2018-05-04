@@ -246,11 +246,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         // 2. Set the appearance
         // 2. 在这里设置imagePickerVc的外观
-        // imagePickerVc.navigationBar.barTintColor = [UIColor greenColor];
-        // imagePickerVc.oKButtonTitleColorDisabled = [UIColor lightGrayColor];
-        // imagePickerVc.oKButtonTitleColorNormal = [UIColor greenColor];
-        // imagePickerVc.navigationBar.translucent = NO;
-
+//         imagePickerVc.navigationBar.barTintColor = UIColor.green
+//         imagePickerVc.oKButtonTitleColorDisabled = UIColor.lightGray
+//         imagePickerVc.oKButtonTitleColorNormal = UIColor.green
+//         imagePickerVc.navigationBar.isTranslucent = false
+//        imagePickerVc.photoDefImageName = "photo_delete"
+//        imagePickerVc.naviTitleFont = UIFont.systemFont(ofSize: 40)
+//        imagePickerVc.naviTitleColor = UIColor.red
         // 3. Set allow picking video & photo & originalPhoto or not
         // 3. 设置是否可以选择视频/图片/原图
         imagePickerVc.allowPickingVideo = self.allowPickingVideoSwitch.isOn;
