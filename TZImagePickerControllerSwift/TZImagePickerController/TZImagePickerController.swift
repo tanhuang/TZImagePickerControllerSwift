@@ -289,14 +289,19 @@ public class TZImagePickerController: UINavigationController {
         }
     }
 
-
     public var doneBtnTitleStr = Bundle.tz_localizedString(forKey: "Done")
     public var cancelBtnTitleStr = Bundle.tz_localizedString(forKey: "Cancel")
     public var previewBtnTitleStr = Bundle.tz_localizedString(forKey: "Preview")
     public var fullImageBtnTitleStr = Bundle.tz_localizedString(forKey: "Full image")
     public var settingBtnTitleStr = Bundle.tz_localizedString(forKey: "Setting")
     public var processHintStr = Bundle.tz_localizedString(forKey: "Processing...")
-
+    
+    /// 预览按钮文字颜色
+    public var previewBtnTitleDefColor = UIColor.black
+    public var previewBtnTitleDisColor = UIColor.lightGray
+    
+    // 相片选择器底部ToolBar背景色
+    public var photoPickerBottomToolBarBgColor = UIColor(red: 235 / 255.0, green: 235 / 255.0, blue: 235 / 255.0, alpha: 1)
 
     public var didFinishPickingPhotosWithInfosHandle: ((_ photos: Array<UIImage>, _ assets: Array<PHAsset>, _ isSelectOriginalPhoto: Bool, _ infos: Array<Dictionary<String, Any>>?) -> (Swift.Void))?
     public var imagePickerControllerDidCancelHandle: (() -> (Swift.Void))?
