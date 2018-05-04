@@ -74,7 +74,7 @@ public class TZImageManager: NSObject {
         return status == 3
     }
 
-    class func authorizationStatus() -> Int {
+    class public func authorizationStatus() -> Int {
         return PHPhotoLibrary.authorizationStatus().rawValue
     }
 
@@ -598,8 +598,7 @@ public class TZImageManager: NSObject {
         }
     }
 
-    //MARK: - Private Method
-    private func modelWithResult(result: PHFetchResult<PHAsset>, name: String, isCameraRoll: Bool) -> TZAlbumModel {
+    public func modelWithResult(result: PHFetchResult<PHAsset>, name: String, isCameraRoll: Bool) -> TZAlbumModel {
         let model = TZAlbumModel()
         model.result = result
         model.name = name
@@ -608,7 +607,7 @@ public class TZImageManager: NSObject {
         return model
     }
 
-    private func scaleImage(_ image: UIImage?, to size: CGSize) -> UIImage? {
+    public func scaleImage(_ image: UIImage?, to size: CGSize) -> UIImage? {
         guard let _image = image else {
             return nil
         }
@@ -623,7 +622,7 @@ public class TZImageManager: NSObject {
         }
     }
 
-    private func fixedComposition(_ videoAsset: AVAsset?) -> AVMutableVideoComposition? {
+    public func fixedComposition(_ videoAsset: AVAsset?) -> AVMutableVideoComposition? {
         let videoComposition = AVMutableVideoComposition()
 
         // 视频转向
@@ -669,7 +668,7 @@ public class TZImageManager: NSObject {
 
 
     /// 获取视频角度
-    private func degressFromVideoFile(asset: AVAsset) -> Int {
+    public func degressFromVideoFile(asset: AVAsset) -> Int {
         var degress = 0
         let tracks = asset.tracks(withMediaType: .video)
         if tracks.count > 0 {

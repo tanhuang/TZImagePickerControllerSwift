@@ -48,7 +48,6 @@ public class TZImagePickerController: UINavigationController {
     private var _timer: Timer?
     private var _tipLabel: UILabel?
     private var _settingBtn: UIButton?
-    var pushPhotoPickerVc = false
     private var _didPushPhotoPickerVc = false
 
     private var _progressHUD: UIButton?
@@ -75,6 +74,9 @@ public class TZImagePickerController: UINavigationController {
         }
     }
 
+    //MARK: - open
+    public var pushPhotoPickerVc = false
+
     /// Default is 9 / 默认最大可选9张图片
     public var maxImagesCount: Int = 9 {
         didSet {
@@ -85,7 +87,6 @@ public class TZImagePickerController: UINavigationController {
         }
     }
 
-    //MARK: - open
     /// The minimum count photos user must pick, Default is 0
     /// 最小照片必选张数,默认是0
     public var minImagesCount: Int = 0
