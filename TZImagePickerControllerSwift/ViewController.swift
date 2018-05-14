@@ -250,7 +250,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //         imagePickerVc.oKButtonTitleColorNormal = UIColor.green
 //         imagePickerVc.navigationBar.isTranslucent = false
 
-        
 //        imagePickerVc.photoOriginDefImageName = "photo_delete"
 //        imagePickerVc.photoOriginSelImageName = "back"
 //        imagePickerVc.previewBtnTitleDefColor = UIColor.red
