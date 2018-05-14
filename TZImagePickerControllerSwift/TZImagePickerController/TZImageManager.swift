@@ -138,15 +138,15 @@ public class TZImageManager: NSObject {
         var albumArr = [TZAlbumModel]()
         let option = PHFetchOptions()
         if !allowPickingVideo {
-            option.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.image)")
+            option.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.image.rawValue)")
         }
         if !allowPickingImage {
-            option.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.video)")
+            option.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.video.rawValue)")
         }
         if !self.sortAscendingByModificationDate {
             option.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: self.sortAscendingByModificationDate)]
         }
-        // 我的照片流 1.6.10重新加入..
+        // 我的照片流
         let myPhotoStreamAlbum = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.album, subtype: PHAssetCollectionSubtype.albumMyPhotoStream, options: nil)
         let smartAlbums = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.albumRegular, options: nil)
         let topLevelUserCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
@@ -162,8 +162,7 @@ public class TZImageManager: NSObject {
             let fetchResult = object as! PHFetchResult<PHAssetCollection>
 
             fetchResult.enumerateObjects({ (collection, index, stop) in
-                // 有可能是PHCollectionList类的的对象，过滤掉
-
+                print(collection);
                 let tz_fetchResult = PHAsset.fetchAssets(in: collection , options: option)
 
                 if tz_fetchResult.count < 1 {
@@ -577,7 +576,7 @@ public class TZImageManager: NSObject {
             }
 
             let videoComposition = self.fixedComposition(videoAsset)
-            if (videoComposition?.renderSize.width != nil) {
+            if !(videoComposition?.renderSize.width.isZero)! {
                 // 修正视频转向
                 session?.videoComposition = videoComposition;
             }

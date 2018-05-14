@@ -250,7 +250,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //         imagePickerVc.oKButtonTitleColorDisabled = UIColor.lightGray
 //         imagePickerVc.oKButtonTitleColorNormal = UIColor.green
 //         imagePickerVc.navigationBar.isTranslucent = false
-//        imagePickerVc.photoDefImageName = "photo_delete"
+        imagePickerVc.photoNumberIconImageName = "photo_delete"
 //        imagePickerVc.naviTitleFont = UIFont.systemFont(ofSize: 40)
 //        imagePickerVc.naviTitleColor = UIColor.red
         // 3. Set allow picking video & photo & originalPhoto or not
