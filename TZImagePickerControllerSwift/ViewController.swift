@@ -85,7 +85,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         configCollectionView()
 
-        
     }
 
     override func viewDidLayoutSubviews() {
@@ -250,7 +249,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //         imagePickerVc.oKButtonTitleColorDisabled = UIColor.lightGray
 //         imagePickerVc.oKButtonTitleColorNormal = UIColor.green
 //         imagePickerVc.navigationBar.isTranslucent = false
-        imagePickerVc.photoNumberIconImageName = "photo_delete"
+
+        
+//        imagePickerVc.photoOriginDefImageName = "photo_delete"
+//        imagePickerVc.photoOriginSelImageName = "back"
+//        imagePickerVc.previewBtnTitleDefColor = UIColor.red
+//        imagePickerVc.previewBtnTitleDisColor = UIColor.blue
+        // 相片选择器底部ToolBar背景色
+//        imagePickerVc.photoPickerBottomToolBarBgColor = UIColor.lightGray
+
 //        imagePickerVc.naviTitleFont = UIFont.systemFont(ofSize: 40)
 //        imagePickerVc.naviTitleColor = UIColor.red
         // 3. Set allow picking video & photo & originalPhoto or not

@@ -254,42 +254,45 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
     }
 
     public func configBottomToolBar() {
-        let tzImagePickerVc = self.navigationController as? TZImagePickerController
-        if !((tzImagePickerVc?.showSelectBtn)!) {
+        guard let tzImagePickerVc = self.navigationController as? TZImagePickerController else {
+            return
+        }
+        
+        if !tzImagePickerVc.showSelectBtn {
             return
         }
 
         _bottomToolBar = UIView(frame: CGRect.zero)
-        _bottomToolBar?.backgroundColor = UIColor(red: 235 / 255.0, green: 235 / 255.0, blue: 235 / 255.0, alpha: 1)
+        _bottomToolBar?.backgroundColor = tzImagePickerVc.photoPickerBottomToolBarBgColor
 
         _previewButton = UIButton(type: .custom)
         _previewButton?.addTarget(self, action: #selector(previewButtonClick), for: .touchUpInside)
         _previewButton?.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        _previewButton?.setTitle((tzImagePickerVc?.previewBtnTitleStr)!, for: .normal)
-        _previewButton?.setTitle((tzImagePickerVc?.previewBtnTitleStr)!, for: .disabled)
-         _previewButton?.setTitleColor(UIColor.black, for: .normal)
-         _previewButton?.setTitleColor(UIColor.lightGray, for: .disabled)
-         _previewButton?.isEnabled = (tzImagePickerVc?.selectedModels.count)! > 0
+        _previewButton?.setTitle(tzImagePickerVc.previewBtnTitleStr, for: .normal)
+        _previewButton?.setTitle(tzImagePickerVc.previewBtnTitleStr, for: .disabled)
+        _previewButton?.setTitleColor(tzImagePickerVc.previewBtnTitleDefColor, for: .normal)
+        _previewButton?.setTitleColor(tzImagePickerVc.previewBtnTitleDisColor, for: .disabled)
+        _previewButton?.isEnabled = !(tzImagePickerVc.selectedModels.isEmpty)
 
         _doneButton = UIButton(type: .custom)
         _doneButton?.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         _doneButton?.addTarget(self, action: #selector(doneButtonClick), for: .touchUpInside)
-        _doneButton?.setTitle((tzImagePickerVc?.doneBtnTitleStr)!, for: .normal)
-        _doneButton?.setTitle((tzImagePickerVc?.doneBtnTitleStr)!, for: .disabled)
-        _doneButton?.setTitleColor((tzImagePickerVc?.oKButtonTitleColorNormal)!, for: .normal)
-        _doneButton?.setTitleColor((tzImagePickerVc?.oKButtonTitleColorDisabled)!, for: .disabled)
-        _doneButton?.isEnabled = (tzImagePickerVc?.selectedModels.count)! > 0 || (tzImagePickerVc?.alwaysEnableDoneBtn)!
+        _doneButton?.setTitle(tzImagePickerVc.doneBtnTitleStr, for: .normal)
+        _doneButton?.setTitle(tzImagePickerVc.doneBtnTitleStr, for: .disabled)
+        _doneButton?.setTitleColor(tzImagePickerVc.oKButtonTitleColorNormal, for: .normal)
+        _doneButton?.setTitleColor(tzImagePickerVc.oKButtonTitleColorDisabled, for: .disabled)
+        _doneButton?.isEnabled = !(tzImagePickerVc.selectedModels.isEmpty) || tzImagePickerVc.alwaysEnableDoneBtn
 
-        _numberImageView = UIImageView(image: UIImage.imageNamedFromMyBundle(name: (tzImagePickerVc?.photoNumberIconImageName)!))
-        _numberImageView?.isHidden = (tzImagePickerVc?.selectedModels.count)! <= 0;
+        _numberImageView = UIImageView(image: UIImage.imageNamedFromMyBundle(name: tzImagePickerVc.photoNumberIconImageName))
+        _numberImageView?.isHidden = tzImagePickerVc.selectedModels.count <= 0;
         _numberImageView?.backgroundColor = UIColor.clear
 
         _numberLabel = UILabel()
         _numberLabel?.font = UIFont.systemFont(ofSize: 15)
         _numberLabel?.textColor = UIColor.white
         _numberLabel?.textAlignment = .center
-        _numberLabel?.text = "\((tzImagePickerVc?.selectedModels.count)!)"
-        _numberLabel?.isHidden = (tzImagePickerVc?.selectedModels.count)! <= 0;
+        _numberLabel?.text = "\(tzImagePickerVc.selectedModels.count)"
+        _numberLabel?.isHidden = tzImagePickerVc.selectedModels.isEmpty
         _numberLabel?.backgroundColor = UIColor.clear
 
         _divideLine = UIView()
@@ -302,20 +305,20 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
         _bottomToolBar?.addSubview(_numberLabel!)
         view.addSubview(_bottomToolBar!)
 
-        if (tzImagePickerVc?.allowPickingOriginalPhoto)! {
+        if tzImagePickerVc.allowPickingOriginalPhoto {
             _originalPhotoButton = UIButton(type: .custom)
             _originalPhotoButton?.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
             _originalPhotoButton?.addTarget(self, action: #selector(originalPhotoButtonClick), for: .touchUpInside)
             _originalPhotoButton?.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            _originalPhotoButton?.setTitle((tzImagePickerVc?.fullImageBtnTitleStr)!, for: .normal)
-            _originalPhotoButton?.setTitle((tzImagePickerVc?.fullImageBtnTitleStr)!, for: .selected)
+            _originalPhotoButton?.setTitle(tzImagePickerVc.fullImageBtnTitleStr, for: .normal)
+            _originalPhotoButton?.setTitle(tzImagePickerVc.fullImageBtnTitleStr, for: .selected)
 
             _originalPhotoButton?.setTitleColor(UIColor.lightGray, for: .normal)
             _originalPhotoButton?.setTitleColor(UIColor.black, for: .selected)
-            _originalPhotoButton?.setImage(UIImage.imageNamedFromMyBundle(name: (tzImagePickerVc?.photoOriginDefImageName)!), for: .normal)
-            _originalPhotoButton?.setImage(UIImage.imageNamedFromMyBundle(name: (tzImagePickerVc?.photoOriginSelImageName)!), for: .selected)
+            _originalPhotoButton?.setImage(UIImage.imageNamedFromMyBundle(name: tzImagePickerVc.photoOriginDefImageName), for: .normal)
+            _originalPhotoButton?.setImage(UIImage.imageNamedFromMyBundle(name: tzImagePickerVc.photoOriginSelImageName), for: .selected)
             _originalPhotoButton?.isSelected = isSelectOriginalPhoto
-            _originalPhotoButton?.isEnabled = (tzImagePickerVc?.selectedModels.count)! > 0;
+            _originalPhotoButton?.isEnabled = !(tzImagePickerVc.selectedModels.isEmpty)
 
             _originalPhotoLabel = UILabel()
             _originalPhotoLabel?.textAlignment = .left;
