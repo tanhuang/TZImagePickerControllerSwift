@@ -66,8 +66,8 @@ public class TZImagePickerController: UINavigationController {
                 columnNumber = 6
             }
 
-            if (self.childViewControllers.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
-                let albumPickerVC: TZAlbumPickerController = self.childViewControllers.first as! TZAlbumPickerController
+            if (self.children.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
+                let albumPickerVC: TZAlbumPickerController = self.children.first as! TZAlbumPickerController
                 albumPickerVC.columnNumber = columnNumber
             }
             TZImageManager.manager.columnNumber = columnNumber
@@ -433,8 +433,8 @@ public class TZImagePickerController: UINavigationController {
             columnNumber = 6
         }
 
-        if (self.childViewControllers.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
-            let albumPickerVC: TZAlbumPickerController = self.childViewControllers.first as! TZAlbumPickerController
+        if (self.children.first?.isMember(of: TZAlbumPickerController.classForCoder()))! {
+            let albumPickerVC: TZAlbumPickerController = self.children.first as! TZAlbumPickerController
             albumPickerVC.columnNumber = columnNumber
         }
         TZImageManager.manager.columnNumber = columnNumber
@@ -567,7 +567,7 @@ public class TZImagePickerController: UINavigationController {
             _HUDContainer?.backgroundColor = UIColor.darkGray
             _HUDContainer?.alpha = 0.7
 
-            _HUDIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            _HUDIndicatorView = UIActivityIndicatorView(style: .white)
             
             _HUDLabel = UILabel()
             _HUDLabel?.textAlignment = .center
@@ -599,7 +599,7 @@ public class TZImagePickerController: UINavigationController {
     //MARK: - Click Method
 
     @objc private func settingBtnClick(_ sender: UIButton) {
-        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+        UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
     }
 
     @objc private func observeAuthrizationStatusChange() {
@@ -615,12 +615,12 @@ public class TZImagePickerController: UINavigationController {
     //MARK: - Private Method
     private func configNaviTitleAppearance() {
 
-        var textAttrs = [NSAttributedStringKey: Any]()
+        var textAttrs = [NSAttributedString.Key: Any]()
         if let naviTitleColor = self.naviTitleColor {
-            textAttrs[NSAttributedStringKey.foregroundColor] = naviTitleColor
+            textAttrs[NSAttributedString.Key.foregroundColor] = naviTitleColor
         }
         if let naviTitleFont = self.naviTitleFont {
-            textAttrs[NSAttributedStringKey.font] = naviTitleFont
+            textAttrs[NSAttributedString.Key.font] = naviTitleFont
         }
         self.navigationBar.titleTextAttributes = textAttrs
     }
@@ -634,12 +634,12 @@ public class TZImagePickerController: UINavigationController {
             barItem = UIBarButtonItem.appearance()
         }
 
-        var textAttrs = [NSAttributedStringKey: Any]()
+        var textAttrs = [NSAttributedString.Key: Any]()
         if let barItemTextColor = self.barItemTextColor {
-            textAttrs[NSAttributedStringKey.foregroundColor] = barItemTextColor
+            textAttrs[NSAttributedString.Key.foregroundColor] = barItemTextColor
         }
         if let barItemTextFont = self.barItemTextFont {
-            textAttrs[NSAttributedStringKey.font] = barItemTextFont
+            textAttrs[NSAttributedString.Key.font] = barItemTextFont
         }
         barItem?.setTitleTextAttributes(textAttrs, for: .normal)
     }

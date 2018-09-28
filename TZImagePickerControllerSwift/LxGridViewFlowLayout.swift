@@ -109,7 +109,7 @@ class LxGridViewFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
         _panGestureRecognizer.delegate = self
         collectionView?.addGestureRecognizer(_panGestureRecognizer)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive(notificaiton:)), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive(notificaiton:)), name: UIApplication.willResignActiveNotification, object: nil)
 
     }
     
@@ -121,7 +121,7 @@ class LxGridViewFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
         _panGestureRecognizer.view?.removeGestureRecognizer(_panGestureRecognizer)
         _panGestureRecognizer.delegate = nil
 
-        NotificationCenter.default.removeObserver(self, forKeyPath: Notification.Name.UIApplicationWillResignActive.rawValue)
+        NotificationCenter.default.removeObserver(self, forKeyPath: UIApplication.willResignActiveNotification.rawValue)
 
     }
     
@@ -176,7 +176,7 @@ class LxGridViewFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
             if _displayLink == nil {
                 _displayLink = CADisplayLink(target: self, selector: #selector(displayLinkTriggered(displayLink:)))
                 _displayLink?.frameInterval = 6
-                _displayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+                _displayLink?.add(to: RunLoop.current, forMode: .default)
             
                 _remainSecondsToBeginEditing = MIN_PRESS_TO_BEGIN_EDITING_DURATION
             }
@@ -221,7 +221,7 @@ class LxGridViewFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
             let VIBRATE_RADIAN = CGFloat(Double.pi / 96)
             
             let vibrateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-            vibrateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            vibrateAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             vibrateAnimation.fromValue = -VIBRATE_RADIAN
             vibrateAnimation.toValue = VIBRATE_RADIAN
             vibrateAnimation.autoreverses = true

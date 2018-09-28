@@ -67,7 +67,7 @@ public class TZPhotoPreviewController: UIViewController, UICollectionViewDelegat
         self.configBottomToolBar()
         view.clipsToBounds = true
 
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatusBarOrientationNotification(notification:)), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatusBarOrientationNotification(notification:)), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
     }
 
     override public func didReceiveMemoryWarning() {
@@ -153,7 +153,7 @@ public class TZPhotoPreviewController: UIViewController, UICollectionViewDelegat
 
         if _tzImagePickerVc.allowPickingOriginalPhoto {
             _originalPhotoButton = UIButton(type: .custom)
-            _originalPhotoButton?.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+            _originalPhotoButton?.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
             _originalPhotoButton?.backgroundColor = UIColor.clear
             _originalPhotoButton?.addTarget(self, action: #selector(originalPhotoButtonClick(_:)), for: .touchUpInside)
             _originalPhotoButton?.setTitle(_tzImagePickerVc.fullImageBtnTitleStr, for: .normal)
@@ -228,8 +228,8 @@ public class TZPhotoPreviewController: UIViewController, UICollectionViewDelegat
 
             _tzImagePickerVc?.cropViewSettingBlock?(cropView!)
 
-            view.bringSubview(toFront: _naviBar!)
-            view.bringSubview(toFront: _toolBar!)
+            view.bringSubviewToFront(_naviBar!)
+            view.bringSubviewToFront(_toolBar!)
         }
     }
 
@@ -258,7 +258,7 @@ public class TZPhotoPreviewController: UIViewController, UICollectionViewDelegat
 
         _toolBar?.frame = CGRect(x: 0, y: view.frame.height - 44, width: view.frame.width, height: 44)
         if (_tzImagePickerVc?.allowPickingOriginalPhoto)! {
-            let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13)]
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)]
             let fullImageWidth = _tzImagePickerVc?.fullImageBtnTitleStr.boundingRect(with: CGSize(width: 320.0, height: 999.9), options: .usesFontLeading, attributes: attributes, context: nil).width
             _originalPhotoButton?.frame = CGRect.init(x: 0, y: 0, width: fullImageWidth! + 56, height: 44)
             _originalPhotoLabel?.frame = CGRect(x: (_originalPhotoButton?.frame.maxX)!, y: 0, width: 80, height: 44)
@@ -313,7 +313,7 @@ public class TZPhotoPreviewController: UIViewController, UICollectionViewDelegat
                 if (self?.isSelectOriginalPhoto)! {
                     self?.showPhotoBytes()
                 }
-                if (self?.alertView != nil) && collectionView.visibleCells.contains(cell!) {
+                if (self?.alertView != nil) && (self?._collectionView?.visibleCells.contains(cell!))! {
                     tzImagePickerVc.hideAlertView(alertView: self?.alertView as! UIAlertController)
                     self?.alertView = nil
                     self?.doneButtonClick()
@@ -423,7 +423,7 @@ public class TZPhotoPreviewController: UIViewController, UICollectionViewDelegat
     }
 
     @objc func backButtonClick() {
-        if ((self.navigationController?.childViewControllers.count)! < 2) {
+        if ((self.navigationController?.children.count)! < 2) {
             self.navigationController?.dismiss(animated: true, completion: nil)
             return;
         }

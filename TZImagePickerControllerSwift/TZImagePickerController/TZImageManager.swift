@@ -630,32 +630,32 @@ public class TZImageManager: NSObject {
         if (degrees != 0) {
             let translateToCenter: CGAffineTransform?
             let mixedTransform: CGAffineTransform?
-            videoComposition.frameDuration = CMTimeMake(1, 30);
+            videoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30);
 
             let tracks = videoAsset?.tracks(withMediaType: .video)
             let videoTrack = tracks?.first
 
             let roateInstruction = AVMutableVideoCompositionInstruction()
-            roateInstruction.timeRange = CMTimeRangeMake(kCMTimeZero, (videoAsset?.duration)!)
+            roateInstruction.timeRange = CMTimeRangeMake(start: CMTime.zero, duration: (videoAsset?.duration)!)
             let roateLayerInstruction = AVMutableVideoCompositionLayerInstruction.init(assetTrack: videoTrack!)
             if (degrees == 90) {
                 // 顺时针旋转90°
                 translateToCenter = CGAffineTransform.init(translationX: (videoTrack?.naturalSize.height)!, y: 0)
                 mixedTransform = translateToCenter?.rotated(by: CGFloat(Float.pi * 0.5))
                 videoComposition.renderSize = CGSize(width: (videoTrack?.naturalSize.height)!, height: (videoTrack?.naturalSize.width)!)
-                roateLayerInstruction.setTransform(mixedTransform!, at: kCMTimeZero)
+                roateLayerInstruction.setTransform(mixedTransform!, at: CMTime.zero)
             } else if(degrees == 180){
                 // 顺时针旋转180°
                 translateToCenter = CGAffineTransform.init(translationX: (videoTrack?.naturalSize.width)!, y: (videoTrack?.naturalSize.height)!)
                 mixedTransform = translateToCenter?.rotated(by: CGFloat(Float.pi))
                 videoComposition.renderSize = CGSize(width: (videoTrack?.naturalSize.width)!, height: (videoTrack?.naturalSize.height)!)
-                roateLayerInstruction.setTransform(mixedTransform!, at: kCMTimeZero)
+                roateLayerInstruction.setTransform(mixedTransform!, at: CMTime.zero)
             } else if(degrees == 270){
                 // 顺时针旋转270°
                 translateToCenter = CGAffineTransform.init(translationX: 0, y: (videoTrack?.naturalSize.width)!)
                 mixedTransform = translateToCenter?.rotated(by: CGFloat(Float.pi / 2 * 3))
                 videoComposition.renderSize = CGSize(width: (videoTrack?.naturalSize.height)!, height: (videoTrack?.naturalSize.width)!)
-                roateLayerInstruction.setTransform(mixedTransform!, at: kCMTimeZero)
+                roateLayerInstruction.setTransform(mixedTransform!, at: CMTime.zero)
             }
 
             roateInstruction.layerInstructions = [roateLayerInstruction];

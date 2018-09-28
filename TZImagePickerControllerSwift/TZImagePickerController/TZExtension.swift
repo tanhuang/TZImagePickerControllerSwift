@@ -101,7 +101,7 @@ public extension UIImage {
 
                 duration += self.sd_frame(durationAtIndex: i, source: source)
 
-                images.append(UIImage(cgImage: image!, scale: UIScreen.main.scale, orientation: UIImageOrientation.up))
+                images.append(UIImage(cgImage: image!, scale: UIScreen.main.scale, orientation: UIImage.Orientation.up))
 
             }
             if duration == 0 {

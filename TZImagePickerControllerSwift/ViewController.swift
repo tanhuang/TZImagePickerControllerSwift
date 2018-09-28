@@ -69,7 +69,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             tzBarItem = UIBarButtonItem.appearance()
             BarItem = UIBarButtonItem.appearance()
         }
-        let titleTextAttributes = tzBarItem?.titleTextAttributes(for: .normal) as! [NSAttributedStringKey : Any]?
+        let titleTextAttributes = tzBarItem?.titleTextAttributes(for: .normal)
         BarItem?.setTitleTextAttributes(titleTextAttributes ?? nil, for: .normal)
         return imagePickerVC
     }()
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = UIColor(red: 244 / 255.0, green: 244 / 255.0, blue: 244 / 255.0, alpha: 1)
 
-        collectionView.contentInset = UIEdgeInsetsMake(4, 4, 4, 4);
+        collectionView.contentInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4);
         collectionView.dataSource = self;
         collectionView.delegate = self;
         collectionView.keyboardDismissMode = .onDrag
@@ -323,7 +323,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             // 无相机权限 做一个友好的提示
             let alertVC = UIAlertController(title: "无法使用相机", message: "请在iPhone的\"设置-隐私-相机\"中允许访问相机", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "设置", style: .default, handler: { (action) in
-                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
             }))
             alertVC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
@@ -341,7 +341,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             // 无相机权限 做一个友好的提示
             let alertVC = UIAlertController(title: "无法使用相机", message: "请在iPhone的\"设置-隐私-相机\"中允许访问相机", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "设置", style: .default, handler: { (action) in
-                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
             }))
             alertVC.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
@@ -365,7 +365,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             
         })
         
-        let sourceType = UIImagePickerControllerSourceType.camera
+        let sourceType = UIImagePickerController.SourceType.camera
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             self.imagePickerVC.sourceType = sourceType
             self.imagePickerVC.modalPresentationStyle = .overCurrentContext
@@ -375,41 +375,45 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        let type = info[UIImagePickerControllerMediaType] as! String
+        guard let type = info[.mediaType] as? String else { return }
         if type == "public.image" {
             let tzImagePickerVc = TZImagePickerController(delegate: self, maxImagesCount: 1)
             tzImagePickerVc.sortAscendingByModificationDate = self.sortAscendingSwitch.isOn
             tzImagePickerVc.showProgressHUD()
             
-            guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            guard let image = info[.originalImage] as? UIImage else {
                 tzImagePickerVc.hideProgressHUD()
                 debugPrint("image is nil")
                 return
             }
             // save photo and get asset / 保存图片，获取到asset
             TZImageManager.manager.savePhotoWithImage(with: image, location: self.location, completion: { (error) -> (Void) in
-                if error == nil {
-                    TZImageManager.manager.getCameraRollAlbum(allowPickingVideo: false, allowPickingImage: true, completion: { (model) in
-                        TZImageManager.manager.getAssets(assetsFromFetchResult: model.result!, allowPickingVideo: false, allowPickingImage: true, completion: { (models) -> (Void) in
-                            tzImagePickerVc.hideProgressHUD()
-                            var assetModel = models?.first
-                            if tzImagePickerVc.sortAscendingByModificationDate {
-                                assetModel = models?.last
-                            }
-                            if self.allowCropSwitch.isOn {
-                                let imagePicker = TZImagePickerController.init(cropTypeWithAsset: (assetModel?.asset)!, photo: image, completion: { (image, asset) in
-                                    self.refreshCollectionView(asset!, image: image!)
-                                })
-                                imagePicker.circleCropRadius = 100;
-                                self.present(imagePicker, animated: true, completion: nil)
-                            } else {
-                                self.refreshCollectionView((assetModel?.asset)!, image: image)
-                            }
-                        })
-                    })
+                if let error_save = error {
+                    tzImagePickerVc.hideProgressHUD()
+                    debugPrint("save error \(error_save.localizedDescription)")
+                    return
                 }
+
+                TZImageManager.manager.getCameraRollAlbum(allowPickingVideo: false, allowPickingImage: true, completion: { (model) in
+                    TZImageManager.manager.getAssets(assetsFromFetchResult: model.result!, allowPickingVideo: false, allowPickingImage: true, completion: { (models) -> (Void) in
+                        tzImagePickerVc.hideProgressHUD()
+                        var assetModel = models?.first
+                        if tzImagePickerVc.sortAscendingByModificationDate {
+                            assetModel = models?.last
+                        }
+                        if self.allowCropSwitch.isOn {
+                            let imagePicker = TZImagePickerController.init(cropTypeWithAsset: (assetModel?.asset)!, photo: image, completion: { (image, asset) in
+                                self.refreshCollectionView(asset!, image: image!)
+                            })
+                            imagePicker.circleCropRadius = 100;
+                            self.present(imagePicker, animated: true, completion: nil)
+                        } else {
+                            self.refreshCollectionView((assetModel?.asset)!, image: image)
+                        }
+                    })
+                })
             })
             self.location = nil;
         }

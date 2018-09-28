@@ -87,8 +87,8 @@ class TZAssetCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)
 
-        contentView.bringSubview(toFront: selectImageView)
-        contentView.bringSubview(toFront: bottomView)
+        contentView.bringSubviewToFront(selectImageView)
+        contentView.bringSubviewToFront(bottomView)
         return imageView
     }()
 
@@ -240,8 +240,8 @@ class TZAssetCell: UICollectionViewCell {
 class TZAlbumCell: UITableViewCell {
     var model: TZAlbumModel? {
         didSet {
-            let nameString = NSMutableAttributedString(string: (model?.name)!, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.black])
-            let countString = NSMutableAttributedString(string: "  (\((model?.count)!))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.lightGray])
+            let nameString = NSMutableAttributedString(string: (model?.name)!, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.black])
+            let countString = NSMutableAttributedString(string: "  (\((model?.count)!))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
             nameString.append(countString)
             self.titleLabel.attributedText = nameString
             TZImageManager.manager.getPostImageWithAlbumModel(imageWithAlbumModel: model) { (postImage) -> (Void) in
@@ -285,7 +285,7 @@ class TZAlbumCell: UITableViewCell {
         return titleLabel
     }()
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         accessoryType = .disclosureIndicator
     }

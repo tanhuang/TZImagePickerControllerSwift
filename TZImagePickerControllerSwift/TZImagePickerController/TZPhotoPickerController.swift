@@ -59,7 +59,7 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
             barItem = UIBarButtonItem.appearance()
             tzBarItem = UIBarButtonItem.appearance()
         }
-        let titleTextAttributes = tzBarItem?.titleTextAttributes(for: .normal) as! [NSAttributedStringKey: Any]?
+        let titleTextAttributes = tzBarItem?.titleTextAttributes(for: .normal)
 
         barItem?.setTitleTextAttributes(titleTextAttributes, for: .normal)
         return imagePickerVC
@@ -89,7 +89,7 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
 
         _showTakePhotoBtn = ((model?.isCameraRoll)! && (tzImagePickerVc?.allowTakePicture)!)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatusBarOrientationNotification(notification:)), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeStatusBarOrientationNotification(notification:)), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
     }
 
     override public func didReceiveMemoryWarning() {
@@ -165,14 +165,14 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
             yOffset = self.view.frame.height - 50 - navigationHeight;
         }
         _bottomToolBar?.frame = CGRect(x: 0, y: yOffset, width: self.view.frame.width, height: 50);
-        var previewWidth = (tzImagePickerVc?.previewBtnTitleStr.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesFontLeading, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)], context: nil).width)! + 2
+        var previewWidth = (tzImagePickerVc?.previewBtnTitleStr.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesFontLeading, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil).width)! + 2
         if !((tzImagePickerVc?.allowPreview)!) {
             previewWidth = 0.0
         }
         _previewButton?.frame = CGRect(x: 10, y: 3, width: previewWidth, height: 44)
         _previewButton?.frame.size.width = !((tzImagePickerVc?.showSelectBtn)!) ? 0 : previewWidth;
         if (tzImagePickerVc?.allowPickingOriginalPhoto)! {
-            let fullImageWidth = (tzImagePickerVc?.fullImageBtnTitleStr.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesFontLeading, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13)], context: nil).width)!
+            let fullImageWidth = (tzImagePickerVc?.fullImageBtnTitleStr.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesFontLeading, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)], context: nil).width)!
             _originalPhotoButton?.frame = CGRect(x: (_previewButton?.frame.maxX)!, y: self.view.frame.height - 50, width: fullImageWidth + 56, height: 50);
             _originalPhotoLabel?.frame = CGRect(x: fullImageWidth + 46, y: 0, width: 80, height: 50)
         }
@@ -241,7 +241,7 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
         collectionView?.dataSource = self;
         collectionView?.delegate = self;
         collectionView?.alwaysBounceHorizontal = false
-        collectionView?.contentInset = UIEdgeInsetsMake(itemMargin, itemMargin, itemMargin, itemMargin);
+        collectionView?.contentInset = UIEdgeInsets(top: itemMargin, left: itemMargin, bottom: itemMargin, right: itemMargin);
 
         if _showTakePhotoBtn && (tzImagePickerVc?.allowTakePicture)! {
             collectionView?.contentSize = CGSize(width: view.frame.width, height: CGFloat(((model?.count)! + columnNumber) / columnNumber) * view.frame.width);
@@ -307,7 +307,7 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
 
         if tzImagePickerVc.allowPickingOriginalPhoto {
             _originalPhotoButton = UIButton(type: .custom)
-            _originalPhotoButton?.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+            _originalPhotoButton?.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0);
             _originalPhotoButton?.addTarget(self, action: #selector(originalPhotoButtonClick), for: .touchUpInside)
             _originalPhotoButton?.titleLabel?.font = UIFont.systemFont(ofSize: 16)
             _originalPhotoButton?.setTitle(tzImagePickerVc.fullImageBtnTitleStr, for: .normal)
@@ -581,7 +581,7 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
             let alert = UIAlertController(title: Bundle.tz_localizedString(forKey: "Can not use camera"), message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: Bundle.tz_localizedString(forKey: "Cancel"), style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: Bundle.tz_localizedString(forKey: "Setting"), style: .default, handler: { (action) in
-                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
             }))
         } else if (authStatus == .notDetermined) {
             // fix issue 466, 防止用户首次拍照拒绝授权时相机页黑屏
@@ -607,7 +607,7 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
             
         })
 
-        let sourceType = UIImagePickerControllerSourceType.camera
+        let sourceType = UIImagePickerController.SourceType.camera
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             self.imagePickerVc.sourceType = sourceType;
             self.imagePickerVc.modalPresentationStyle = .overCurrentContext
@@ -717,13 +717,14 @@ public class TZPhotoPickerController: UIViewController, UIImagePickerControllerD
 
 
     //MARK: - UIImagePickerControllerDelegate
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        let type = info[UIImagePickerControllerMediaType] as! String
+        let type = info[UIImagePickerController.InfoKey.mediaType] as! String
         if type == "public.image" {
             let imagePickerVc = self.navigationController as? TZImagePickerController
             imagePickerVc?.showProgressHUD()
-            guard let photo = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            guard let photo = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
                 imagePickerVc?.hideProgressHUD()
                 debugPrint("image is nil")
                 return

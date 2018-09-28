@@ -59,7 +59,7 @@ class TZTestCell: UICollectionViewCell {
 
         deleteBtn = UIButton(frame: CGRect(x: contentView.frame.width - 36, y: 0, width: 36, height: 36))
         deleteBtn?.setImage(UIImage(named: "photo_delete"), for: .normal)
-        deleteBtn?.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10)
+        deleteBtn?.imageEdgeInsets = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: -10)
         deleteBtn?.alpha = 0.6
         contentView.addSubview(deleteBtn!)
 

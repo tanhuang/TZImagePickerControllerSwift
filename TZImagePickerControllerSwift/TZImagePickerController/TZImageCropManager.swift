@@ -21,7 +21,7 @@ class TZImageCropManager: NSObject {
             path.append(UIBezierPath(rect: UIScreen.main.bounds))
         }
         layer.path = path.cgPath;
-        layer.fillRule = kCAFillRuleEvenOdd;
+        layer.fillRule = CAShapeLayerFillRule.evenOdd;
         layer.fillColor = UIColor.black.cgColor
         layer.opacity = 0.5;
         view?.layer.addSublayer(layer)

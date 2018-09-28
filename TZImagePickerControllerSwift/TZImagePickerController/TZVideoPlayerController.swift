@@ -34,7 +34,7 @@ public class TZVideoPlayerController: UIViewController {
             self.navigationItem.title = tzImagePickerVc?.previewBtnTitleStr
         }
         self.configMoviePlayer()
-        NotificationCenter.default.addObserver(self, selector: #selector(pausePlayerAndShowNaviBar), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pausePlayerAndShowNaviBar), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
     override public func viewWillAppear(_ animated: Bool) {
@@ -88,7 +88,7 @@ public class TZVideoPlayerController: UIViewController {
     public func addProgressObserver() {
         let playerItem = _player?.currentItem;
         let progress = _progress;
-        _player?.addPeriodicTimeObserver(forInterval: CMTimeMake(Int64(1.0), Int32(1.0)), queue: DispatchQueue.main, using: { (time) in
+        _player?.addPeriodicTimeObserver(forInterval: CMTimeMake(value: Int64(1.0), timescale: Int32(1.0)), queue: DispatchQueue.main, using: { (time) in
             let current = CMTimeGetSeconds(time)
             let total = CMTimeGetSeconds((playerItem?.duration)!)
             if current > 0 {
@@ -116,7 +116,7 @@ public class TZVideoPlayerController: UIViewController {
         let tzImagePickerVc = self.navigationController as? TZImagePickerController
         if (tzImagePickerVc != nil) {
             _doneButton?.setTitle(tzImagePickerVc?.doneBtnTitleStr, for: .normal)
-            _doneButton?.setTitleColor(tzImagePickerVc?.oKButtonTitleColorNormal, for: UIControlState.normal)
+            _doneButton?.setTitleColor(tzImagePickerVc?.oKButtonTitleColorNormal, for: UIControl.State.normal)
         } else {
             _doneButton?.setTitle(Bundle.tz_localizedString(forKey: "Done"), for: .normal)
             _doneButton?.setTitleColor(UIColor(red: 83 / 255.0, green: 179 / 255.0, blue: 17 / 255.0, alpha: 1), for: .normal)
@@ -130,7 +130,7 @@ public class TZVideoPlayerController: UIViewController {
         let durationTime = _player?.currentItem?.duration
         if (_player?.rate == 0.0) {
             if (currentTime?.value == durationTime?.value) {
-                _player?.currentItem?.seek(to: CMTimeMake(0, 1))
+                _player?.currentItem?.seek(to: CMTimeMake(value: 0, timescale: 1))
             }
             _player?.play()
             self.navigationController?.isNavigationBarHidden = true

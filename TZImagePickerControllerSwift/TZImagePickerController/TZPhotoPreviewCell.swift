@@ -146,7 +146,7 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
             }, progressHandler: { (progress, error, stop, info) -> (Void) in
                 var progress = progress!
                 self.progressView?.isHidden = false
-                self.bringSubview(toFront: self.progressView!)
+                self.bringSubviewToFront(self.progressView!)
                 progress = progress > 0.02 ? progress : 0.02
                 self.progressView?.progress = CGFloat(progress)
                 self.imageProgressUpdateBlock?(progress)
@@ -174,7 +174,7 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
         scrollView?.scrollsToTop = false;
         scrollView?.showsHorizontalScrollIndicator = false;
         scrollView?.showsVerticalScrollIndicator = true;
-        scrollView?.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+        scrollView?.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         scrollView?.delaysContentTouches = false;
         scrollView?.canCancelContentTouches = true;
         scrollView?.alwaysBounceVertical = false;
@@ -307,7 +307,7 @@ class TZPhotoPreviewView:  UIView, UIScrollViewDelegate {
             scrollView?.alwaysBounceVertical = true
             // 2.让scrollView新增滑动区域（裁剪框左上角的图片部分）
             if (contentHeightAdd > 0 || contentWidthAdd > 0) {
-                scrollView?.contentInset = UIEdgeInsetsMake(contentHeightAdd, cropRect.origin.x, 0, 0)
+                scrollView?.contentInset = UIEdgeInsets(top: contentHeightAdd, left: cropRect.origin.x, bottom: 0, right: 0)
             } else {
                 scrollView?.contentInset = UIEdgeInsets.zero;
             }
@@ -341,7 +341,7 @@ class TZVideoPreviewCell: TZAssetPreviewCell {
     }
 
     override func configSubviews() {
-        NotificationCenter.default.addObserver(self, selector: #selector(pausePlayerAndShowNaviBar), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pausePlayerAndShowNaviBar), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
     override func photoPreviewCollectionViewDidScroll() {
@@ -398,7 +398,7 @@ class TZVideoPreviewCell: TZAssetPreviewCell {
         let durationTime = player?.currentItem?.duration;
         if ((player?.rate)! == 0) {
             if ((currentTime?.value)! == durationTime?.value) {
-                player?.currentItem?.seek(to: CMTimeMake(0, 1))
+                player?.currentItem?.seek(to: CMTimeMake(value: 0, timescale: 1))
             }
             player?.play()
             playButton?.setImage(nil, for: .normal)

@@ -27,7 +27,7 @@ class TZProgressView: UIView {
         progressLayer?.fillColor = UIColor.clear.cgColor
         progressLayer?.strokeColor = UIColor.white.cgColor
         progressLayer?.opacity = 1
-        progressLayer?.lineCap = kCALineCapRound
+        progressLayer?.lineCap = CAShapeLayerLineCap.round
         progressLayer?.lineWidth = 5
 
         progressLayer?.shadowColor = UIColor.black.cgColor
